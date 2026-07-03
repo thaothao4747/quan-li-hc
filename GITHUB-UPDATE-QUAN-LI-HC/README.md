@@ -1,1 +1,1 @@
-﻿Upload thu muc NETLIFY-UPLOAD-QUAN-LI-HC len GitHub de Netlify tu cap nhat.
+﻿Thu muc nay dung de upload len GitHub/Netlify cho app QUAN LI HC.
