@@ -68,6 +68,42 @@
   .login-box .hint{font-size:11.5px;line-height:1.35;margin-top:10px!important}
 }
 </style>
+
+<style id="nav-mobile-polish-20260703">
+@media(max-width:900px){
+  main{padding-top:calc(92px + env(safe-area-inset-top))!important}
+  .mobile-title{height:calc(82px + env(safe-area-inset-top))!important;padding:calc(22px + env(safe-area-inset-top)) 9px 9px!important;align-items:flex-end!important}
+  .mobile-title strong{font-size:13px!important;line-height:1.05!important;white-space:normal!important}
+  .mobile-title span{font-size:10.5px!important;max-width:145px!important}
+  .mobile-logo{width:36px!important;height:36px!important}
+  .mobile-title .btn{min-height:36px!important;font-size:12px!important;font-weight:800!important}
+  .grid{display:flex!important;flex-direction:column!important;gap:9px!important}
+  .grid .panel-blue{order:-1}
+  .grid .panel-accent{order:0}
+  .mobile-bar{grid-template-columns:repeat(6,1fr)!important;background:#07845f!important;padding:6px 6px calc(6px + env(safe-area-inset-bottom))!important}
+  .mobile-bar button{font-size:11px!important;font-weight:900!important;color:#fff!important;min-height:48px!important;border-radius:10px!important;line-height:1.1!important}
+  .mobile-bar button.active{background:#fff!important;color:#07845f!important;box-shadow:0 7px 18px rgba(0,0,0,.18)!important}
+}
+</style>
+
+<style id="mobile-report-visible-20260703">
+@media(max-width:900px){
+  .mobile-bar{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+  .mobile-bar button{padding:5px 1px!important;font-size:10.5px!important;letter-spacing:0!important;white-space:normal!important;overflow:visible!important}
+  .mobile-bar button:nth-child(6){font-size:11.5px!important;background:rgba(255,255,255,.12)!important}
+  .mobile-bar button:nth-child(6).active{background:#fff!important;color:#07845f!important}
+}
+</style>
+
+<style id="mobile-nav-scroll-20260703">
+@media(max-width:900px){
+  main{padding-bottom:calc(88px + env(safe-area-inset-bottom))!important}
+  .mobile-bar{display:flex!important;grid-template-columns:none!important;overflow-x:auto!important;gap:6px!important;background:#07845f!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .mobile-bar::-webkit-scrollbar{display:none}
+  .mobile-bar button{flex:0 0 72px!important;width:72px!important;min-height:48px!important;padding:6px 4px!important;font-size:11px!important;font-weight:900!important;border-radius:10px!important;scroll-snap-align:center;white-space:normal!important;line-height:1.1!important;color:#fff!important;background:rgba(255,255,255,.08)!important}
+  .mobile-bar button.active{background:#fff!important;color:#07845f!important;box-shadow:0 7px 18px rgba(0,0,0,.18)!important}
+}
+</style>
 </head>
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
@@ -95,8 +131,8 @@ if(new URLSearchParams(location.search).get('resetData')==='1'){localStorage.rem
 var today=new Date().toISOString().slice(0,10);
 var defaults={kho:[["KHO-TONG","Kho tổng","Nguyễn Minh"],["KHO-HC","Kho Hành chính","Trần Lan"],["KHO-CN1","Kho Chi nhánh 1","Lê Hà"]],nhomHangList:["Văn phòng phẩm","Công cụ dụng cụ","Thiết bị IT"],dvtList:["Cái","Hộp","Bộ","Ram"],loaiNhapList:["Nhập mua mới","Nhập quà tặng","Nhập trả lại"],nccList:["Công ty Văn phòng phẩm An Phát","Cửa hàng Thiết bị Minh Long","Nhà cung cấp khác"],loaiXuatList:["Xuất cấp phát","Xuất tặng","Xuất điều chuyển nội bộ"],hang:[["VP001","Giấy A4 Double A","Văn phòng phẩm","Ram","Khổ: A4; Định lượng: 70gsm"],["CC001","Máy khoan pin","Công cụ dụng cụ","Cái","Serial; Bảo hành"],["TB001","Laptop Dell 5420","Thiết bị IT","Cái","RAM: 16GB; SSD: 512GB"],["VP002","Bút bi xanh","Văn phòng phẩm","Hộp","Màu: xanh; 20 cây/hộp"]],thietBiIT:[["IT-001","SN-D5420-001","TB001","Nhập mua mới","2026-06-30","Nguyễn Văn A","Đang sử dụng","Laptop cấp cho phòng Hành chính"],["IT-002","SN-D5420-002","TB001","Nhập quà tặng","2026-06-30","Kho IT","Trong kho","Máy dự phòng"]],ton:{"KHO-TONG|VP001":120,"KHO-HC|VP001":22,"KHO-CN1|VP001":35,"KHO-TONG|CC001":4,"KHO-CN1|CC001":1,"KHO-TONG|TB001":3,"KHO-HC|TB001":1,"KHO-TONG|VP002":18,"KHO-HC|VP002":5},bd:[["2026-06-30","PN-0001","KHO-TONG","VP001","Nhập mua mới",100,0],["2026-06-30","PX-0001","KHO-HC","VP002","Xuất cấp phát",0,3]],chuyen:[]};
 var state=loadState();
-var nav=[['tongquan','Tổng quan'],['kho','Kho'],['hanghoa','Hàng hóa'],['thietbi','Thiết bị IT'],['nhap','Nhập kho'],['xuat','Xuất kho'],['chuyen','Điều chuyển'],['ton','Tồn kho'],['baocao','Báo cáo'],['thietlap','Thiết lập']];
-var mobile=[['tongquan','Tổng'],['nhap','Nhập'],['xuat','Xuất'],['thietbi','IT'],['ton','Tồn'],['thietlap','Thiết lập'],['logout','Khóa']];
+var nav=[['tongquan','Tổng quan'],['ton','Tồn kho'],['nhap','Nhập kho'],['xuat','Xuất kho'],['thietbi','Thiết bị IT'],['chuyen','Điều chuyển'],['baocao','Báo cáo'],['hanghoa','Hàng hóa'],['thietlap','Thiết lập']];
+var mobile=[['tongquan','Tổng quan'],['ton','Tồn'],['nhap','Nhập'],['xuat','Xuất'],['thietbi','IT'],['chuyen','Chuyển'],['baocao','Báo cáo']];
 var current='tongquan';
 var screenHistory=[];
 var SUPABASE_CONFIG={url:'https://jcavzbpjbvdbuskrtayf.supabase.co',anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjYXZ6YnBqYnZkYnVza3J0YXlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODk4MDEsImV4cCI6MjA5ODU2NTgwMX0.-RQhPrHEF3WRlOPqzmxmumwzqdFNQ7dHHKTCz3E29PQ',stateId:'qlhc-main'};
@@ -133,7 +169,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-it-transfer-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-mobile-order-1').catch(function(){})})}
 
 
 
@@ -222,7 +258,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260703-it-transfer-1';
+window.APP_VERSION='20260703-mobile-order-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -321,6 +357,130 @@ window.__itTransferQuickPatch=true;
       return '<tr>'+td('Số seri',serial)+td('Thiết bị',h[1])+td('Nguồn nhập',x[3])+td('Ngày nhập',x[4])+td('Đang sử dụng bởi',x[5])+td('Trạng thái','<span class="tag">'+x[6]+'</span>')+td('Ghi chú',x[7]||'')+td('Thao tác', actions)+'</tr>'
     }).join('')||'<tr><td class="empty" colspan="8">Chưa có thiết bị IT theo số seri.</td></tr>';
     return shell('thietbi','Thiết bị IT theo số seri','Theo dõi và chuyển nhanh thiết bị giữa người dùng/phòng ban.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách thiết bị</h2></div><div class="wrap"><table><thead><tr><th>Số seri</th><th>Thiết bị</th><th>Nguồn nhập</th><th>Ngày nhập</th><th>Đang sử dụng bởi</th><th>Trạng thái</th><th>Ghi chú</th><th>Thao tác</th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin thiết bị</h2></div><div class="body form"><input id="editThietBi" type="hidden"><label class="full">Số seri thiết bị<input id="maThietBi" placeholder="Nhập số seri trên máy/tem thiết bị"></label><input id="seriThietBi" type="hidden"><label>Mặt hàng IT<select id="hangThietBi"></select></label><label>Nguồn nhập<select id="nguonThietBi"></select></label><label>Ngày nhập<input id="ngayThietBi" type="date" value="'+today+'"></label><label>Người đang sử dụng<input id="nguoiDungThietBi" placeholder="Tên nhân viên/phòng ban/kho"></label><label>Trạng thái<select id="trangThaiThietBi"><option>Trong kho</option><option>Đang sử dụng</option><option>Đang sửa chữa</option><option>Thanh lý</option><option>Thất lạc</option></select></label><label class="full">Ghi chú<input id="ghiChuThietBi" placeholder="Cấu hình, tình trạng, chứng từ..."></label><button class="btn primary" id="luuThietBi">Lưu thiết bị</button><button class="btn" id="huyThietBi">Tạo mới</button></div></div></div>')
+  };
+})();
+</script>
+
+<script id="employee-users-patch-20260703">
+window.__employeeUsersPatch=true;
+(function(){
+  function ensureUsers(){
+    if(!state.users||!Array.isArray(state.users))state.users=[];
+    if(!state.users.some(function(u){return u.username==='admin'})){
+      state.users.unshift({username:'admin',password:(window.auth&&auth.pass)||'admin123',name:'Quản trị viên',role:'Admin',active:true});
+    }
+    state.users.forEach(function(u){if(typeof u.active==='undefined')u.active=true;if(!u.name)u.name=u.username;if(!u.role)u.role='Nhân viên'});
+  }
+  var oldMigrate=window.migrateState;
+  if(typeof oldMigrate==='function'){
+    window.migrateState=function(s){s=oldMigrate(s);if(!s.users||!Array.isArray(s.users))s.users=[];if(!s.users.some(function(u){return u.username==='admin'}))s.users.unshift({username:'admin',password:'admin123',name:'Quản trị viên',role:'Admin',active:true});return s};
+  }
+  ensureUsers();
+  window.currentUser=null;
+  window.login=function(){
+    ensureUsers();
+    var u=el('loginUser').value.trim();
+    var p=el('loginPass').value;
+    var found=state.users.find(function(x){return x.username===u&&x.password===p&&x.active!==false});
+    if(!found && window.auth && u===auth.user&&p===auth.pass){found={username:u,password:p,name:'Quản trị viên',role:'Admin',active:true}}
+    if(found){
+      window.currentUser=found;
+      isLoggedIn=true;
+      sessionStorage.setItem('qlkho-login','1');
+      sessionStorage.setItem('qlkho-user',found.username);
+      if(el('loginPass'))el('loginPass').value='';
+      if(el('loginError'))el('loginError').textContent='';
+      showLogin();render();
+    }else{if(el('loginError'))el('loginError').textContent='Sai tài khoản hoặc mật khẩu'}
+  };
+  window.logout=function(){isLoggedIn=false;window.currentUser=null;sessionStorage.removeItem('qlkho-login');sessionStorage.removeItem('qlkho-user');showLogin()};
+  window.bindAuth=function(){
+    if(el('loginBtn'))el('loginBtn').onclick=login;
+    if(el('loginPass'))el('loginPass').onkeydown=function(e){if(e.key==='Enter')login()};
+    if(el('logoutBtnMobile'))el('logoutBtnMobile').onclick=logout;
+    if(el('logoutBtnSide'))el('logoutBtnSide').onclick=logout;
+  };
+  function userRows(){ensureUsers();return state.users.map(function(u,i){return '<tr>'+td('Tên đăng nhập',u.username)+td('Họ tên',u.name||'')+td('Vai trò',u.role||'Nhân viên')+td('Trạng thái',u.active===false?'<span class="tag bad">Khóa</span>':'<span class="tag">Hoạt động</span>')+td('Thao tác','<div class="row-actions"><button class="btn small" onclick="editUser('+i+')">Sửa</button><button class="btn small" onclick="toggleUser('+i+')">'+(u.active===false?'Mở':'Khóa')+'</button></div>')+'</tr>'}).join('')}
+  window.editUser=function(i){ensureUsers();var u=state.users[i];if(!u)return;el('editUserIndex').value=i;el('userName').value=u.username;el('userName').disabled=true;el('userFullName').value=u.name||'';el('userPass').value=u.password||'';el('userRole').value=u.role||'Nhân viên';el('userActive').checked=u.active!==false};
+  window.resetUser=function(){['editUserIndex','userName','userFullName','userPass'].forEach(function(id){if(el(id))el(id).value=''});if(el('userName'))el('userName').disabled=false;if(el('userRole'))el('userRole').value='Nhân viên';if(el('userActive'))el('userActive').checked=true};
+  window.toggleUser=function(i){ensureUsers();var u=state.users[i];if(!u)return;if(u.username==='admin'&&u.active!==false)return alert('Không nên khóa tài khoản admin');u.active=!(u.active!==false);save();render()};
+  window.saveUser=function(){
+    ensureUsers();
+    var idx=el('editUserIndex').value;
+    var username=el('userName').value.trim();
+    var name=el('userFullName').value.trim()||username;
+    var pass=el('userPass').value.trim();
+    var role=el('userRole').value;
+    var active=el('userActive').checked;
+    if(!username)return alert('Nhập tên đăng nhập');
+    if(!pass||pass.length<4)return alert('Mật khẩu nên có ít nhất 4 ký tự');
+    if(idx===''){
+      if(state.users.some(function(u){return u.username===username}))return alert('Tên đăng nhập đã tồn tại');
+      state.users.push({username:username,password:pass,name:name,role:role,active:active});
+    }else{
+      state.users[Number(idx)]={username:username,password:pass,name:name,role:role,active:active};
+      if(username==='admin'&&window.auth){auth.user=username;auth.pass=pass;saveAuth()}
+    }
+    save();render();
+  };
+  var oldBind=window.bindForms;
+  window.bindForms=function(){oldBind();if(el('luuUser'))el('luuUser').onclick=saveUser;if(el('huyUser'))el('huyUser').onclick=resetUser};
+  var oldSettings=window.screenThietLap;
+  window.screenThietLap=function(){
+    ensureUsers();
+    var html=oldSettings();
+    if(html.indexOf('Tài khoản nhân viên')>=0)return html;
+    var panel='<div class="panel"><div class="head"><h2>Tài khoản nhân viên</h2></div><div class="body form"><input id="editUserIndex" type="hidden"><label>Tên đăng nhập<input id="userName" placeholder="VD: nguyenvana"></label><label>Mật khẩu<input id="userPass" placeholder="Tối thiểu 4 ký tự"></label><label>Họ tên<input id="userFullName" placeholder="Tên nhân viên/phòng ban"></label><label>Vai trò<select id="userRole"><option>Nhân viên</option><option>Admin</option></select></label><label class="full"><input id="userActive" type="checkbox" checked> Tài khoản đang hoạt động</label><button class="btn primary" id="luuUser">Lưu tài khoản</button><button class="btn" id="huyUser">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>Tên đăng nhập</th><th>Họ tên</th><th>Vai trò</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>'+userRows()+'</tbody></table></div></div>';
+    return html.replace('<div class="two">',panel+'<div class="two">');
+  };
+  var oldSaveBaoMat=window.saveBaoMat;
+  window.saveBaoMat=function(){
+    oldSaveBaoMat();
+    ensureUsers();
+    var admin=state.users.find(function(u){return u.username==='admin'});
+    if(admin&&window.auth){admin.password=auth.pass;admin.name='Quản trị viên';admin.role='Admin';admin.active=true;save()}
+  };
+})();
+</script>
+
+<script id="role-permission-patch-20260703">
+window.__rolePermissionPatch=true;
+(function(){
+  function currentRole(){
+    if(window.currentUser&&window.currentUser.role)return window.currentUser.role;
+    var u=sessionStorage.getItem('qlkho-user');
+    if(u&&state.users){var found=state.users.find(function(x){return x.username===u});if(found){window.currentUser=found;return found.role||'Nhân viên'}}
+    return 'Admin';
+  }
+  window.isAdmin=function(){return currentRole()==='Admin'};
+  var allowedStaff=['tongquan','ton','nhap','xuat','thietbi','chuyen','baocao'];
+  var oldGo=window.go;
+  window.go=function(id){
+    if(!isAdmin()&&allowedStaff.indexOf(id)<0){alert('Tài khoản nhân viên không có quyền vào mục này');return}
+    oldGo(id);
+  };
+  window.buildNav=function(){
+    var navItems=isAdmin()?nav:nav.filter(function(n){return allowedStaff.indexOf(n[0])>=0});
+    var mobileItems=isAdmin()?mobile:mobile.filter(function(n){return allowedStaff.indexOf(n[0])>=0});
+    var side=document.getElementById('sideNav');
+    if(side)side.innerHTML=navItems.map(function(n){return '<button class="nav '+(current===n[0]?'active':'')+'" onclick="go(\''+n[0]+'\')">'+n[1]+'</button>'}).join('');
+    var mb=document.getElementById('mobileNav');
+    if(mb)mb.innerHTML=mobileItems.map(function(n){return '<button class="'+(current===n[0]?'active':'')+'" onclick="go(\''+n[0]+'\')">'+n[1]+'</button>'}).join('');
+  };
+  var oldRender=window.render;
+  window.render=function(){
+    if(!isAdmin()&&allowedStaff.indexOf(current)<0)current='tongquan';
+    oldRender();
+  };
+  var oldSettings=window.screenThietLap;
+  window.screenThietLap=function(){
+    if(!isAdmin())return shell('thietlap','Không có quyền','Tài khoản nhân viên không được vào phần thiết lập.','<div class="panel"><div class="body">Vui lòng liên hệ Admin nếu cần thay đổi danh mục hoặc tài khoản.</div></div>');
+    return oldSettings();
+  };
+  var oldHang=window.screenHang;
+  window.screenHang=function(){
+    if(!isAdmin())return shell('hanghoa','Không có quyền','Tài khoản nhân viên không được sửa danh mục hàng hóa.','<div class="panel"><div class="body">Vui lòng liên hệ Admin nếu cần thêm hoặc sửa hàng hóa.</div></div>');
+    return oldHang();
   };
 })();
 </script>
