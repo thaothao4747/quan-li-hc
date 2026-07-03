@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
 <head>
 <meta charset="utf-8">
@@ -212,7 +212,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button><button class="btn primary" onclick="go('nhap')">+ Nhập</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav><button class="lock-btn logout-bottom" id="logoutBtnSide" type="button">Khóa / đăng xuất</button></aside><main id="main"></main><div id="appVersion" style="display:none">20260702-biendong-6</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260703-remove-logout-all-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -244,7 +244,7 @@ var authDefaults={user:'admin',pass:'admin123'};
 var auth=loadAuth();
 var isLoggedIn=sessionStorage.getItem('qlkho-login')==='1';
 function clone(x){return JSON.parse(JSON.stringify(x))}function mergeByKey(current,defs,keyIndex){current=Array.isArray(current)?current:[];defs.forEach(function(d){if(!current.some(function(x){return x&&x[keyIndex]===d[keyIndex]}))current.push(d)});return current}function migrateState(s){s=s||{};s.kho=mergeByKey(s.kho,defaults.kho,0);s.hang=mergeByKey(s.hang,defaults.hang,0);s.nhomHangList=Array.from(new Set((s.nhomHangList||[]).concat(defaults.nhomHangList)));s.dvtList=Array.from(new Set((s.dvtList||[]).concat(defaults.dvtList)));s.loaiNhapList=Array.from(new Set((s.loaiNhapList||[]).concat(defaults.loaiNhapList)));s.loaiXuatList=Array.from(new Set((s.loaiXuatList||[]).concat(defaults.loaiXuatList)));s.nccList=Array.from(new Set((s.nccList||[]).concat(defaults.nccList)));s.ton=Object.assign({},defaults.ton,s.ton||{});s.bd=Array.isArray(s.bd)?s.bd:clone(defaults.bd);s.chuyen=Array.isArray(s.chuyen)?s.chuyen:[];s.thietBiIT=mergeByKey(s.thietBiIT,defaults.thietBiIT,0);return s}function loadState(){try{return migrateState(Object.assign(clone(defaults),JSON.parse(localStorage.getItem('qlkho-state')||'{}')))}catch(e){return migrateState(clone(defaults))}}function save(){localStorage.setItem('qlkho-state',JSON.stringify(state))}function el(id){return document.getElementById(id)}function fmt(n){return new Intl.NumberFormat('vi-VN').format(n)}function nameKho(c){var f=state.kho.find(function(x){return x[0]===c});return f?f[1]:c}function item(c){return normalizeHang(state.hang.find(function(x){return x[0]===c})||[c,c,'','',''])}function fill(sel,arr){sel.innerHTML=arr.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join('')}function fillText(sel,arr){sel.innerHTML=arr.map(function(x){return '<option value="'+x+'">'+x+'</option>'}).join('')}function td(label,val,cls){return '<td data-label="'+label+'" class="'+(cls||'')+'">'+val+'</td>'}
-function loadAuth(){try{return Object.assign({},authDefaults,JSON.parse(localStorage.getItem('qlkho-auth')||'{}'))}catch(e){return Object.assign({},authDefaults)}}function saveAuth(){localStorage.setItem('qlkho-auth',JSON.stringify(auth))}function showLogin(){var s=el('loginScreen');if(s)s.style.display=isLoggedIn?'none':'flex'}function login(){var u=el('loginUser').value.trim(),p=el('loginPass').value;if(u===auth.user&&p===auth.pass){isLoggedIn=true;sessionStorage.setItem('qlkho-login','1');if(el('loginPass'))el('loginPass').value='';if(el('loginError'))el('loginError').textContent='';showLogin();render()}else{if(el('loginError'))el('loginError').textContent='Sai tài khoản hoặc mật khẩu'}}function logout(){isLoggedIn=false;sessionStorage.removeItem('qlkho-login');showLogin()}function bindAuth(){if(el('loginBtn'))el('loginBtn').onclick=login;if(el('loginPass'))el('loginPass').onkeydown=function(e){if(e.key==='Enter')login()};if(el('logoutBtnMobile'))el('logoutBtnMobile').onclick=logout;if(el('logoutBtnSide'))el('logoutBtnSide').onclick=logout}function goBack(){var last=screenHistory.pop();if(last){current=last;render()}else{current='tongquan';render()}}
+function loadAuth(){try{return Object.assign({},authDefaults,JSON.parse(localStorage.getItem('qlkho-auth')||'{}'))}catch(e){return Object.assign({},authDefaults)}}function saveAuth(){localStorage.setItem('qlkho-auth',JSON.stringify(auth))}function showLogin(){var s=el('loginScreen');if(s)s.style.display=isLoggedIn?'none':'flex'}function login(){var u=el('loginUser').value.trim(),p=el('loginPass').value;if(u===auth.user&&p===auth.pass){isLoggedIn=true;sessionStorage.setItem('qlkho-login','1');if(el('loginPass'))el('loginPass').value='';if(el('loginError'))el('loginError').textContent='';showLogin();render()}else{if(el('loginError'))el('loginError').textContent='Sai tài khoản hoặc mật khẩu'}}function logout(){isLoggedIn=false;sessionStorage.removeItem('qlkho-login');showLogin()}function bindAuth(){if(el('loginBtn'))el('loginBtn').onclick=login;if(el('loginPass'))el('loginPass').onkeydown=function(e){if(e.key==='Enter')login()}}function goBack(){var last=screenHistory.pop();if(last){current=last;render()}else{current='tongquan';render()}}
 async function cloudRequest(method, body){if(!SUPABASE_CONFIG.url||!SUPABASE_CONFIG.anonKey)throw new Error('Chưa cấu hình Supabase');var endpoint=SUPABASE_CONFIG.url.replace(/\/$/,'')+'/rest/v1/app_state?id=eq.'+encodeURIComponent(SUPABASE_CONFIG.stateId);var headers={'apikey':SUPABASE_CONFIG.anonKey,'Authorization':'Bearer '+SUPABASE_CONFIG.anonKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates,return=representation'};var opts={method:method,headers:headers};if(body)opts.body=JSON.stringify(body);var res=await fetch(endpoint,opts);if(!res.ok)throw new Error(await res.text());return res.json()}
 async function taiDuLieuOnline(){try{var rows=await cloudRequest('GET');if(rows&&rows[0]&&rows[0].data){state=migrateState(rows[0].data);save();alert('Đã tải dữ liệu online');render()}else alert('Chưa có dữ liệu online')}catch(e){alert('Không tải được dữ liệu online: '+e.message)}}
 async function dayDuLieuOnline(){try{await cloudRequest('POST',{id:SUPABASE_CONFIG.stateId,data:state,updated_at:new Date().toISOString()});alert('Đã đẩy dữ liệu lên online')}catch(e){alert('Không đẩy được dữ liệu online: '+e.message)}}
@@ -273,7 +273,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-web-tables-compact-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-remove-logout-all-1').catch(function(){})})}
 
 
 
@@ -362,7 +362,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260703-web-tables-compact-1';
+window.APP_VERSION='20260703-remove-logout-all-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -501,8 +501,8 @@ window.__employeeUsersPatch=true;
   window.bindAuth=function(){
     if(el('loginBtn'))el('loginBtn').onclick=login;
     if(el('loginPass'))el('loginPass').onkeydown=function(e){if(e.key==='Enter')login()};
-    if(el('logoutBtnMobile'))el('logoutBtnMobile').onclick=logout;
-    if(el('logoutBtnSide'))el('logoutBtnSide').onclick=logout;
+    
+    
   };
   function userRows(){ensureUsers();return state.users.map(function(u,i){return '<tr>'+td('Tên đăng nhập',u.username)+td('Họ tên',u.name||'')+td('Vai trò',u.role||'Nhân viên')+td('Trạng thái',u.active===false?'<span class="tag bad">Khóa</span>':'<span class="tag">Hoạt động</span>')+td('Thao tác','<div class="row-actions"><button class="btn small" onclick="editUser('+i+')">Sửa</button><button class="btn small" onclick="toggleUser('+i+')">'+(u.active===false?'Mở':'Khóa')+'</button></div>')+'</tr>'}).join('')}
   window.editUser=function(i){ensureUsers();var u=state.users[i];if(!u)return;el('editUserIndex').value=i;el('userName').value=u.username;el('userName').disabled=true;el('userFullName').value=u.name||'';el('userPass').value=u.password||'';el('userRole').value=u.role||'Nhân viên';el('userActive').checked=u.active!==false};
@@ -653,3 +653,5 @@ window.__settingsCollapsePatch=true;
 </script>
 </body>
 </html>
+
+
