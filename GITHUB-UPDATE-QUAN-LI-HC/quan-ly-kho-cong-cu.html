@@ -208,11 +208,11 @@
   .card{padding:10px 12px!important}
 }
 </style>
-<style id="hide-logout-force-20260703">#logoutBtnSide,#logoutBtnMobile,.logout-bottom{display:none!important;visibility:hidden!important;height:0!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;overflow:hidden!important}</style></head>
+<style id="hide-logout-force-20260703">#logoutBtnSide,#logoutBtnMobile,.logout-bottom{display:none!important;visibility:hidden!important;height:0!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important;overflow:hidden!important}</style><style id="remember-login-20260703">.remember-login{display:flex!important;align-items:center!important;color:#33463b!important;font-size:13px!important;font-weight:700!important;gap:0!important}.remember-login span{display:flex;align-items:center;gap:8px}.remember-login input{width:16px;height:16px;min-height:auto;padding:0}</style></head>
 <body>
-<div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
+<div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button><button class="btn primary" onclick="go('nhap')">+ Nhập</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260703-hide-logout-force-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260703-edit-login-name-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -236,7 +236,7 @@ var today=new Date().toISOString().slice(0,10);
 var defaults={kho:[["KHO-TONG","Kho tổng","Nguyễn Minh"],["KHO-HC","Kho Hành chính","Trần Lan"],["KHO-CN1","Kho Chi nhánh 1","Lê Hà"]],nhomHangList:["Văn phòng phẩm","Công cụ dụng cụ","Thiết bị IT"],dvtList:["Cái","Hộp","Bộ","Ram"],loaiNhapList:["Nhập mua mới","Nhập quà tặng","Nhập trả lại"],nccList:["Công ty Văn phòng phẩm An Phát","Cửa hàng Thiết bị Minh Long","Nhà cung cấp khác"],loaiXuatList:["Xuất cấp phát","Xuất tặng","Xuất điều chuyển nội bộ"],hang:[["VP001","Giấy A4 Double A","Văn phòng phẩm","Ram","Khổ: A4; Định lượng: 70gsm"],["CC001","Máy khoan pin","Công cụ dụng cụ","Cái","Serial; Bảo hành"],["TB001","Laptop Dell 5420","Thiết bị IT","Cái","RAM: 16GB; SSD: 512GB"],["VP002","Bút bi xanh","Văn phòng phẩm","Hộp","Màu: xanh; 20 cây/hộp"]],thietBiIT:[["IT-001","SN-D5420-001","TB001","Nhập mua mới","2026-06-30","Nguyễn Văn A","Đang sử dụng","Laptop cấp cho phòng Hành chính"],["IT-002","SN-D5420-002","TB001","Nhập quà tặng","2026-06-30","Kho IT","Trong kho","Máy dự phòng"]],ton:{"KHO-TONG|VP001":120,"KHO-HC|VP001":22,"KHO-CN1|VP001":35,"KHO-TONG|CC001":4,"KHO-CN1|CC001":1,"KHO-TONG|TB001":3,"KHO-HC|TB001":1,"KHO-TONG|VP002":18,"KHO-HC|VP002":5},bd:[["2026-06-30","PN-0001","KHO-TONG","VP001","Nhập mua mới",100,0],["2026-06-30","PX-0001","KHO-HC","VP002","Xuất cấp phát",0,3]],chuyen:[]};
 var state=loadState();
 var nav=[['tongquan','Tổng quan'],['ton','Tồn kho'],['nhap','Nhập kho'],['xuat','Xuất kho'],['thietbi','Thiết bị IT'],['chuyen','Điều chuyển'],['baocao','Báo cáo'],['hanghoa','Hàng hóa'],['thietlap','Thiết lập']];
-var mobile=[['tongquan','Tổng quan'],['ton','Tồn'],['nhap','Nhập'],['xuat','Xuất'],['thietbi','IT'],['chuyen','Chuyển'],['baocao','Báo cáo']];
+var mobile=[['tongquan','Tổng quan'],['ton','Tồn'],['nhap','Nhập'],['xuat','Xuất'],['thietbi','IT'],['chuyen','Chuyển'],['baocao','Báo cáo'],['thietlap','Thiết lập']];
 var current='tongquan';
 var screenHistory=[];
 var SUPABASE_CONFIG={url:'https://jcavzbpjbvdbuskrtayf.supabase.co',anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjYXZ6YnBqYnZkYnVza3J0YXlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODk4MDEsImV4cCI6MjA5ODU2NTgwMX0.-RQhPrHEF3WRlOPqzmxmumwzqdFNQ7dHHKTCz3E29PQ',stateId:'qlhc-main'};
@@ -273,7 +273,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-hide-logout-force-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-edit-login-name-1').catch(function(){})})}
 
 
 
@@ -362,7 +362,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260703-hide-logout-force-1';
+window.APP_VERSION='20260703-edit-login-name-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -492,20 +492,24 @@ window.__employeeUsersPatch=true;
       isLoggedIn=true;
       sessionStorage.setItem('qlkho-login','1');
       sessionStorage.setItem('qlkho-user',found.username);
-      if(el('loginPass'))el('loginPass').value='';
+      if(el('loginRemember')&&el('loginRemember').checked){localStorage.setItem('qlhc-remember-login',JSON.stringify({user:u,pass:p,remember:true}))}else{localStorage.removeItem('qlhc-remember-login');if(el('loginPass'))el('loginPass').value=''}
       if(el('loginError'))el('loginError').textContent='';
       showLogin();render();
     }else{if(el('loginError'))el('loginError').textContent='Sai tài khoản hoặc mật khẩu'}
   };
   window.logout=function(){isLoggedIn=false;window.currentUser=null;sessionStorage.removeItem('qlkho-login');sessionStorage.removeItem('qlkho-user');showLogin()};
   window.bindAuth=function(){
+    var savedLogin=null;try{savedLogin=JSON.parse(localStorage.getItem('qlhc-remember-login')||'null')}catch(e){savedLogin=null}
+    if(savedLogin&&savedLogin.remember){
+      if(el('loginUser'))el('loginUser').value=savedLogin.user||'';
+      if(el('loginPass'))el('loginPass').value=savedLogin.pass||'';
+      if(el('loginRemember'))el('loginRemember').checked=true;
+    }
+    if(el('loginRemember'))el('loginRemember').onchange=function(){if(!this.checked)localStorage.removeItem('qlhc-remember-login')};
     if(el('loginBtn'))el('loginBtn').onclick=login;
     if(el('loginPass'))el('loginPass').onkeydown=function(e){if(e.key==='Enter')login()};
-    
-    
-  };
-  function userRows(){ensureUsers();return state.users.map(function(u,i){return '<tr>'+td('Tên đăng nhập',u.username)+td('Họ tên',u.name||'')+td('Vai trò',u.role||'Nhân viên')+td('Trạng thái',u.active===false?'<span class="tag bad">Khóa</span>':'<span class="tag">Hoạt động</span>')+td('Thao tác','<div class="row-actions"><button class="btn small" onclick="editUser('+i+')">Sửa</button><button class="btn small" onclick="toggleUser('+i+')">'+(u.active===false?'Mở':'Khóa')+'</button></div>')+'</tr>'}).join('')}
-  window.editUser=function(i){ensureUsers();var u=state.users[i];if(!u)return;el('editUserIndex').value=i;el('userName').value=u.username;el('userName').disabled=true;el('userFullName').value=u.name||'';el('userPass').value=u.password||'';el('userRole').value=u.role||'Nhân viên';el('userActive').checked=u.active!==false};
+  };  function userRows(){ensureUsers();return state.users.map(function(u,i){return '<tr>'+td('Tên đăng nhập',u.username)+td('Họ tên',u.name||'')+td('Vai trò',u.role||'Nhân viên')+td('Trạng thái',u.active===false?'<span class="tag bad">Khóa</span>':'<span class="tag">Hoạt động</span>')+td('Thao tác','<div class="row-actions"><button class="btn small" onclick="editUser('+i+')">Sửa</button><button class="btn small" onclick="toggleUser('+i+')">'+(u.active===false?'Mở':'Khóa')+'</button></div>')+'</tr>'}).join('')}
+  window.editUser=function(i){ensureUsers();var u=state.users[i];if(!u)return;el('editUserIndex').value=i;el('userName').value=u.username;el('userName').disabled=false;el('userFullName').value=u.name||'';el('userPass').value=u.password||'';el('userRole').value=u.role||'Nhân viên';el('userActive').checked=u.active!==false};
   window.resetUser=function(){['editUserIndex','userName','userFullName','userPass'].forEach(function(id){if(el(id))el(id).value=''});if(el('userName'))el('userName').disabled=false;if(el('userRole'))el('userRole').value='Nhân viên';if(el('userActive'))el('userActive').checked=true};
   window.toggleUser=function(i){ensureUsers();var u=state.users[i];if(!u)return;if(u.username==='admin'&&u.active!==false)return alert('Không nên khóa tài khoản admin');u.active=!(u.active!==false);save();render()};
   window.saveUser=function(){
@@ -522,10 +526,12 @@ window.__employeeUsersPatch=true;
       if(state.users.some(function(u){return u.username===username}))return alert('Tên đăng nhập đã tồn tại');
       state.users.push({username:username,password:pass,name:name,role:role,active:active});
     }else{
+      var oldUser=state.users[Number(idx)];
+      if(state.users.some(function(u,j){return j!==Number(idx)&&u.username===username}))return alert('Tên đăng nhập đã tồn tại');
       state.users[Number(idx)]={username:username,password:pass,name:name,role:role,active:active};
-      if(username==='admin'&&window.auth){auth.user=username;auth.pass=pass;saveAuth()}
-    }
-    save();render();
+      if(window.currentUser&&oldUser&&window.currentUser.username===oldUser.username){window.currentUser=state.users[Number(idx)];sessionStorage.setItem('qlkho-user',username)}
+      if(oldUser&&oldUser.username==='admin'&&window.auth){auth.user=username;auth.pass=pass;saveAuth()}
+    }    save();render();
   };
   var oldBind=window.bindForms;
   window.bindForms=function(){oldBind();if(el('luuUser'))el('luuUser').onclick=saveUser;if(el('huyUser'))el('huyUser').onclick=resetUser};
@@ -653,6 +659,11 @@ window.__settingsCollapsePatch=true;
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
