@@ -212,7 +212,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button><button class="btn primary" onclick="go('nhap')">+ Nhập</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260703-edit-login-name-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260703-clear-warehouse-settings-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -255,9 +255,9 @@ function normalizeHang(h){if(h&&h.length>=6)return [h[0],h[1],h[2],h[3],h[5]||''
 function screenTongQuan(){var rows=stockRows(),total=Object.values(state.ton).reduce(function(a,b){return a+b},0);var bd=state.bd.slice().reverse().slice(0,10).map(function(x){return '<tr>'+td('Ngày',x[0])+td('Số phiếu',x[1])+td('Kho',nameKho(x[2]))+td('Hàng',item(x[3])[1])+td('Loại',x[4])+td('Nhập',x[5]||'', 'num')+td('Xuất',x[6]||'', 'num')+'</tr>'}).join('');var top=rows.slice().sort(function(a,b){return b[3]-a[3]}).slice(0,5).map(function(r){return '<p>'+r[2][1]+' - '+nameKho(r[0])+': <b>'+fmt(r[3])+' '+r[2][3]+'</b></p>'}).join('')||'<p class="hint">Chưa có tồn kho.</p>';return shell('tongquan','Tổng quan kho','Theo dõi nhanh tồn kho và biến động mới nhất.','<div class="stats"><div class="card dash-card dash-green"><span>Tổng kho</span><strong>'+state.kho.length+'</strong></div><div class="card dash-card dash-blue"><span>Mặt hàng</span><strong>'+state.hang.length+'</strong></div><div class="card dash-card dash-amber"><span>Tổng tồn</span><strong>'+fmt(total)+'</strong></div><div class="card dash-card dash-rose"><span>Phiếu phát sinh</span><strong>'+state.bd.length+'</strong></div></div><div class="grid"><div class="panel panel-accent"><div class="head"><h2>Biến động gần đây</h2><span class="tag">10 dòng mới nhất</span></div><div class="wrap"><table><thead><tr><th>Ngày</th><th>Số phiếu</th><th>Kho</th><th>Hàng</th><th>Loại</th><th class="num">Nhập</th><th class="num">Xuất</th></tr></thead><tbody>'+bd+'</tbody></table></div></div><div class="panel panel-blue"><div class="head"><h2>Tồn nhiều nhất</h2></div><div class="body">'+top+'</div></div></div>')}
 function screenKho(){var rows=state.kho.map(function(x,i){return '<tr>'+td('Mã',x[0])+td('Tên kho',x[1])+td('Phụ trách',x[2])+td('Trạng thái','<span class="tag">Đang dùng</span>')+td('', '<button class="btn small" onclick="editKho('+i+')">Sửa</button>')+'</tr>'}).join('');return shell('kho','Danh mục kho','Tạo mới hoặc sửa thông tin kho.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách kho</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên kho</th><th>Phụ trách</th><th>Trạng thái</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+formKho('')+'</div>')}
 function formKho(prefix){return '<div class="panel"><div class="head"><h2>Thông tin kho</h2></div><div class="body form"><input id="'+prefix+'editKho" type="hidden"><label>Mã kho<input id="'+prefix+'maKho"></label><label>Tên kho<input id="'+prefix+'tenKho"></label><label class="full">Người phụ trách<input id="'+prefix+'ptKho"></label><button class="btn primary" id="'+prefix+'luuKho">Lưu kho</button><button class="btn" id="'+prefix+'huyKho">Tạo mới</button></div></div>'}
-function screenHang(){var rows=state.hang.map(function(raw,i){var x=normalizeHang(raw);return '<tr>'+td('Mã',x[0])+td('Tên hàng',x[1])+td('Nhóm',x[2])+td('ĐVT',x[3])+td('Thuộc tính',x[4])+td('', '<button class="btn small" onclick="editHang('+i+')">Sửa</button>')+'</tr>'}).join('');return shell('hanghoa','Danh mục hàng hóa','Hàng hóa dùng nhóm hàng và đơn vị tính từ phần Thiết lập.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách hàng hóa</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Thuộc tính</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin hàng hóa</h2></div><div class="body form"><input id="editHang" type="hidden"><label>Mã hàng<input id="maHang"></label><label>Tên hàng<input id="tenHang"></label><label>Nhóm<select id="nhomHang"></select></label><label>ĐVT<select id="dvt"></select></label><label class="full">Thuộc tính linh động<input id="thuocTinh" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><button class="btn primary" id="luuHang">Lưu hàng hóa</button><button class="btn" id="huyHang">Tạo mới</button></div></div></div>')}
+function screenHang(){var rows=state.hang.map(function(raw,i){var x=normalizeHang(raw);return '<tr>'+td('Mã',x[0])+td('Tên hàng',x[1])+td('Nhóm',x[2])+td('ĐVT',x[3])+td('Thuộc tính',x[4])+td('', '<button class="btn small" onclick="editHang('+i+')">Sửa</button>')+'</tr>'}).join('');return shell('hanghoa','Danh mục hàng hóa','Hàng hóa dùng nhóm hàng và đơn vị tính từ phần Thiết lập.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách hàng hóa</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Thuộc tính</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin hàng hóa</h2></div><div class="body form"><input id="editHang" type="hidden"><label>Mã hàng tự động<input id="maHang" readonly></label><label>Tên hàng<input id="tenHang"></label><label>Nhóm<select id="nhomHang"></select></label><label>ĐVT<select id="dvt"></select></label><label class="full">Thuộc tính linh động<input id="thuocTinh" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><button class="btn primary" id="luuHang">Lưu hàng hóa</button><button class="btn" id="huyHang">Tạo mới</button></div></div></div>')}
 function normalizeThietBi(x){if(!x)return ['','','','','','','',''];if(x.length>=8)return x;return [x[0]||'', '', x[1]||'', x[2]||'', x[3]||'', x[4]||'', x[5]||'', x[6]||'']}function itItems(){return state.hang.filter(function(h){return normalizeHang(h)[2]==='Thiết bị IT'}).map(function(h){h=normalizeHang(h);return [h[0],h[0]+' - '+h[1]]})}function screenThietBi(){var rows=(state.thietBiIT||[]).map(function(raw,i){var x=normalizeThietBi(raw);var h=item(x[2]);return '<tr>'+td('Mã ID',x[0])+td('Số seri',x[1]||'')+td('Thiết bị',h[1])+td('Nguồn nhập',x[3])+td('Ngày nhập',x[4])+td('Đang sử dụng bởi',x[5])+td('Trạng thái','<span class="tag">'+x[6]+'</span>')+td('Ghi chú',x[7]||'')+td('', '<button class="btn small" onclick="editThietBi('+i+')">Sửa</button>')+'</tr>'}).join('')||'<tr><td class="empty" colspan="9">Chưa có thiết bị IT theo số seri.</td></tr>';return shell('thietbi','Thiết bị IT theo số seri','Theo dõi từng thiết bị theo số seri, nguồn nhập, ngày nhập và người đang sử dụng.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách thiết bị</h2></div><div class="wrap"><table><thead><tr><th>Mã ID</th><th>Số seri</th><th>Thiết bị</th><th>Nguồn nhập</th><th>Ngày nhập</th><th>Đang sử dụng bởi</th><th>Trạng thái</th><th>Ghi chú</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin thiết bị</h2></div><div class="body form"><input id="editThietBi" type="hidden"><label>Mã ID tài sản<input id="maThietBi" placeholder="VD: IT-003"></label><label>Số seri<input id="seriThietBi" placeholder="Serial trên máy/tem thiết bị"></label><label>Mặt hàng IT<select id="hangThietBi"></select></label><label>Nguồn nhập<select id="nguonThietBi"></select></label><label>Ngày nhập<input id="ngayThietBi" type="date" value="'+today+'"></label><label>Người đang sử dụng<input id="nguoiDungThietBi" placeholder="Tên nhân viên/phòng ban/kho"></label><label>Trạng thái<select id="trangThaiThietBi"><option>Trong kho</option><option>Đang sử dụng</option><option>Đang sửa chữa</option><option>Thanh lý</option><option>Thất lạc</option></select></label><label class="full">Ghi chú<input id="ghiChuThietBi" placeholder="Cấu hình, tình trạng, chứng từ..."></label><button class="btn primary" id="luuThietBi">Lưu thiết bị</button><button class="btn" id="huyThietBi">Tạo mới</button></div></div></div>')}
-function screenNhap(){return shell('nhap','Nhập kho','Có thể chọn hàng có sẵn hoặc tạo nhanh hàng hóa mới ngay khi nhập.','<div class="panel"><div class="head"><h2>Tạo phiếu nhập</h2><button class="btn blue" onclick="go(\'chuyen\')">Nhận điều chuyển</button></div><div class="body form"><label>Số phiếu tự động<input id="soNhap" value="'+nextSlipNo('PN')+'" readonly></label><label>Loại nhập<select id="loaiNhap"></select></label><label>Kho nhận<select id="khoNhap"></select></label><label>NCC<select id="nccNhap"></select></label><label class="full">Hàng hóa<select id="hangNhap"></select></label><button class="btn blue" id="batHangMoi" type="button">+ Tạo hàng hóa mới</button><label>Số lượng<input id="slNhap" type="number" value="1"></label><div class="full panel" id="hangMoiBox" style="display:none;box-shadow:none"><div class="head"><h2>Hàng hóa mới</h2></div><div class="body form"><label>Mã hàng mới<input id="nhapMaHangMoi" placeholder="VD: VP003"></label><label>Tên hàng mới<input id="nhapTenHangMoi" placeholder="Tên hàng hóa"></label><label>Nhóm hàng<select id="nhapNhomHangMoi"></select></label><label>Đơn vị tính<select id="nhapDvtMoi"></select></label><label class="full">Thuộc tính linh động<input id="nhapThuocTinhMoi" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><p class="hint full">Khi lưu phiếu nhập, hàng hóa mới sẽ tự thêm vào danh mục hàng hóa.</p></div></div><button class="btn primary" id="luuNhap">Lưu phiếu nhập</button></div></div>')}
+function screenNhap(){return shell('nhap','Nhập kho','Có thể chọn hàng có sẵn hoặc tạo nhanh hàng hóa mới ngay khi nhập.','<div class="panel"><div class="head"><h2>Tạo phiếu nhập</h2><button class="btn blue" onclick="go(\'chuyen\')">Nhận điều chuyển</button></div><div class="body form"><label>Số phiếu tự động<input id="soNhap" value="'+nextSlipNo('PN')+'" readonly></label><label>Loại nhập<select id="loaiNhap"></select></label><label>Kho nhận<select id="khoNhap"></select></label><label>NCC<select id="nccNhap"></select></label><label class="full">Hàng hóa<select id="hangNhap"></select></label><button class="btn blue" id="batHangMoi" type="button">+ Tạo hàng hóa mới</button><label>Số lượng<input id="slNhap" type="number" value="1"></label><div class="full panel" id="hangMoiBox" style="display:none;box-shadow:none"><div class="head"><h2>Hàng hóa mới</h2></div><div class="body form"><label>Mã hàng tự động<input id="nhapMaHangMoi" readonly></label><label>Tên hàng mới<input id="nhapTenHangMoi" placeholder="Tên hàng hóa"></label><label>Nhóm hàng<select id="nhapNhomHangMoi"></select></label><label>Đơn vị tính<select id="nhapDvtMoi"></select></label><label class="full">Thuộc tính linh động<input id="nhapThuocTinhMoi" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><p class="hint full">Khi lưu phiếu nhập, hàng hóa mới sẽ tự thêm vào danh mục hàng hóa.</p></div></div><button class="btn primary" id="luuNhap">Lưu phiếu nhập</button></div></div>')}
 function screenXuat(){return shell('xuat','Xuất kho','Chọn hàng hóa trước, sau đó kho xuất chỉ hiện các kho còn tồn của hàng đó.','<div class="panel"><div class="head"><h2>Tạo phiếu xuất</h2></div><div class="body form"><label>Số phiếu tự động<input id="soXuat" value="'+nextSlipNo('PX')+'" readonly></label><label>Loại xuất<select id="loaiXuat"></select></label><label class="full">Hàng hóa<select id="hangXuat"></select></label><label>Kho xuất<select id="khoXuat"></select></label><label>Kho nhận nếu điều chuyển<select id="khoNhan"></select></label><label>Số lượng<input id="slXuat" type="number" value="1"></label><p class="hint full" id="goiYKhoXuat">Chọn hàng hóa để xem kho còn tồn.</p><button class="btn primary" id="luuXuat">Lưu phiếu xuất</button></div></div>')}
 function screenChuyen(){var waiting=state.chuyen.filter(function(x){return x.st==='Chờ nhận'});var rows=waiting.length?waiting.map(function(x,i){return '<tr>'+td('Số phiếu',x.so)+td('Kho xuất',nameKho(x.tu))+td('Kho nhận',nameKho(x.den))+td('Hàng',item(x.hang)[1])+td('SL',x.sl,'num')+td('Trạng thái','<span class="tag warn">'+x.st+'</span>')+td('', '<button class="btn primary small" onclick="nhan('+i+')">Xác nhận nhận</button>')+'</tr>'}).join(''):'<tr><td class="empty" colspan="7">Không có phiếu chờ nhận.</td></tr>';return shell('chuyen','Điều chuyển nội bộ','Kho nhận xác nhận, hệ thống tự sinh phiếu nhập điều chuyển.','<div class="panel"><div class="head"><h2>Phiếu chờ nhận</h2></div><div class="wrap"><table><thead><tr><th>Số phiếu</th><th>Kho xuất</th><th>Kho nhận</th><th>Hàng</th><th>SL</th><th>Trạng thái</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div>')}
 function stockSearchSuggestions(){var seen={};var out=[];stockRows().forEach(function(r){[nameKho(r[0]),r[1],r[2][1],r[2][2],r[2][3]].forEach(function(v){if(v&&!seen[v]){seen[v]=true;out.push(v)}})});return out}function screenTon(){var rows=stockRows().map(function(r){var text=[nameKho(r[0]),r[1],r[2][1],r[2][2],r[2][3],String(r[3])].join(' ').toLowerCase();return '<tr data-search="'+text.replace(/"/g,'')+'">'+td('Kho',nameKho(r[0]))+td('Mã hàng',r[1])+td('Tên hàng',r[2][1])+td('Nhóm',r[2][2])+td('ĐVT',r[2][3])+td('Tồn',fmt(r[3]),'num')+td('Trạng thái','<span class="tag">Đang theo dõi</span>')+'</tr>'}).join('');var opts=stockSearchSuggestions().map(function(x){return '<option value="'+x+'"></option>'}).join('');return shell('ton','Tồn kho','Tìm nhanh theo kho, mã hàng, tên hàng, nhóm hàng hoặc đơn vị tính.','<div class="panel"><div class="head"><h2>Tìm kiếm tồn kho</h2><button class="btn" id="xoaTimTon" type="button">Xóa tìm</button></div><div class="body form"><label class="full">Search tất cả<input id="timTon" list="goiYTon" placeholder="Nhập mã hàng, tên hàng, kho, nhóm hàng..."><datalist id="goiYTon">'+opts+'</datalist></label></div></div><div class="panel"><div class="head"><h2>Bảng tồn kho</h2><span class="tag" id="soDongTon"></span></div><div class="wrap"><table><thead><tr><th>Kho</th><th>Mã hàng</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Tồn</th><th>Trạng thái</th></tr></thead><tbody id="tonRowsBody">'+rows+'</tbody></table></div></div>')}
@@ -273,7 +273,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-edit-login-name-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-clear-warehouse-settings-1').catch(function(){})})}
 
 
 
@@ -362,7 +362,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260703-edit-login-name-1';
+window.APP_VERSION='20260703-clear-warehouse-settings-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -526,14 +526,20 @@ window.__employeeUsersPatch=true;
       if(state.users.some(function(u){return u.username===username}))return alert('Tên đăng nhập đã tồn tại');
       state.users.push({username:username,password:pass,name:name,role:role,active:active});
     }else{
-      var oldUser=state.users[Number(idx)];
-      if(state.users.some(function(u,j){return j!==Number(idx)&&u.username===username}))return alert('Tên đăng nhập đã tồn tại');
-      state.users[Number(idx)]={username:username,password:pass,name:name,role:role,active:active};
-      if(window.currentUser&&oldUser&&window.currentUser.username===oldUser.username){window.currentUser=state.users[Number(idx)];sessionStorage.setItem('qlkho-user',username)}
-      if(oldUser&&oldUser.username==='admin'&&window.auth){auth.user=username;auth.pass=pass;saveAuth()}
-    }    save();render();
-  };
-  var oldBind=window.bindForms;
+      idx=Number(idx);
+      var oldUser=state.users[idx];
+      if(!oldUser)return alert('Không tìm thấy tài khoản cần sửa');
+      if(state.users.some(function(u,j){return j!==idx&&u.username===username}))return alert('Tên đăng nhập đã tồn tại');
+      state.users[idx]={username:username,password:pass,name:name,role:role,active:active};
+      if(window.currentUser&&window.currentUser.username===oldUser.username){window.currentUser=state.users[idx];sessionStorage.setItem('qlkho-user',username)}
+      if(oldUser.username==='admin'&&window.auth){auth.user=username;auth.pass=pass;saveAuth()}
+      try{var remembered=JSON.parse(localStorage.getItem('qlhc-remember-login')||'null');if(remembered&&remembered.user===oldUser.username){localStorage.setItem('qlhc-remember-login',JSON.stringify({user:username,pass:pass,remember:true}))}}catch(e){}
+    }
+    save();
+    resetUser();
+    alert('Đã lưu tài khoản');
+    render();
+  };  var oldBind=window.bindForms;
   window.bindForms=function(){oldBind();if(el('luuUser'))el('luuUser').onclick=saveUser;if(el('huyUser'))el('huyUser').onclick=resetUser};
   var oldSettings=window.screenThietLap;
   window.screenThietLap=function(){
@@ -657,8 +663,77 @@ window.__settingsCollapsePatch=true;
   setTimeout(applySettingsCollapse,300);
 })();
 </script>
-</body>
+<script id="admin-edit-slips-20260703">
+(function(){
+  function canEditSlip(){try{return typeof isAdmin==='function'?isAdmin():((window.currentUser&&String(window.currentUser.role).toLowerCase()==='admin'))}catch(e){return false}}
+  function optPairs(arr,selected){return arr.map(function(x){var v=Array.isArray(x)?x[0]:x;var t=Array.isArray(x)?x[1]:x;return '<option value="'+String(v).replace(/"/g,'&quot;')+'" '+(v===selected?'selected':'')+'>'+t+'</option>'}).join('')}
+  function optText(arr,selected){return arr.map(function(x){return '<option value="'+String(x).replace(/"/g,'&quot;')+'" '+(x===selected?'selected':'')+'>'+x+'</option>'}).join('')}
+  function slipTypeOptions(x){var list=(Number(x[5]||0)>0?state.loaiNhapList:state.loaiXuatList)||[];if(list.indexOf(x[4])<0)list=[x[4]].concat(list);return optText(list,x[4])}
+  function applySlipToStock(row,sign){var key=row[2]+'|'+row[3];state.ton[key]=(state.ton[key]||0)+sign*Number(row[5]||0)-sign*Number(row[6]||0);if(Math.abs(state.ton[key])<0.00001)state.ton[key]=0}
+  function slipRows(){var rows=state.bd.map(function(x,i){return {x:x,i:i}}).reverse();return rows.map(function(r){var x=r.x;var action=canEditSlip()?td('Thao tác','<button class="btn small" onclick="editSlip('+r.i+')">Sửa</button>'):'';return '<tr>'+td('Ngày',x[0])+td('Số phiếu',x[1])+td('Kho',nameKho(x[2]))+td('Hàng',item(x[3])[1])+td('Loại',x[4])+td('NCC',x[7]||'')+td('Nhập',x[5]||'', 'num')+td('Xuất',x[6]||'', 'num')+action+'</tr>'}).join('')}
+  var oldShowReport=window.showReport;
+  window.showReport=function(mode,btn){
+    if(mode!=='xnk')return oldShowReport(mode,btn);
+    if(btn){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+    if(!el('rp'))return;
+    el('rpTitle').textContent='Chi tiết XNK';
+    var actionHead=canEditSlip()?'<th>Thao tác</th>':'';
+    el('rp').innerHTML='<table><thead><tr><th>Ngày</th><th>Số phiếu</th><th>Kho</th><th>Hàng</th><th>Loại</th><th>NCC</th><th>Nhập</th><th>Xuất</th>'+actionHead+'</tr></thead><tbody>'+slipRows()+'</tbody></table>';
+  };
+  window.editSlip=function(i){
+    if(!canEditSlip())return alert('Chỉ quản trị viên được sửa phiếu');
+    var x=state.bd[i];if(!x)return alert('Không tìm thấy phiếu');
+    el('rpTitle').textContent='Sửa phiếu '+(x[1]||'');
+    var hangOpts=state.hang.map(function(raw){var h=normalizeHang(raw);return [h[0],h[0]+' - '+h[1]]});
+    el('rp').innerHTML='<div class="body form"><input id="editSlipIndex" type="hidden" value="'+i+'"><label>Ngày<input id="editSlipDate" type="date" value="'+(x[0]||today)+'"></label><label>Số phiếu tự động<input id="editSlipNo" value="'+(x[1]||'')+'" readonly></label><label>Kho<select id="editSlipKho">'+optPairs(state.kho,x[2])+'</select></label><label>Hàng hóa<select id="editSlipHang">'+optPairs(hangOpts,x[3])+'</select></label><label>Loại phiếu<select id="editSlipLoai">'+slipTypeOptions(x)+'</select></label><label>NCC/Ghi chú<input id="editSlipNcc" value="'+(x[7]||'')+'"></label><label>Số lượng nhập<input id="editSlipNhap" type="number" min="0" value="'+Number(x[5]||0)+'"></label><label>Số lượng xuất<input id="editSlipXuat" type="number" min="0" value="'+Number(x[6]||0)+'"></label><p class="hint full">Chỉ nhập một trong hai ô Nhập hoặc Xuất. Khi lưu, tồn kho sẽ tự tính lại theo phiếu đã sửa.</p><button class="btn primary" onclick="saveEditSlip()">Lưu phiếu đã sửa</button><button class="btn" onclick="showReport(\'xnk\')">Hủy</button></div>';
+  };
+  window.saveEditSlip=function(){
+    if(!canEditSlip())return alert('Chỉ quản trị viên được sửa phiếu');
+    var i=Number(el('editSlipIndex').value);var old=state.bd[i];if(!old)return alert('Không tìm thấy phiếu');
+    var nhap=Number(el('editSlipNhap').value||0),xuat=Number(el('editSlipXuat').value||0);
+    if(nhap<0||xuat<0)return alert('Số lượng không hợp lệ');
+    if((nhap>0&&xuat>0)||(!nhap&&!xuat))return alert('Chỉ nhập số lượng ở một ô: Nhập hoặc Xuất');
+    applySlipToStock(old,-1);
+    var row=[el('editSlipDate').value,old[1],el('editSlipKho').value,el('editSlipHang').value,el('editSlipLoai').value,nhap,xuat,el('editSlipNcc').value.trim()];
+    var key=row[2]+'|'+row[3];var newStock=(state.ton[key]||0)+nhap-xuat;
+    if(newStock<0){applySlipToStock(old,1);return alert('Không đủ tồn kho sau khi sửa phiếu xuất')}
+    state.bd[i]=row;applySlipToStock(row,1);save();alert('Đã sửa phiếu và cập nhật tồn kho');render();current='baocao';setTimeout(function(){showReport('xnk')},0);
+  };
+})();
+</script><script id="auto-item-code-20260703">
+(function(){
+  function prefixByGroup(group){group=String(group||'').toLowerCase();if(group.indexOf('văn phòng')>=0||group.indexOf('van phong')>=0)return 'VP';if(group.indexOf('công cụ')>=0||group.indexOf('cong cu')>=0)return 'CC';if(group.indexOf('it')>=0||group.indexOf('thiết bị')>=0||group.indexOf('thiet bi')>=0)return 'TB';return 'HH'}
+  window.nextItemCode=function(group){var prefix=prefixByGroup(group);var max=0;(state.hang||[]).forEach(function(raw){var h=normalizeHang(raw);var m=String(h[0]||'').match(new RegExp('^'+prefix+'(\\d+)$'));if(m){var n=parseInt(m[1],10);if(!isNaN(n)&&n>max)max=n}});return prefix+String(max+1).padStart(3,'0')}
+  function refreshMainItemCode(){if(el('editHang')&&el('editHang').value===''){var group=el('nhomHang')?el('nhomHang').value:'';if(el('maHang')){el('maHang').value=nextItemCode(group);el('maHang').readOnly=true}}}
+  function refreshQuickItemCode(){var group=el('nhapNhomHangMoi')?el('nhapNhomHangMoi').value:'';if(el('nhapMaHangMoi')){el('nhapMaHangMoi').value=nextItemCode(group);el('nhapMaHangMoi').readOnly=true}}
+  var oldBindForms=window.bindForms;
+  window.bindForms=function(){oldBindForms.apply(this,arguments);refreshMainItemCode();refreshQuickItemCode();if(el('nhomHang'))el('nhomHang').onchange=refreshMainItemCode;if(el('nhapNhomHangMoi'))el('nhapNhomHangMoi').onchange=refreshQuickItemCode;var oldBtn=el('batHangMoi');if(oldBtn&&!oldBtn.__autoCodeBound){var prev=oldBtn.onclick;oldBtn.onclick=function(){if(prev)prev.apply(this,arguments);setTimeout(refreshQuickItemCode,0)};oldBtn.__autoCodeBound=true}}
+  var oldResetHang=window.resetHang;
+  window.resetHang=function(){oldResetHang();refreshMainItemCode()}
+  var oldSaveHang=window.saveHang;
+  window.saveHang=function(){if(el('editHang')&&el('editHang').value===''&&el('maHang'))el('maHang').value=nextItemCode(el('nhomHang')?el('nhomHang').value:'');oldSaveHang()}
+  var oldSaveNhap=window.saveNhap;
+  window.saveNhap=function(){if(el('hangMoiBox')&&el('hangMoiBox').style.display!=='none'&&el('nhapMaHangMoi'))el('nhapMaHangMoi').value=nextItemCode(el('nhapNhomHangMoi')?el('nhapNhomHangMoi').value:'');oldSaveNhap()}
+})();
+</script><script id="clear-warehouse-settings-20260703">
+(function(){
+  window.nextKhoCode=function(){var max=0;(state.kho||[]).forEach(function(k){var m=String(k[0]||'').match(/^KHO-(\d+)$/);if(m){var n=parseInt(m[1],10);if(!isNaN(n)&&n>max)max=n}});return 'KHO-'+String(max+1).padStart(3,'0')}
+  window.formKho=function(prefix){prefix=prefix||'';return '<div class="panel"><div class="head"><h2>Thêm / sửa kho</h2><span class="tag">Mã kho tự động</span></div><div class="body form"><input id="'+prefix+'editKho" type="hidden"><label>Mã kho<input id="'+prefix+'maKho" readonly value="'+nextKhoCode()+'"></label><label>Tên kho<input id="'+prefix+'tenKho" placeholder="VD: Kho VP 77CT"></label><label class="full">Người phụ trách<input id="'+prefix+'ptKho" placeholder="Tên người/phòng ban phụ trách"></label><button class="btn primary" id="'+prefix+'luuKho">Lưu kho</button><button class="btn" id="'+prefix+'huyKho">Thêm kho mới</button></div></div>'}
+  window.resetKho=function(p){p=p||'';[p+'editKho',p+'tenKho',p+'ptKho'].forEach(function(id){if(el(id))el(id).value=''});if(el(p+'maKho')){el(p+'maKho').value=nextKhoCode();el(p+'maKho').readOnly=true;el(p+'maKho').disabled=false}}
+  window.fillKho=function(p,i){p=p||'';if(!state.kho[i])return;el(p+'editKho').value=i;el(p+'maKho').value=state.kho[i][0];el(p+'maKho').readOnly=true;el(p+'maKho').disabled=false;el(p+'tenKho').value=state.kho[i][1];el(p+'ptKho').value=state.kho[i][2]||''}
+  window.editKho=function(i){current='thietlap';screenHistory.push('tongquan');render();setTimeout(function(){fillKho('set',i);var box=el('settenKho');if(box)box.focus()},0)}
+  window.editKhoSetup=function(i){fillKho('set',i);var box=el('settenKho');if(box)box.focus()}
+  window.saveKho=function(p){p=p||'';var ma=(el(p+'maKho')&&el(p+'maKho').value)||nextKhoCode();var ten=(el(p+'tenKho')&&el(p+'tenKho').value.trim())||'';var pt=(el(p+'ptKho')&&el(p+'ptKho').value.trim())||'Chưa gán';if(!ten)return alert('Nhập tên kho');var i=el(p+'editKho').value;if(i===''){if(state.kho.some(function(k){return k[0]===ma}))ma=nextKhoCode();state.kho.push([ma,ten,pt])}else{state.kho[Number(i)][1]=ten;state.kho[Number(i)][2]=pt}save();alert('Đã lưu kho');render()}
+  var oldScreenThietLap=window.screenThietLap;
+  window.screenThietLap=function(){var html=oldScreenThietLap();if(!isAdmin||!isAdmin())return html;return html.replace('<h2>Danh sách kho</h2>','<h2>Danh sách kho</h2><button class="btn small" type="button" onclick="resetKho(\'set\')">+ Thêm kho mới</button>')}
+})();
+</script></body>
 </html>
+
+
+
+
+
 
 
 
