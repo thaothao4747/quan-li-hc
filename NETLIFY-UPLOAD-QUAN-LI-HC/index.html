@@ -56,6 +56,18 @@
   input,select,.btn{min-height:38px}
 }
 </style>
+
+<style id="login-mobile-fix-20260703">
+@media(max-width:900px){
+  .login-screen{align-items:flex-start;justify-content:center;padding:calc(18px + env(safe-area-inset-top)) 12px 12px;overflow:auto}
+  .login-box{width:min(360px,100%);max-width:calc(100vw - 24px);padding:16px 14px;border-radius:12px;margin:0 auto}
+  .login-box h1{font-size:20px;line-height:1.15;margin-bottom:6px}
+  .login-box p{font-size:12.5px;line-height:1.35;margin-bottom:12px}
+  .login-box label{font-size:12px;gap:4px}
+  .login-box input,.login-box button{font-size:16px;min-height:42px;padding:9px 10px}
+  .login-box .hint{font-size:11.5px;line-height:1.35;margin-top:10px!important}
+}
+</style>
 </head>
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
@@ -104,7 +116,7 @@ function screenTongQuan(){var rows=stockRows(),total=Object.values(state.ton).re
 function screenKho(){var rows=state.kho.map(function(x,i){return '<tr>'+td('Mã',x[0])+td('Tên kho',x[1])+td('Phụ trách',x[2])+td('Trạng thái','<span class="tag">Đang dùng</span>')+td('', '<button class="btn small" onclick="editKho('+i+')">Sửa</button>')+'</tr>'}).join('');return shell('kho','Danh mục kho','Tạo mới hoặc sửa thông tin kho.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách kho</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên kho</th><th>Phụ trách</th><th>Trạng thái</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+formKho('')+'</div>')}
 function formKho(prefix){return '<div class="panel"><div class="head"><h2>Thông tin kho</h2></div><div class="body form"><input id="'+prefix+'editKho" type="hidden"><label>Mã kho<input id="'+prefix+'maKho"></label><label>Tên kho<input id="'+prefix+'tenKho"></label><label class="full">Người phụ trách<input id="'+prefix+'ptKho"></label><button class="btn primary" id="'+prefix+'luuKho">Lưu kho</button><button class="btn" id="'+prefix+'huyKho">Tạo mới</button></div></div>'}
 function screenHang(){var rows=state.hang.map(function(raw,i){var x=normalizeHang(raw);return '<tr>'+td('Mã',x[0])+td('Tên hàng',x[1])+td('Nhóm',x[2])+td('ĐVT',x[3])+td('Thuộc tính',x[4])+td('', '<button class="btn small" onclick="editHang('+i+')">Sửa</button>')+'</tr>'}).join('');return shell('hanghoa','Danh mục hàng hóa','Hàng hóa dùng nhóm hàng và đơn vị tính từ phần Thiết lập.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách hàng hóa</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Thuộc tính</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin hàng hóa</h2></div><div class="body form"><input id="editHang" type="hidden"><label>Mã hàng<input id="maHang"></label><label>Tên hàng<input id="tenHang"></label><label>Nhóm<select id="nhomHang"></select></label><label>ĐVT<select id="dvt"></select></label><label class="full">Thuộc tính linh động<input id="thuocTinh" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><button class="btn primary" id="luuHang">Lưu hàng hóa</button><button class="btn" id="huyHang">Tạo mới</button></div></div></div>')}
-function normalizeThietBi(x){if(!x)return ['','','','','','','',''];if(x.length>=8)return x;return [x[0]||'', '', x[1]||'', x[2]||'', x[3]||'', x[4]||'', x[5]||'', x[6]||'']}function itItems(){return state.hang.filter(function(h){return normalizeHang(h)[2]==='Thiết bị IT'}).map(function(h){h=normalizeHang(h);return [h[0],h[0]+' - '+h[1]]})}function screenThietBi(){var rows=(state.thietBiIT||[]).map(function(raw,i){var x=normalizeThietBi(raw);var h=item(x[2]);return '<tr>'+td('Mã ID',x[0])+td('Số seri',x[1]||'')+td('Thiết bị',h[1])+td('Nguồn nhập',x[3])+td('Ngày nhập',x[4])+td('Đang sử dụng bởi',x[5])+td('Trạng thái','<span class="tag">'+x[6]+'</span>')+td('Ghi chú',x[7]||'')+td('', '<button class="btn small" onclick="editThietBi('+i+')">Sửa</button>')+'</tr>'}).join('')||'<tr><td class="empty" colspan="9">Chưa có thiết bị IT theo mã ID.</td></tr>';return shell('thietbi','Thiết bị IT theo mã ID','Theo dõi từng máy theo mã ID, số seri, nguồn nhập, ngày nhập và người đang sử dụng.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách thiết bị</h2></div><div class="wrap"><table><thead><tr><th>Mã ID</th><th>Số seri</th><th>Thiết bị</th><th>Nguồn nhập</th><th>Ngày nhập</th><th>Đang sử dụng bởi</th><th>Trạng thái</th><th>Ghi chú</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin thiết bị</h2></div><div class="body form"><input id="editThietBi" type="hidden"><label>Mã ID tài sản<input id="maThietBi" placeholder="VD: IT-003"></label><label>Số seri<input id="seriThietBi" placeholder="Serial trên máy/tem thiết bị"></label><label>Mặt hàng IT<select id="hangThietBi"></select></label><label>Nguồn nhập<select id="nguonThietBi"></select></label><label>Ngày nhập<input id="ngayThietBi" type="date" value="'+today+'"></label><label>Người đang sử dụng<input id="nguoiDungThietBi" placeholder="Tên nhân viên/phòng ban/kho"></label><label>Trạng thái<select id="trangThaiThietBi"><option>Trong kho</option><option>Đang sử dụng</option><option>Đang sửa chữa</option><option>Thanh lý</option><option>Thất lạc</option></select></label><label class="full">Ghi chú<input id="ghiChuThietBi" placeholder="Cấu hình, tình trạng, chứng từ..."></label><button class="btn primary" id="luuThietBi">Lưu thiết bị</button><button class="btn" id="huyThietBi">Tạo mới</button></div></div></div>')}
+function normalizeThietBi(x){if(!x)return ['','','','','','','',''];if(x.length>=8)return x;return [x[0]||'', '', x[1]||'', x[2]||'', x[3]||'', x[4]||'', x[5]||'', x[6]||'']}function itItems(){return state.hang.filter(function(h){return normalizeHang(h)[2]==='Thiết bị IT'}).map(function(h){h=normalizeHang(h);return [h[0],h[0]+' - '+h[1]]})}function screenThietBi(){var rows=(state.thietBiIT||[]).map(function(raw,i){var x=normalizeThietBi(raw);var h=item(x[2]);return '<tr>'+td('Mã ID',x[0])+td('Số seri',x[1]||'')+td('Thiết bị',h[1])+td('Nguồn nhập',x[3])+td('Ngày nhập',x[4])+td('Đang sử dụng bởi',x[5])+td('Trạng thái','<span class="tag">'+x[6]+'</span>')+td('Ghi chú',x[7]||'')+td('', '<button class="btn small" onclick="editThietBi('+i+')">Sửa</button>')+'</tr>'}).join('')||'<tr><td class="empty" colspan="9">Chưa có thiết bị IT theo số seri.</td></tr>';return shell('thietbi','Thiết bị IT theo số seri','Theo dõi từng thiết bị theo số seri, nguồn nhập, ngày nhập và người đang sử dụng.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách thiết bị</h2></div><div class="wrap"><table><thead><tr><th>Mã ID</th><th>Số seri</th><th>Thiết bị</th><th>Nguồn nhập</th><th>Ngày nhập</th><th>Đang sử dụng bởi</th><th>Trạng thái</th><th>Ghi chú</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin thiết bị</h2></div><div class="body form"><input id="editThietBi" type="hidden"><label>Mã ID tài sản<input id="maThietBi" placeholder="VD: IT-003"></label><label>Số seri<input id="seriThietBi" placeholder="Serial trên máy/tem thiết bị"></label><label>Mặt hàng IT<select id="hangThietBi"></select></label><label>Nguồn nhập<select id="nguonThietBi"></select></label><label>Ngày nhập<input id="ngayThietBi" type="date" value="'+today+'"></label><label>Người đang sử dụng<input id="nguoiDungThietBi" placeholder="Tên nhân viên/phòng ban/kho"></label><label>Trạng thái<select id="trangThaiThietBi"><option>Trong kho</option><option>Đang sử dụng</option><option>Đang sửa chữa</option><option>Thanh lý</option><option>Thất lạc</option></select></label><label class="full">Ghi chú<input id="ghiChuThietBi" placeholder="Cấu hình, tình trạng, chứng từ..."></label><button class="btn primary" id="luuThietBi">Lưu thiết bị</button><button class="btn" id="huyThietBi">Tạo mới</button></div></div></div>')}
 function screenNhap(){return shell('nhap','Nhập kho','Có thể chọn hàng có sẵn hoặc tạo nhanh hàng hóa mới ngay khi nhập.','<div class="panel"><div class="head"><h2>Tạo phiếu nhập</h2><button class="btn blue" onclick="go(\'chuyen\')">Nhận điều chuyển</button></div><div class="body form"><label>Số phiếu tự động<input id="soNhap" value="'+nextSlipNo('PN')+'" readonly></label><label>Loại nhập<select id="loaiNhap"></select></label><label>Kho nhận<select id="khoNhap"></select></label><label>NCC<select id="nccNhap"></select></label><label class="full">Hàng hóa<select id="hangNhap"></select></label><button class="btn blue" id="batHangMoi" type="button">+ Tạo hàng hóa mới</button><label>Số lượng<input id="slNhap" type="number" value="1"></label><div class="full panel" id="hangMoiBox" style="display:none;box-shadow:none"><div class="head"><h2>Hàng hóa mới</h2></div><div class="body form"><label>Mã hàng mới<input id="nhapMaHangMoi" placeholder="VD: VP003"></label><label>Tên hàng mới<input id="nhapTenHangMoi" placeholder="Tên hàng hóa"></label><label>Nhóm hàng<select id="nhapNhomHangMoi"></select></label><label>Đơn vị tính<select id="nhapDvtMoi"></select></label><label class="full">Thuộc tính linh động<input id="nhapThuocTinhMoi" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><p class="hint full">Khi lưu phiếu nhập, hàng hóa mới sẽ tự thêm vào danh mục hàng hóa.</p></div></div><button class="btn primary" id="luuNhap">Lưu phiếu nhập</button></div></div>')}
 function screenXuat(){return shell('xuat','Xuất kho','Chọn hàng hóa trước, sau đó kho xuất chỉ hiện các kho còn tồn của hàng đó.','<div class="panel"><div class="head"><h2>Tạo phiếu xuất</h2></div><div class="body form"><label>Số phiếu tự động<input id="soXuat" value="'+nextSlipNo('PX')+'" readonly></label><label>Loại xuất<select id="loaiXuat"></select></label><label class="full">Hàng hóa<select id="hangXuat"></select></label><label>Kho xuất<select id="khoXuat"></select></label><label>Kho nhận nếu điều chuyển<select id="khoNhan"></select></label><label>Số lượng<input id="slXuat" type="number" value="1"></label><p class="hint full" id="goiYKhoXuat">Chọn hàng hóa để xem kho còn tồn.</p><button class="btn primary" id="luuXuat">Lưu phiếu xuất</button></div></div>')}
 function screenChuyen(){var waiting=state.chuyen.filter(function(x){return x.st==='Chờ nhận'});var rows=waiting.length?waiting.map(function(x,i){return '<tr>'+td('Số phiếu',x.so)+td('Kho xuất',nameKho(x.tu))+td('Kho nhận',nameKho(x.den))+td('Hàng',item(x.hang)[1])+td('SL',x.sl,'num')+td('Trạng thái','<span class="tag warn">'+x.st+'</span>')+td('', '<button class="btn primary small" onclick="nhan('+i+')">Xác nhận nhận</button>')+'</tr>'}).join(''):'<tr><td class="empty" colspan="7">Không có phiếu chờ nhận.</td></tr>';return shell('chuyen','Điều chuyển nội bộ','Kho nhận xác nhận, hệ thống tự sinh phiếu nhập điều chuyển.','<div class="panel"><div class="head"><h2>Phiếu chờ nhận</h2></div><div class="wrap"><table><thead><tr><th>Số phiếu</th><th>Kho xuất</th><th>Kho nhận</th><th>Hàng</th><th>SL</th><th>Trạng thái</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div>')}
@@ -121,7 +133,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-auto-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260703-it-transfer-1').catch(function(){})})}
 
 
 
@@ -210,7 +222,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260703-auto-1';
+window.APP_VERSION='20260703-it-transfer-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -231,6 +243,85 @@ window.APP_VERSION='20260703-auto-1';
     }catch(e){}
   }
   window.addEventListener('load',function(){setTimeout(checkNewVersion,1500)});
+})();
+</script>
+
+<script id="it-serial-id-patch-20260703">
+window.__itSerialIdPatch=true;
+(function(){
+  function serialOf(x){return (x[1]||x[0]||'').trim ? (x[1]||x[0]||'').trim() : (x[1]||x[0]||'')}
+  window.screenThietBi=function(){
+    var rows=(state.thietBiIT||[]).map(function(raw,i){
+      var x=normalizeThietBi(raw), h=item(x[2]), serial=serialOf(x);
+      return '<tr>'+td('Số seri',serial)+td('Thiết bị',h[1])+td('Nguồn nhập',x[3])+td('Ngày nhập',x[4])+td('Đang sử dụng bởi',x[5])+td('Trạng thái','<span class="tag">'+x[6]+'</span>')+td('Ghi chú',x[7]||'')+td('', '<button class="btn small" onclick="editThietBi('+i+')">Sửa</button>')+'</tr>'
+    }).join('')||'<tr><td class="empty" colspan="8">Chưa có thiết bị IT theo mã seri.</td></tr>';
+    return shell('thietbi','Thiết bị IT theo số seri','Theo dõi từng thiết bị bằng số seri: nguồn nhập, ngày nhập, người đang sử dụng và trạng thái.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách thiết bị</h2></div><div class="wrap"><table><thead><tr><th>Số seri</th><th>Thiết bị</th><th>Nguồn nhập</th><th>Ngày nhập</th><th>Đang sử dụng bởi</th><th>Trạng thái</th><th>Ghi chú</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin thiết bị</h2></div><div class="body form"><input id="editThietBi" type="hidden"><label class="full">Số seri thiết bị<input id="maThietBi" placeholder="Nhập số seri trên máy/tem thiết bị"></label><input id="seriThietBi" type="hidden"><label>Mặt hàng IT<select id="hangThietBi"></select></label><label>Nguồn nhập<select id="nguonThietBi"></select></label><label>Ngày nhập<input id="ngayThietBi" type="date" value="'+today+'"></label><label>Người đang sử dụng<input id="nguoiDungThietBi" placeholder="Tên nhân viên/phòng ban/kho"></label><label>Trạng thái<select id="trangThaiThietBi"><option>Trong kho</option><option>Đang sử dụng</option><option>Đang sửa chữa</option><option>Thanh lý</option><option>Thất lạc</option></select></label><label class="full">Ghi chú<input id="ghiChuThietBi" placeholder="Cấu hình, tình trạng, chứng từ..."></label><button class="btn primary" id="luuThietBi">Lưu thiết bị</button><button class="btn" id="huyThietBi">Tạo mới</button></div></div></div>')
+  };
+  window.editThietBi=function(i){
+    var x=normalizeThietBi(state.thietBiIT[i]), serial=serialOf(x);
+    el('editThietBi').value=i;
+    el('maThietBi').value=serial;
+    el('maThietBi').disabled=false;
+    if(el('seriThietBi'))el('seriThietBi').value=serial;
+    el('hangThietBi').value=x[2];el('nguonThietBi').value=x[3];el('ngayThietBi').value=x[4];el('nguoiDungThietBi').value=x[5];el('trangThaiThietBi').value=x[6];el('ghiChuThietBi').value=x[7]||''
+  };
+  window.resetThietBi=function(){
+    ['editThietBi','maThietBi','seriThietBi','nguoiDungThietBi','ghiChuThietBi'].forEach(function(id){if(el(id))el(id).value=''});
+    if(el('maThietBi'))el('maThietBi').disabled=false;if(el('ngayThietBi'))el('ngayThietBi').value=today;if(el('trangThaiThietBi'))el('trangThaiThietBi').value='Trong kho'
+  };
+  window.saveThietBi=function(){
+    if(!state.thietBiIT)state.thietBiIT=[];
+    var serial=el('maThietBi').value.trim();
+    if(!serial)return alert('Nhập số seri thiết bị');
+    var row=[serial,serial,el('hangThietBi').value,el('nguonThietBi').value,el('ngayThietBi').value,el('nguoiDungThietBi').value||'Trong kho',el('trangThaiThietBi').value,el('ghiChuThietBi').value];
+    var i=el('editThietBi').value;
+    var exists=state.thietBiIT.some(function(raw,idx){var x=normalizeThietBi(raw);return String(x[0]||'')===serial||String(x[1]||'')===serial ? idx!==Number(i) : false});
+    if(exists)return alert('Số seri này đã tồn tại');
+    if(i==='')state.thietBiIT.push(row);else state.thietBiIT[Number(i)]=row;
+    save();render();
+  };
+  if(typeof window.render==='function'&&window.isLoggedIn)setTimeout(render,0);
+})();
+</script>
+
+<script id="it-transfer-quick-patch-20260703">
+window.__itTransferQuickPatch=true;
+(function(){
+  function serialOfQuick(x){return String(x[1]||x[0]||'')}
+  window.chuyenNguoiDungThietBi=function(i){
+    if(!state.thietBiIT||!state.thietBiIT[i])return;
+    var x=normalizeThietBi(state.thietBiIT[i]);
+    var serial=serialOfQuick(x);
+    var old=x[5]||'Trong kho';
+    var nguoi=prompt('Chuyển thiết bị '+serial+' cho ai sử dụng?', old==='Trong kho'?'':old);
+    if(nguoi===null)return;
+    nguoi=nguoi.trim();
+    if(!nguoi)return alert('Nhập tên người/phòng ban nhận thiết bị');
+    x[0]=serial;x[1]=serial;x[5]=nguoi;x[6]='Đang sử dụng';
+    var note='Chuyển từ '+old+' sang '+nguoi+' ngày '+today;
+    x[7]=x[7] ? x[7]+' | '+note : note;
+    state.thietBiIT[i]=x;
+    save();render();
+  };
+  window.traVeKhoThietBi=function(i){
+    if(!state.thietBiIT||!state.thietBiIT[i])return;
+    var x=normalizeThietBi(state.thietBiIT[i]);
+    var old=x[5]||'Trong kho';
+    if(!confirm('Chuyển thiết bị '+serialOfQuick(x)+' về kho?'))return;
+    x[0]=serialOfQuick(x);x[1]=serialOfQuick(x);x[5]='Kho IT';x[6]='Trong kho';
+    var note='Thu hồi từ '+old+' về kho ngày '+today;
+    x[7]=x[7] ? x[7]+' | '+note : note;
+    state.thietBiIT[i]=x;
+    save();render();
+  };
+  window.screenThietBi=function(){
+    var rows=(state.thietBiIT||[]).map(function(raw,i){
+      var x=normalizeThietBi(raw), h=item(x[2]), serial=serialOfQuick(x);
+      var actions='<div class="row-actions"><button class="btn small" onclick="chuyenNguoiDungThietBi('+i+')">Chuyển người dùng</button><button class="btn small" onclick="traVeKhoThietBi('+i+')">Về kho</button><button class="btn small" onclick="editThietBi('+i+')">Sửa</button></div>';
+      return '<tr>'+td('Số seri',serial)+td('Thiết bị',h[1])+td('Nguồn nhập',x[3])+td('Ngày nhập',x[4])+td('Đang sử dụng bởi',x[5])+td('Trạng thái','<span class="tag">'+x[6]+'</span>')+td('Ghi chú',x[7]||'')+td('Thao tác', actions)+'</tr>'
+    }).join('')||'<tr><td class="empty" colspan="8">Chưa có thiết bị IT theo số seri.</td></tr>';
+    return shell('thietbi','Thiết bị IT theo số seri','Theo dõi và chuyển nhanh thiết bị giữa người dùng/phòng ban.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách thiết bị</h2></div><div class="wrap"><table><thead><tr><th>Số seri</th><th>Thiết bị</th><th>Nguồn nhập</th><th>Ngày nhập</th><th>Đang sử dụng bởi</th><th>Trạng thái</th><th>Ghi chú</th><th>Thao tác</th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin thiết bị</h2></div><div class="body form"><input id="editThietBi" type="hidden"><label class="full">Số seri thiết bị<input id="maThietBi" placeholder="Nhập số seri trên máy/tem thiết bị"></label><input id="seriThietBi" type="hidden"><label>Mặt hàng IT<select id="hangThietBi"></select></label><label>Nguồn nhập<select id="nguonThietBi"></select></label><label>Ngày nhập<input id="ngayThietBi" type="date" value="'+today+'"></label><label>Người đang sử dụng<input id="nguoiDungThietBi" placeholder="Tên nhân viên/phòng ban/kho"></label><label>Trạng thái<select id="trangThaiThietBi"><option>Trong kho</option><option>Đang sử dụng</option><option>Đang sửa chữa</option><option>Thanh lý</option><option>Thất lạc</option></select></label><label class="full">Ghi chú<input id="ghiChuThietBi" placeholder="Cấu hình, tình trạng, chứng từ..."></label><button class="btn primary" id="luuThietBi">Lưu thiết bị</button><button class="btn" id="huyThietBi">Tạo mới</button></div></div></div>')
+  };
 })();
 </script>
 </body>
