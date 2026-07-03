@@ -1,0 +1,24 @@
+{
+  "name": "QUẢN LÍ HC",
+  "short_name": "QL HC",
+  "description": "Quản lý hành chính, kho, hàng hóa, nhập xuất và tồn kho.",
+  "start_url": "./?v=20260703-auto-1",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7f4",
+  "theme_color": "#28765a",
+  "icons": [
+    {
+      "src": "./app-icon-coffee.png?v=20260703-auto-1",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./app-icon-coffee.png?v=20260703-auto-1",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
