@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-latest-all-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-highlight-ton-search-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-latest-all-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-highlight-ton-search-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-latest-all-1';
+window.APP_VERSION='20260704-highlight-ton-search-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1070,8 +1070,58 @@ window.__settingsCollapsePatch=true;
   var oldSaveXuat=window.saveXuat;
   window.saveXuat=function(){var before=state.bd.length;oldSaveXuat.apply(this,arguments);if(state.bd.length>before){markOwner(state.bd[state.bd.length-1]);save()}};
 })();
+</script><script id="highlight-ton-search-20260704">
+(function(){
+  if(window.__highlightTonSearchPatch)return;
+  window.__highlightTonSearchPatch=true;
+  if(!document.getElementById('highlight-ton-search-style-20260704')){
+    var st=document.createElement('style');
+    st.id='highlight-ton-search-style-20260704';
+    st.textContent='#ton .search-panel{border-color:#8bcab4!important;background:linear-gradient(135deg,#e2f7ee,#f7fffb)!important}#ton .search-panel .head{background:linear-gradient(90deg,#d8f2e7,#f7fffb)!important}#ton .ton-search-field{position:relative}#ton #timTon{background:#f4fffa!important;border:2px solid #0f8d68!important;box-shadow:0 0 0 3px rgba(15,141,104,.10)!important;font-weight:800;color:#0b2f24!important}#ton #timTon:focus{background:#fff!important;border-color:#087b59!important;box-shadow:0 0 0 4px rgba(15,141,104,.18)!important}.ton-suggest-list{display:none;grid-column:1/-1;margin-top:-4px;border:1px solid #b7dece;border-radius:8px;background:#fff;box-shadow:0 10px 22px rgba(13,45,33,.12);max-height:250px;overflow:auto}.ton-suggest-list.show{display:block}.ton-suggest-row{width:100%;border:0;border-bottom:1px solid #d6e8df;background:#fff;text-align:left;padding:9px 12px;cursor:pointer;color:#12362b}.ton-suggest-row:hover,.ton-suggest-row:active{background:#e5f6ee}.ton-suggest-title{font-weight:900;display:block}.ton-suggest-meta{display:block;margin-top:3px;color:#14785a;font-size:12.5px;font-weight:700}.ton-suggest-empty{padding:10px 12px;color:#66776d;font-size:13px}@media(max-width:900px){#ton #timTon{font-size:16px!important;min-height:44px!important}.ton-suggest-list{max-height:220px}.ton-suggest-row{padding:11px 12px}.ton-suggest-title{font-size:15px}.ton-suggest-meta{font-size:12.5px}}';
+    document.head.appendChild(st);
+  }
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function totalByCode(code){return stockRows().filter(function(r){return r[1]===code}).reduce(function(a,r){return a+Number(r[3]||0)},0)}
+  function warehousesByCode(code){return stockRows().filter(function(r){return r[1]===code&&Number(r[3]||0)>0}).map(function(r){return nameKho(r[0])+': '+fmt(r[3])+' '+(r[2][3]||'')}).join(' | ')}
+  function suggestionItems(q){
+    q=String(q||'').trim().toLowerCase();
+    var items=(state.hang||[]).map(normalizeHang).filter(function(h){return !q||String(h[0]||'').toLowerCase().indexOf(q)>=0||String(h[1]||'').toLowerCase().indexOf(q)>=0||String(h[2]||'').toLowerCase().indexOf(q)>=0});
+    return items.slice(0,10);
+  }
+  function renderTonSuggest(){
+    var input=el('timTon'),box=el('tonSuggestList');if(!input||!box)return;
+    var rows=suggestionItems(input.value);
+    if(!rows.length){box.innerHTML='<div class="ton-suggest-empty">Không tìm thấy gợi ý phù hợp</div>';box.classList.add('show');return}
+    box.innerHTML=rows.map(function(h){var total=totalByCode(h[0]);var wh=warehousesByCode(h[0])||'Chưa có tồn';return '<button class="ton-suggest-row" type="button" data-value="'+esc(h[1])+'"><span class="ton-suggest-title">'+esc(h[1])+'</span><span class="ton-suggest-meta">Tổng '+fmt(total)+' '+esc(h[3]||'')+' - '+esc(wh)+'</span></button>'}).join('');
+    box.classList.add('show');
+  }
+  function hideTonSuggest(){if(el('tonSuggestList'))el('tonSuggestList').classList.remove('show')}
+  var oldScreenTon=window.screenTon;
+  window.screenTon=function(){
+    var html=oldScreenTon.apply(this,arguments);
+    html=html.replace('<div class="panel"><div class="head"><h2>Tìm kiếm tồn kho</h2>', '<div class="panel search-panel"><div class="head"><h2>Tìm kiếm tồn kho</h2>');
+    html=html.replace('<label class="full">Search tất cả<input id="timTon" list="goiYTon" placeholder="Nhập mã hàng, tên hàng, kho, nhóm hàng..."><datalist id="goiYTon">', '<label class="full ton-search-field">Search tất cả<input id="timTon" list="goiYTon" autocomplete="off" placeholder="Gõ tên hàng, mã hàng hoặc kho..."><datalist id="goiYTon">');
+    html=html.replace('</datalist></label>', '</datalist></label><div id="tonSuggestList" class="ton-suggest-list"></div>');
+    return html;
+  };
+  var oldBindSearchTon=window.bindSearchTon;
+  window.bindSearchTon=function(){
+    oldBindSearchTon.apply(this,arguments);
+    var input=el('timTon'),clear=el('xoaTimTon');if(!input)return;
+    var prevInput=input.oninput;
+    input.onfocus=function(){renderTonSuggest()};
+    input.oninput=function(e){if(prevInput)prevInput.call(this,e);renderTonSuggest()};
+    if(clear){var prevClear=clear.onclick;clear.onclick=function(e){if(prevClear)prevClear.call(this,e);hideTonSuggest()}}
+  };
+  document.addEventListener('click',function(e){
+    var row=e.target&&e.target.closest&&e.target.closest('.ton-suggest-row');
+    if(row){var input=el('timTon');if(input){input.value=row.getAttribute('data-value')||'';input.dispatchEvent(new Event('input',{bubbles:true}))}hideTonSuggest();return}
+    if(!e.target.closest('#ton .ton-search-field')&&!e.target.closest('#tonSuggestList'))hideTonSuggest();
+  });
+})();
 </script></body>
 </html>
+
 
 
 
