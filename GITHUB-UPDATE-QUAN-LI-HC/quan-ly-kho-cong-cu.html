@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-nhap-buttons-web-fix-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-ncc-edit-sync-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-nhap-buttons-web-fix-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-ncc-edit-sync-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-nhap-buttons-web-fix-1';
+window.APP_VERSION='20260704-ncc-edit-sync-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1786,7 +1786,7 @@ window.__settingsCollapsePatch=true;
     });
     state.ton=keepTon;
     state.__inventoryResetStart=true;
-    state.__inventoryResetVersion='20260704-nhap-buttons-web-fix-1';
+    state.__inventoryResetVersion='20260704-ncc-edit-sync-1';
     state.bd=[];
     state.chuyen=[];
     save();
@@ -1928,8 +1928,95 @@ window.__settingsCollapsePatch=true;
   st.textContent='#nhap .body.form>#batHangMoi,#nhap .body.form>#luuNhap{grid-column:1/-1!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;inline-size:100%!important;height:40px!important;min-height:40px!important;max-height:40px!important;block-size:40px!important;min-block-size:40px!important;max-block-size:40px!important;padding:0 14px!important;margin:0!important;border-radius:6px!important;line-height:40px!important;box-sizing:border-box!important;font-size:13px!important;font-weight:700!important;appearance:none!important;-webkit-appearance:none!important;overflow:hidden!important}#nhap .body.form>#batHangMoi{background:#356f9f!important;border-color:#356f9f!important;color:#fff!important}#nhap .body.form>#luuNhap{background:#0f8d68!important;border-color:#0f8d68!important;color:#fff!important}@media(max-width:900px){#nhap .body.form>#batHangMoi,#nhap .body.form>#luuNhap{height:44px!important;min-height:44px!important;max-height:44px!important;block-size:44px!important;min-block-size:44px!important;max-block-size:44px!important;line-height:44px!important;border-radius:8px!important}}';
   document.head.appendChild(st);
 })();
+</script><script id="protect-local-data-20260704">
+(function(){
+  if(window.__protectLocalData20260704)return;window.__protectLocalData20260704=true;
+  function nowIso(){return new Date().toISOString()}
+  function stamp(s){if(s)s.__updatedAt=nowIso();return s}
+  function timeOf(s){var t=s&&s.__updatedAt?Date.parse(s.__updatedAt):0;return isNaN(t)?0:t}
+  function localState(){try{return JSON.parse(localStorage.getItem('qlkho-state')||'{}')}catch(e){return {}}}
+  var baseSave=window.save;
+  if(typeof baseSave==='function'){
+    window.save=function(){stamp(state);baseSave.apply(this,arguments)};
+  }
+  if(!state.__updatedAt){stamp(state);if(baseSave)baseSave()}
+  var baseTai=window.taiDuLieuOnline;
+  if(typeof baseTai==='function'){
+    window.taiDuLieuOnline=async function(){
+      try{
+        var rows=await cloudRequest('GET');
+        if(rows&&rows[0]&&rows[0].data){
+          var remote=migrateState(rows[0].data);
+          var local=localState();
+          if(timeOf(local)>timeOf(remote)){
+            state=migrateState(local);
+            if(window.save)save();
+            if(typeof render==='function')render();
+            try{await cloudRequest('POST',{id:SUPABASE_CONFIG.stateId,data:state,updated_at:new Date().toISOString()})}catch(e){}
+            return;
+          }
+          state=remote;
+          if(window.save)save();
+          if(typeof render==='function')render();
+        }
+      }catch(e){console.warn(e)}
+    };
+  }
+  var baseDay=window.dayDuLieuOnline;
+  if(typeof baseDay==='function'){
+    window.dayDuLieuOnline=async function(){stamp(state);if(window.save)save();return baseDay.apply(this,arguments)};
+  }
+})();
+</script><script id="ncc-edit-sync-20260704">
+(function(){
+  if(window.__nccEditSync20260704)return;window.__nccEditSync20260704=true;
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
+  function ensureDeleted(){if(!Array.isArray(state.__deletedNcc))state.__deletedNcc=[];return state.__deletedNcc}
+  function uniqueNames(list){var seen={};return (list||[]).filter(function(v){var k=norm(v);if(!k||seen[k])return false;seen[k]=true;return true})}
+  function markOldNcc(oldName){var k=norm(oldName);if(!k)return;var del=ensureDeleted();if(del.indexOf(k)<0)del.push(k)}
+  function unmarkNcc(name){var k=norm(name);if(!k)return;var del=ensureDeleted();for(var i=del.length-1;i>=0;i--){if(del[i]===k)del.splice(i,1)}}
+  function filterDeletedNcc(s){s=s||state;var del=(s.__deletedNcc||[]).map(norm);s.nccList=uniqueNames(s.nccList).filter(function(v){return del.indexOf(norm(v))<0});return s}
+  async function syncSilent(){try{if(window.cloudRequest&&window.SUPABASE_CONFIG){await cloudRequest('POST',{id:SUPABASE_CONFIG.stateId,data:state,updated_at:new Date().toISOString()})}}catch(e){console.warn(e)}}
+  var oldMigrate=window.migrateState;
+  if(typeof oldMigrate==='function')window.migrateState=function(s){return filterDeletedNcc(oldMigrate(s))};
+  filterDeletedNcc(state);save();
+  window.saveNcc=function(){
+    var input=el('tenNcc');if(!input)return;
+    var v=input.value.trim();if(!v)return alert('Nhập tên NCC');
+    var i=el('editNcc')?el('editNcc').value:'';
+    state.nccList=uniqueNames(state.nccList);
+    if(i===''){
+      unmarkNcc(v);
+      if(!state.nccList.some(function(x){return norm(x)===norm(v)}))state.nccList.push(v);
+    }else{
+      var idx=Number(i),old=state.nccList[idx];
+      if(old&&norm(old)!==norm(v)){
+        markOldNcc(old);
+        state.bd.forEach(function(b){if(norm(b[7])===norm(old))b[7]=v});
+      }
+      unmarkNcc(v);
+      state.nccList[idx]=v;
+    }
+    filterDeletedNcc(state);
+    if(el('editNcc'))el('editNcc').value='';
+    input.value='';
+    save();render();syncSilent();
+  };
+  window.deleteNcc=function(i){
+    state.nccList=uniqueNames(state.nccList);
+    var v=state.nccList[i];if(!v)return;
+    var msg='Xóa NCC "'+v+'" khỏi danh sách chọn?';
+    if((state.bd||[]).some(function(b){return norm(b[7])===norm(v)}))msg+='\n\nNCC này đã có trong phiếu cũ, phiếu cũ vẫn giữ tên để không mất lịch sử.';
+    if(!confirm(msg))return;
+    markOldNcc(v);
+    state.nccList.splice(i,1);
+    filterDeletedNcc(state);save();render();syncSilent();
+  };
+})();
 </script></body>
 </html>
+
+
 
 
 
