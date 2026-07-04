@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-direct-photo-serial-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-mobile-nav-modern-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-direct-photo-serial-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-mobile-nav-modern-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-direct-photo-serial-1';
+window.APP_VERSION='20260704-mobile-nav-modern-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1572,8 +1572,90 @@ window.__settingsCollapsePatch=true;
   if(typeof oldRender==='function'&&!oldRender.__directPhotoSerialWrapped){window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(addDirectButtons,80);return out};window.render.__directPhotoSerialWrapped=true}
   setTimeout(addDirectButtons,300);
 })();
+</script><script id="native-photo-input-20260704">
+(function(){
+  if(window.__nativePhotoInputPatch)return;window.__nativePhotoInputPatch=true;
+  function byId(id){return document.getElementById(id)}
+  function addStyle(){
+    if(byId('native-photo-input-style-20260704'))return;
+    var st=document.createElement('style');st.id='native-photo-input-style-20260704';
+    st.textContent='.direct-serial-actions{grid-template-columns:1fr!important}.native-photo-box{grid-column:1/-1;display:grid;gap:6px;background:#fff8dd;border:1px solid #efc44f;border-radius:8px;padding:10px}.native-photo-title{font-weight:800;color:#6c5100}.native-photo-input{display:block!important;position:static!important;opacity:1!important;width:100%!important;height:auto!important;min-height:42px!important;border:1px dashed #c99b25!important;background:#fff!important;color:#10251d!important;border-radius:7px!important;padding:8px!important}.native-photo-help{font-size:12px;color:#6d6040;line-height:1.35}.direct-photo-label{display:none!important}#photoScanSerial,#directScanBtn{display:none!important}@media(max-width:900px){.native-photo-input{font-size:16px!important;min-height:46px!important}.native-photo-box{padding:11px}}';
+    document.head.appendChild(st);
+  }
+  function fillSerial(value){
+    value=String(value||'').trim();if(!value)return;
+    var main=byId('maThietBi'),hidden=byId('seriThietBi');
+    if(main){main.value=value;main.dispatchEvent(new Event('input',{bubbles:true}))}
+    if(hidden)hidden.value=value;
+    alert('Đã lấy số seri: '+value);
+  }
+  function loadZxing(){
+    return new Promise(function(resolve,reject){
+      if(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader)return resolve(window.ZXingBrowser);
+      var old=document.querySelector('script[data-zxing-browser]');
+      if(old){old.addEventListener('load',function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không tải được bộ đọc mã'))});old.addEventListener('error',reject);return}
+      var sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/umd/index.min.js';sc.async=true;sc.setAttribute('data-zxing-browser','1');
+      sc.onload=function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không tải được bộ đọc mã'))};
+      sc.onerror=function(){reject(new Error('Không tải được bộ đọc mã'))};
+      document.head.appendChild(sc);
+      setTimeout(function(){if(!(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader))reject(new Error('Mạng chậm, chưa tải được bộ đọc mã'))},9000);
+    })
+  }
+  function decodeNative(file){
+    if(!('BarcodeDetector' in window)||!window.createImageBitmap)return Promise.reject(new Error('Không hỗ trợ đọc ảnh trực tiếp'));
+    return createImageBitmap(file).then(function(bitmap){
+      var detector=new BarcodeDetector({formats:['qr_code','code_128','code_39','ean_13','ean_8','upc_a','upc_e','itf','codabar']});
+      return detector.detect(bitmap).then(function(codes){try{bitmap.close&&bitmap.close()}catch(e){};if(codes&&codes[0]&&codes[0].rawValue)return codes[0].rawValue;throw new Error('Không thấy mã trong ảnh')})
+    })
+  }
+  function decodeZxing(file){
+    var url=URL.createObjectURL(file);
+    return loadZxing().then(function(ZXingBrowser){
+      var reader=new ZXingBrowser.BrowserMultiFormatReader();
+      return reader.decodeFromImageUrl(url).then(function(result){URL.revokeObjectURL(url);return result.getText?result.getText():String(result.text||result)})
+    }).catch(function(err){URL.revokeObjectURL(url);throw err})
+  }
+  function onNativePhoto(e){
+    var file=e.target.files&&e.target.files[0];e.target.value='';
+    var note=byId('nativePhotoNote');
+    if(!file)return;
+    if(note)note.textContent='Đang đọc mã từ ảnh...';
+    decodeNative(file).then(fillSerial).catch(function(){return decodeZxing(file).then(fillSerial)}).catch(function(){
+      if(note)note.textContent='Ảnh chưa đọc được mã. Bạn chụp gần hơn, đủ sáng hơn, hoặc nhập tay số seri.';
+      var manual=prompt('Ảnh chưa đọc được mã. Bạn nhập tay số seri tại đây:');
+      if(manual)fillSerial(manual);
+    })
+  }
+  function installNativeInput(){
+    addStyle();
+    var input=byId('maThietBi');if(!input)return;
+    var actions=byId('directSerialActions');
+    if(!actions){
+      var label=input.closest('label');if(!label)return;
+      label.insertAdjacentHTML('afterend','<div class="direct-serial-actions" id="directSerialActions"></div>');
+      actions=byId('directSerialActions');
+    }
+    if(!byId('nativePhotoSerialInput')){
+      actions.insertAdjacentHTML('afterbegin','<div class="native-photo-box"><div class="native-photo-title">Chụp/chọn ảnh mã seri</div><input class="native-photo-input" id="nativePhotoSerialInput" type="file" accept="image/*" capture="environment"><div class="native-photo-help" id="nativePhotoNote">Bấm vào ô này để chụp ảnh tem mã vạch/QR. Nếu máy không cho chụp, bạn vẫn nhập tay ở ô Số seri bên trên.</div></div>');
+    }
+    var photo=byId('nativePhotoSerialInput');if(photo&&!photo.__nativePhotoReady){photo.__nativePhotoReady=true;photo.onchange=onNativePhoto}
+  }
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__nativePhotoInputWrapped){window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(installNativeInput,100);return out};window.render.__nativePhotoInputWrapped=true}
+  setTimeout(installNativeInput,300);
+})();
+</script><script id="mobile-nav-modern-20260704">
+(function(){
+  if(window.__mobileNavModernPatch)return;window.__mobileNavModernPatch=true;
+  if(document.getElementById('mobile-nav-modern-style-20260704'))return;
+  var st=document.createElement('style');st.id='mobile-nav-modern-style-20260704';
+  st.textContent='@media(max-width:900px){.mobile-bar{display:flex!important;overflow-x:auto!important;overflow-y:hidden!important;gap:8px!important;padding:10px 10px calc(10px + env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#11b98a 0%,#07845f 100%)!important;border-top:1px solid rgba(255,255,255,.22)!important;box-shadow:0 -14px 30px rgba(4,84,60,.28),inset 0 1px 0 rgba(255,255,255,.20)!important;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.mobile-bar::-webkit-scrollbar{display:none}.mobile-bar button{flex:0 0 92px!important;width:92px!important;min-height:58px!important;border-radius:15px!important;border:1px solid rgba(255,255,255,.22)!important;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08))!important;color:#f7fffb!important;font-size:13px!important;font-weight:800!important;line-height:1.1!important;text-shadow:0 1px 1px rgba(0,0,0,.16)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 16px rgba(4,70,51,.20)!important;scroll-snap-align:start;transition:transform .12s ease,box-shadow .12s ease,background .12s ease!important}.mobile-bar button:active{transform:translateY(2px) scale(.98)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 10px rgba(4,70,51,.18)!important}.mobile-bar button.active{background:linear-gradient(180deg,#ffffff,#eefbf5)!important;color:#087253!important;border-color:#fff!important;text-shadow:none!important;transform:translateY(-4px)!important;box-shadow:0 14px 26px rgba(3,68,49,.30),inset 0 1px 0 rgba(255,255,255,.85)!important}.mobile-bar button.active:after{content:"";display:block;width:24px;height:3px;border-radius:999px;background:#0f8d68;margin:5px auto 0}.mobile-bar button:nth-child(1)::before{content:"TQ"}.mobile-bar button:nth-child(2)::before{content:"TK"}.mobile-bar button:nth-child(3)::before{content:"+"}.mobile-bar button:nth-child(4)::before{content:"−"}.mobile-bar button:nth-child(5)::before{content:"IT"}.mobile-bar button:nth-child(6)::before{content:"↔"}.mobile-bar button:nth-child(7)::before{content:"BC"}.mobile-bar button:nth-child(8)::before{content:"⚙"}.mobile-bar button::before{display:block;margin:0 auto 4px;width:26px;height:22px;border-radius:9px;background:rgba(255,255,255,.18);font-size:11px;line-height:22px;color:inherit;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}.mobile-bar button.active::before{background:#dff6eb;color:#087253}}';
+  document.head.appendChild(st);
+})();
 </script></body>
 </html>
+
+
 
 
 
