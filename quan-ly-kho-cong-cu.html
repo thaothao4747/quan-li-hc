@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-delete-slip-type-clean-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-nhap-buttons-web-fix-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-delete-slip-type-clean-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-nhap-buttons-web-fix-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-delete-slip-type-clean-1';
+window.APP_VERSION='20260704-nhap-buttons-web-fix-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1786,7 +1786,7 @@ window.__settingsCollapsePatch=true;
     });
     state.ton=keepTon;
     state.__inventoryResetStart=true;
-    state.__inventoryResetVersion='20260704-delete-slip-type-clean-1';
+    state.__inventoryResetVersion='20260704-nhap-buttons-web-fix-1';
     state.bd=[];
     state.chuyen=[];
     save();
@@ -1920,8 +1920,17 @@ window.__settingsCollapsePatch=true;
     filterDeleted(state);save();
   };
 })();
+</script><script id="nhap-buttons-web-fix-20260704">
+(function(){
+  if(document.getElementById('nhap-buttons-web-fix-style-20260704'))return;
+  var st=document.createElement('style');
+  st.id='nhap-buttons-web-fix-style-20260704';
+  st.textContent='#nhap .body.form>#batHangMoi,#nhap .body.form>#luuNhap{grid-column:1/-1!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;inline-size:100%!important;height:40px!important;min-height:40px!important;max-height:40px!important;block-size:40px!important;min-block-size:40px!important;max-block-size:40px!important;padding:0 14px!important;margin:0!important;border-radius:6px!important;line-height:40px!important;box-sizing:border-box!important;font-size:13px!important;font-weight:700!important;appearance:none!important;-webkit-appearance:none!important;overflow:hidden!important}#nhap .body.form>#batHangMoi{background:#356f9f!important;border-color:#356f9f!important;color:#fff!important}#nhap .body.form>#luuNhap{background:#0f8d68!important;border-color:#0f8d68!important;color:#fff!important}@media(max-width:900px){#nhap .body.form>#batHangMoi,#nhap .body.form>#luuNhap{height:44px!important;min-height:44px!important;max-height:44px!important;block-size:44px!important;min-block-size:44px!important;max-block-size:44px!important;line-height:44px!important;border-radius:8px!important}}';
+  document.head.appendChild(st);
+})();
 </script></body>
 </html>
+
 
 
 
