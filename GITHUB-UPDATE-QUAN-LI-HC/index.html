@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-highlight-ton-search-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-hide-ton-total-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -289,7 +289,7 @@ function normalizeThietBi(x){if(!x)return ['','','','','','','',''];if(x.length>
 function screenNhap(){return shell('nhap','Nhập kho','Có thể chọn hàng có sẵn hoặc tạo nhanh hàng hóa mới ngay khi nhập.','<div class="panel"><div class="head"><h2>Tạo phiếu nhập</h2><button class="btn blue" onclick="go(\'chuyen\')">Nhận điều chuyển</button></div><div class="body form"><label>Số phiếu tự động<input id="soNhap" value="'+nextSlipNo('PN')+'" readonly></label><label>Loại nhập<select id="loaiNhap"></select></label><label>Kho nhận<select id="khoNhap"></select></label><label>NCC<select id="nccNhap"></select></label><label class="full">Hàng hóa<select id="hangNhap"></select></label><button class="btn blue" id="batHangMoi" type="button">+ Tạo hàng hóa mới</button><label>Số lượng<input id="slNhap" type="number" value="1"></label><div class="full panel" id="hangMoiBox" style="display:none;box-shadow:none"><div class="head"><h2>Hàng hóa mới</h2></div><div class="body form"><label>Mã hàng tự động<input id="nhapMaHangMoi" readonly></label><label>Tên hàng mới<input id="nhapTenHangMoi" placeholder="Tên hàng hóa"></label><label>Nhóm hàng<select id="nhapNhomHangMoi"></select></label><label>Đơn vị tính<select id="nhapDvtMoi"></select></label><label class="full">Thuộc tính linh động<input id="nhapThuocTinhMoi" placeholder="Màu: xanh; Size: L; Serial: bắt buộc"></label><p class="hint full">Khi lưu phiếu nhập, hàng hóa mới sẽ tự thêm vào danh mục hàng hóa.</p></div></div><button class="btn primary" id="luuNhap">Lưu phiếu nhập</button></div></div>')}
 function screenXuat(){return shell('xuat','Xuất kho','Chọn hàng hóa trước, sau đó kho xuất chỉ hiện các kho còn tồn của hàng đó.','<div class="panel"><div class="head"><h2>Tạo phiếu xuất</h2></div><div class="body form"><label>Số phiếu tự động<input id="soXuat" value="'+nextSlipNo('PX')+'" readonly></label><label>Loại xuất<select id="loaiXuat"></select></label><label class="full">Hàng hóa<select id="hangXuat"></select></label><label>Kho xuất<select id="khoXuat"></select></label><label>Kho nhận nếu điều chuyển<select id="khoNhan"></select></label><label>Số lượng<input id="slXuat" type="number" value="1"></label><p class="hint full" id="goiYKhoXuat">Chọn hàng hóa để xem kho còn tồn.</p><button class="btn primary" id="luuXuat">Lưu phiếu xuất</button></div></div>')}
 function screenChuyen(){var waiting=state.chuyen.filter(function(x){return x.st==='Chờ nhận'});var rows=waiting.length?waiting.map(function(x,i){return '<tr>'+td('Số phiếu',x.so)+td('Kho xuất',nameKho(x.tu))+td('Kho nhận',nameKho(x.den))+td('Hàng',item(x.hang)[1])+td('SL',x.sl,'num')+td('Trạng thái','<span class="tag warn">'+x.st+'</span>')+td('', '<button class="btn primary small" onclick="nhan('+i+')">Xác nhận nhận</button>')+'</tr>'}).join(''):'<tr><td class="empty" colspan="7">Không có phiếu chờ nhận.</td></tr>';return shell('chuyen','Điều chuyển nội bộ','Kho nhận xác nhận, hệ thống tự sinh phiếu nhập điều chuyển.','<div class="panel"><div class="head"><h2>Phiếu chờ nhận</h2></div><div class="wrap"><table><thead><tr><th>Số phiếu</th><th>Kho xuất</th><th>Kho nhận</th><th>Hàng</th><th>SL</th><th>Trạng thái</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div>')}
-function stockSearchSuggestions(){var seen={};var out=[];stockRows().forEach(function(r){[nameKho(r[0]),r[1],r[2][1],r[2][2],r[2][3]].forEach(function(v){if(v&&!seen[v]){seen[v]=true;out.push(v)}})});return out}function screenTon(){var rows=stockRows().map(function(r){var text=[nameKho(r[0]),r[1],r[2][1],r[2][2],r[2][3],String(r[3])].join(' ').toLowerCase();return '<tr data-search="'+text.replace(/"/g,'')+'">'+td('Kho',nameKho(r[0]))+td('Mã hàng',r[1])+td('Tên hàng',r[2][1])+td('Nhóm',r[2][2])+td('ĐVT',r[2][3])+td('Tồn',fmt(r[3]),'num')+td('Trạng thái','<span class="tag">Đang theo dõi</span>')+'</tr>'}).join('');var opts=stockSearchSuggestions().map(function(x){return '<option value="'+x+'"></option>'}).join('');return shell('ton','Tồn kho','Tìm nhanh theo kho, mã hàng, tên hàng, nhóm hàng hoặc đơn vị tính.','<div class="panel"><div class="head"><h2>Tìm kiếm tồn kho</h2><button class="btn" id="xoaTimTon" type="button">Xóa tìm</button></div><div class="body form"><label class="full">Search tất cả<input id="timTon" list="goiYTon" placeholder="Nhập mã hàng, tên hàng, kho, nhóm hàng..."><datalist id="goiYTon">'+opts+'</datalist></label></div></div><div class="panel"><div class="head"><h2>Bảng tồn kho</h2><span class="tag" id="soDongTon"></span></div><div class="wrap"><table><thead><tr><th>Kho</th><th>Mã hàng</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Tồn</th><th>Trạng thái</th></tr></thead><tbody id="tonRowsBody">'+rows+'</tbody></table></div></div>')}
+function stockSearchSuggestions(){var seen={};var out=[];stockRows().forEach(function(r){[nameKho(r[0]),r[1],r[2][1],r[2][2],r[2][3]].forEach(function(v){if(v&&!seen[v]){seen[v]=true;out.push(v)}})});return out}function screenTon(){var rows=stockRows().map(function(r){var text=[nameKho(r[0]),r[1],r[2][1],r[2][2],r[2][3],String(r[3])].join(' ').toLowerCase();return '<tr data-search="'+text.replace(/"/g,'')+'">'+td('Kho',nameKho(r[0]))+td('Mã hàng',r[1])+td('Tên hàng',r[2][1])+td('Nhóm',r[2][2])+td('ĐVT',r[2][3])+td('Tồn',fmt(r[3]),'num')+td('Trạng thái','<span class="tag">Đang theo dõi</span>')+'</tr>'}).join('');var opts=stockSearchSuggestions().map(function(x){return '<option value="'+x+'"></option>'}).join('');return shell('ton','Tồn kho','Tìm nhanh theo kho, mã hàng, tên hàng, nhóm hàng hoặc đơn vị tính.','<div class="panel ton-search-panel-strong"><div class="head"><h2>Tìm kiếm tồn kho</h2><button class="btn" id="xoaTimTon" type="button">Xóa tìm</button></div><div class="body form"><label class="full ton-search-field">Search tất cả<input id="timTon" list="goiYTon" autocomplete="off" placeholder="Gõ tên hàng, mã hàng hoặc kho..."><datalist id="goiYTon">'+opts+'</datalist></label></div></div><div class="panel"><div class="head"><h2>Bảng tồn kho</h2><span class="tag" id="soDongTon"></span></div><div class="wrap"><table><thead><tr><th>Kho</th><th>Mã hàng</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Tồn</th><th>Trạng thái</th></tr></thead><tbody id="tonRowsBody">'+rows+'</tbody></table></div></div>')}
 function screenBaoCao(){return shell('baocao','Báo cáo','Báo cáo chi tiết XNK, tồn từng kho, tổng quan các kho và tồn theo hàng hóa.','<div class="tabs"><button class="btn tab active" onclick="showReport(\'xnk\',this)">Chi tiết XNK</button><button class="btn tab" onclick="showReport(\'tk\',this)">Tồn từng kho</button><button class="btn tab" onclick="showReport(\'tq\',this)">Tổng quan</button><button class="btn tab" onclick="showReport(\'hh\',this)">Tồn theo hàng</button><button class="btn tab" onclick="showReport(\'ncc\',this)">Tổng hợp NCC</button><button class="btn tab" onclick="showReport(\'it\',this)">Thiết bị IT</button></div><div class="panel"><div class="head"><h2 id="rpTitle">Chi tiết XNK</h2></div><div class="wrap" id="rp"></div></div>')}
 function screenThietLap(){var nh=state.nhomHangList.map(function(x,i){return '<tr>'+td('Nhóm hàng',x)+td('', '<button class="btn small" onclick="editNhom('+i+')">Sửa</button>')+'</tr>'}).join('');var dv=state.dvtList.map(function(x,i){return '<tr>'+td('ĐVT',x)+td('', '<button class="btn small" onclick="editDvt('+i+')">Sửa</button>')+'</tr>'}).join('');var ncc=state.nccList.map(function(x,i){return '<tr>'+td('NCC',x)+td('', '<button class="btn small" onclick="editNcc('+i+')">Sửa</button>')+'</tr>'}).join('');var lo=[];state.loaiNhapList.forEach(function(x,i){lo.push(['nhap',i,'Loại nhập',x])});state.loaiXuatList.forEach(function(x,i){lo.push(['xuat',i,'Loại xuất',x])});var lorows=lo.map(function(r){return '<tr>'+td('Nhóm',r[2])+td('Tên loại',r[3])+td('', '<button class="btn small" onclick="editLoai(\''+r[0]+'\','+r[1]+')">Sửa</button>')+'</tr>'}).join('');return shell('thietlap','Thiết lập danh mục','Tạo và thay đổi kho, nhóm hàng, đơn vị tính, nhà cung cấp, loại phiếu. Danh mục hàng hóa chỉnh ở mục Hàng hóa.','<div class="two">'+formKho('set')+'<div class="panel"><div class="head"><h2>Danh sách kho</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên kho</th><th>Phụ trách</th><th></th></tr></thead><tbody>'+state.kho.map(function(x,i){return '<tr>'+td('Mã',x[0])+td('Tên kho',x[1])+td('Phụ trách',x[2])+td('', '<button class="btn small" onclick="editKhoSetup('+i+')">Sửa</button>')+'</tr>'}).join('')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Nhóm hàng</h2></div><div class="body form"><input id="editNhom" type="hidden"><label class="full">Tên nhóm<input id="tenNhom"></label><button class="btn primary" id="luuNhom">Lưu nhóm</button><button class="btn" id="huyNhom">Tạo mới</button></div><div class="wrap"><table><tbody>'+nh+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Đơn vị tính</h2></div><div class="body form"><input id="editDvt" type="hidden"><label class="full">Tên đơn vị<input id="tenDvt"></label><button class="btn primary" id="luuDvt">Lưu ĐVT</button><button class="btn" id="huyDvt">Tạo mới</button></div><div class="wrap"><table><tbody>'+dv+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Nhà cung cấp</h2></div><div class="body form"><input id="editNcc" type="hidden"><label class="full">Tên NCC<input id="tenNcc"></label><button class="btn primary" id="luuNcc">Lưu NCC</button><button class="btn" id="huyNcc">Tạo mới</button></div><div class="wrap"><table><tbody>'+ncc+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Loại phiếu</h2></div><div class="body form"><input id="editLoai" type="hidden"><label>Nhóm<select id="loaiNghiepVu"><option value="nhap">Loại nhập</option><option value="xuat">Loại xuất</option></select></label><label>Tên loại<input id="tenLoai"></label><button class="btn primary" id="luuLoai">Lưu loại</button><button class="btn" id="huyLoai">Tạo mới</button></div><div class="wrap"><table><tbody>'+lorows+'</tbody></table></div></div></div>')}
 function khoCoTonTheoHang(maHang){return state.kho.filter(function(k){return (state.ton[k[0]+'|'+maHang]||0)>0}).map(function(k){return [k[0],k[1]+' - tồn '+fmt(state.ton[k[0]+'|'+maHang]||0)]})}function capNhatKhoXuatTheoHang(){if(!el('hangXuat')||!el('khoXuat'))return;var ma=el('hangXuat').value;var ds=khoCoTonTheoHang(ma);if(ds.length){fill(el('khoXuat'),ds);if(el('goiYKhoXuat'))el('goiYKhoXuat').textContent='Chỉ hiển thị kho còn tồn của hàng đã chọn.'}else{el('khoXuat').innerHTML='';if(el('goiYKhoXuat'))el('goiYKhoXuat').textContent='Hàng này hiện chưa có tồn ở kho nào.'}}function bindForms(){['khoNhap','khoNhan'].forEach(function(id){if(el(id))fill(el(id),state.kho)});['hangNhap','hangXuat'].forEach(function(id){if(el(id))fill(el(id),state.hang.map(function(x){var h=normalizeHang(x);return [h[0],h[0]+' - '+h[1]]}))});if(el('hangXuat')){el('hangXuat').onchange=capNhatKhoXuatTheoHang;capNhatKhoXuatTheoHang();}if(el('nhomHang'))fillText(el('nhomHang'),state.nhomHangList);if(el('nhapNhomHangMoi'))fillText(el('nhapNhomHangMoi'),state.nhomHangList);if(el('dvt'))fillText(el('dvt'),state.dvtList);if(el('nhapDvtMoi'))fillText(el('nhapDvtMoi'),state.dvtList);if(el('loaiNhap'))fillText(el('loaiNhap'),state.loaiNhapList);if(el('nccNhap'))fillText(el('nccNhap'),state.nccList);if(el('loaiXuat'))fillText(el('loaiXuat'),state.loaiXuatList);bindKho('');bindKho('set');if(el('hangThietBi'))fill(el('hangThietBi'),itItems().length?itItems():state.hang.map(function(x){return [x[0],x[0]+' - '+x[1]]}));if(el('nguonThietBi'))fillText(el('nguonThietBi'),state.loaiNhapList.concat(['Điều chuyển nội bộ','Khác']));if(el('luuThietBi'))el('luuThietBi').onclick=saveThietBi;if(el('huyThietBi'))el('huyThietBi').onclick=resetThietBi;if(el('luuHang'))el('luuHang').onclick=saveHang;if(el('huyHang'))el('huyHang').onclick=resetHang;if(el('batHangMoi'))el('batHangMoi').onclick=function(){var box=el('hangMoiBox');var show=box.style.display==='none';box.style.display=show?'block':'none';el('hangNhap').disabled=show;el('batHangMoi').textContent=show?'Chọn hàng có sẵn':'+ Tạo hàng hóa mới'};if(el('luuNhap'))el('luuNhap').onclick=saveNhap;if(el('luuXuat'))el('luuXuat').onclick=saveXuat;if(el('luuNhom'))el('luuNhom').onclick=saveNhom;if(el('huyNhom'))el('huyNhom').onclick=resetNhom;if(el('luuDvt'))el('luuDvt').onclick=saveDvt;if(el('huyDvt'))el('huyDvt').onclick=resetDvt;if(el('dayOnline'))el('dayOnline').onclick=dayDuLieuOnline;if(el('taiOnline'))el('taiOnline').onclick=taiDuLieuOnline;if(el('xoaDuLieuCu'))el('xoaDuLieuCu').onclick=xoaDuLieuCu;if(el('capNhatDuLieu'))el('capNhatDuLieu').onclick=capNhatDuLieuMau;if(el('luuBaoMat'))el('luuBaoMat').onclick=saveBaoMat;if(el('luuNcc'))el('luuNcc').onclick=saveNcc;if(el('huyNcc'))el('huyNcc').onclick=resetNcc;if(el('luuLoai'))el('luuLoai').onclick=saveLoai;if(el('huyLoai'))el('huyLoai').onclick=resetLoai;if(current==='ton')bindSearchTon();if(current==='baocao')showReport('xnk')}
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-highlight-ton-search-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-hide-ton-total-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-highlight-ton-search-1';
+window.APP_VERSION='20260704-hide-ton-total-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1119,8 +1119,116 @@ window.__settingsCollapsePatch=true;
     if(!e.target.closest('#ton .ton-search-field')&&!e.target.closest('#tonSuggestList'))hideTonSuggest();
   });
 })();
+</script><script id="ton-search-strong-20260704">
+(function(){
+  if(window.__tonSearchStrongPatch)return;window.__tonSearchStrongPatch=true;
+  function byId(id){return document.getElementById(id)}
+  function clean(v){return String(v||'').replace(/[&<>\"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]})}
+  function itemRows(){try{return stockRows()}catch(e){return []}}
+  function itemList(){try{return (state.hang||[]).map(normalizeHang)}catch(e){return []}}
+  function itemTotal(code){return itemRows().filter(function(r){return r[1]===code}).reduce(function(s,r){return s+Number(r[3]||0)},0)}
+  function itemPlaces(code){return itemRows().filter(function(r){return r[1]===code&&Number(r[3]||0)>0}).map(function(r){return nameKho(r[0])+': '+fmt(r[3])+' '+(r[2][3]||'')}).join(' | ')}
+  function itemSuggestions(q){
+    q=String(q||'').trim().toLowerCase();
+    var list=itemList().filter(function(h){var hay=[h[0],h[1],h[2],h[3]].join(' ').toLowerCase();return !q||hay.indexOf(q)>=0});
+    return list.slice(0,10);
+  }
+  function hideSuggest(){var box=byId('tonSuggestList');if(box)box.classList.remove('show')}
+  function showSuggest(){
+    var input=byId('timTon'),box=byId('tonSuggestList');if(!input||!box)return;
+    var rows=itemSuggestions(input.value);
+    if(!rows.length){box.innerHTML='<div class="ton-suggest-empty">Không tìm thấy hàng hóa phù hợp</div>';box.classList.add('show');return}
+    box.innerHTML=rows.map(function(h){
+      var total=itemTotal(h[0]);var places=itemPlaces(h[0])||'Chưa có tồn trong kho';
+      return '<button class="ton-suggest-row" type="button" data-value="'+clean(h[1])+'"><span class="ton-suggest-title">'+clean(h[1])+'</span><span class="ton-suggest-meta">Tổng: '+fmt(total)+' '+clean(h[3])+' - '+clean(places)+'</span></button>';
+    }).join('');
+    box.classList.add('show');
+  }
+  function enhanceTonSearch(){
+    var screen=byId('ton'),input=byId('timTon');if(!screen||!input)return;
+    var panel=input.closest('.panel');if(panel)panel.classList.add('ton-search-panel-strong');
+    var label=input.closest('label');if(label)label.classList.add('ton-search-field');
+    input.placeholder='Gõ tên hàng, mã hàng hoặc kho...';
+    input.setAttribute('autocomplete','off');input.removeAttribute('list');
+    if(label&&!byId('tonSuggestList'))label.insertAdjacentHTML('afterend','<div id="tonSuggestList" class="ton-suggest-list"></div>');
+    if(!input.dataset.tonStrongReady){
+      input.dataset.tonStrongReady='1';
+      input.addEventListener('focus',showSuggest);
+      input.addEventListener('input',showSuggest);
+    }
+    var clear=byId('xoaTimTon');
+    if(clear&&!clear.dataset.tonStrongReady){clear.dataset.tonStrongReady='1';clear.addEventListener('click',function(){setTimeout(function(){hideSuggest()},30)})}
+  }
+  function addStyle(){
+    if(byId('ton-search-strong-style-20260704'))return;
+    var st=document.createElement('style');st.id='ton-search-strong-style-20260704';
+    st.textContent='#ton .ton-search-panel-strong{border:1px solid #73bea5!important;background:linear-gradient(135deg,#dff6eb,#ffffff)!important;box-shadow:0 8px 18px rgba(8,92,67,.10)!important}#ton .ton-search-panel-strong .head{background:linear-gradient(90deg,#c8eedc,#f7fffb)!important}#ton .ton-search-panel-strong h2{color:#062f23!important}#ton .ton-search-field{position:relative!important;font-weight:900!important;color:#065a43!important}#ton #timTon{background:linear-gradient(90deg,#dff7ec,#ffffff)!important;border:2px solid #07845f!important;box-shadow:0 0 0 4px rgba(7,132,95,.14)!important;color:#082f24!important;font-weight:900!important;min-height:46px!important;font-size:15px!important}#ton #timTon:focus{background:#fff!important;border-color:#006d4d!important;box-shadow:0 0 0 5px rgba(7,132,95,.22)!important}.ton-suggest-list{display:none;grid-column:1/-1;margin-top:-2px;border:1px solid #8bcab4;border-radius:8px;background:#fff;box-shadow:0 12px 24px rgba(13,45,33,.16);max-height:260px;overflow:auto}.ton-suggest-list.show{display:block}.ton-suggest-row{width:100%;border:0;border-bottom:1px solid #d7eadf;background:#fff;text-align:left;padding:10px 12px;cursor:pointer;color:#12362b}.ton-suggest-row:hover,.ton-suggest-row:active{background:#e0f4eb}.ton-suggest-title{display:block;font-weight:900;color:#073d2f}.ton-suggest-meta{display:block;margin-top:4px;color:#07845f;font-size:12.5px;font-weight:800}.ton-suggest-empty{padding:10px 12px;color:#66776d;font-weight:700}@media(max-width:900px){#ton #timTon{font-size:16px!important;min-height:48px!important}.ton-suggest-row{padding:12px}.ton-suggest-title{font-size:15px}.ton-suggest-meta{font-size:12.5px;line-height:1.35}}';
+    document.head.appendChild(st);
+  }
+  document.addEventListener('click',function(e){
+    var row=e.target.closest('.ton-suggest-row');
+    if(row){var input=byId('timTon');if(input){input.value=row.getAttribute('data-value')||'';if(typeof input.oninput==='function')input.oninput();input.dispatchEvent(new Event('input',{bubbles:true}))}hideSuggest();return}
+    if(!e.target.closest('#ton .ton-search-field')&&!e.target.closest('#tonSuggestList'))hideSuggest();
+  });
+  addStyle();
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__tonSearchStrongWrapped){
+    window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(enhanceTonSearch,0);return out};
+    window.render.__tonSearchStrongWrapped=true;
+  }
+  setTimeout(enhanceTonSearch,100);
+})();
+</script><script id="ton-search-pop-20260704">
+(function(){
+  if(window.__tonSearchPopPatch)return;window.__tonSearchPopPatch=true;
+  function el(id){return document.getElementById(id)}
+  function addPopStyle(){
+    if(el('ton-search-pop-style-20260704'))return;
+    var st=document.createElement('style');st.id='ton-search-pop-style-20260704';
+    st.textContent='#ton .ton-search-panel-strong{background:linear-gradient(135deg,#0b7f5d,#12a879)!important;border:0!important;box-shadow:0 12px 28px rgba(5,80,58,.24)!important;overflow:visible!important}#ton .ton-search-panel-strong .head{background:rgba(255,255,255,.13)!important;border-bottom:1px solid rgba(255,255,255,.22)!important}#ton .ton-search-panel-strong h2{color:#fff!important;text-shadow:0 1px 0 rgba(0,0,0,.18)!important}#ton .ton-search-panel-strong .btn{background:#fff!important;color:#086b50!important;border-color:rgba(255,255,255,.75)!important;font-weight:900!important}#ton .ton-search-panel-strong .body{background:transparent!important}#ton .ton-search-field{color:#fff!important;font-size:15px!important;font-weight:900!important;letter-spacing:0!important}#ton #timTon{margin-top:8px!important;background:linear-gradient(90deg,#fff8c9,#eafff3)!important;border:3px solid #ffcf4a!important;box-shadow:0 0 0 4px rgba(255,207,74,.28),0 8px 18px rgba(0,0,0,.12)!important;color:#052f24!important;font-size:16px!important;font-weight:900!important;min-height:52px!important;border-radius:10px!important}#ton #timTon::placeholder{color:#527064!important;font-weight:800!important}#ton #timTon:focus{background:#fffdf0!important;border-color:#ffd84d!important;box-shadow:0 0 0 5px rgba(255,216,77,.45),0 10px 24px rgba(0,0,0,.16)!important}.ton-suggest-list{border:2px solid #ffcf4a!important;box-shadow:0 14px 30px rgba(5,80,58,.24)!important}@media(max-width:900px){#ton .ton-search-panel-strong{margin:8px 0 10px!important;border-radius:10px!important}#ton #timTon{min-height:54px!important;font-size:16px!important}}';
+    document.head.appendChild(st);
+  }
+  function enhance(){var input=el('timTon');if(!input)return;var panel=input.closest('.panel');if(panel)panel.classList.add('ton-search-panel-strong');var label=input.closest('label');if(label)label.classList.add('ton-search-field');input.placeholder='Gõ tên hàng để xem tổng tồn và kho đang có hàng...'}
+  addPopStyle();
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__tonSearchPopWrapped){window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(enhance,0);return out};window.render.__tonSearchPopWrapped=true}
+  setTimeout(enhance,100);
+})();
+</script><script id="ton-font-fix-20260704">
+(function(){
+  if(window.__tonFontFixPatch)return;window.__tonFontFixPatch=true;
+  function addStyle(){
+    if(document.getElementById('ton-font-fix-style-20260704'))return;
+    var st=document.createElement('style');st.id='ton-font-fix-style-20260704';
+    st.textContent='#ton .ton-search-panel-strong,#ton .ton-search-panel-strong *{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;letter-spacing:0!important;text-rendering:geometricPrecision!important;-webkit-font-smoothing:antialiased!important}#ton .ton-search-panel-strong h2{font-weight:800!important;line-height:1.25!important}#ton .ton-search-field{font-weight:700!important;line-height:1.35!important}#ton #timTon{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-weight:700!important;line-height:1.35!important;text-shadow:none!important}#ton #timTon::placeholder{font-weight:600!important}.ton-suggest-title{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-weight:700!important;line-height:1.35!important}.ton-suggest-meta{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-weight:700!important;line-height:1.4!important}.ton-total-summary,.ton-total-summary *{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;letter-spacing:0!important}.ton-total-summary h3{font-weight:800!important;line-height:1.3!important}.ton-total-summary p{font-weight:500!important;line-height:1.45!important}@media(max-width:900px){#ton #timTon{font-size:16px!important}.ton-suggest-title{font-size:14.5px!important}.ton-suggest-meta{font-size:12.5px!important}}';
+    document.head.appendChild(st);
+  }
+  addStyle();
+})();
+</script><script id="hide-ton-total-20260704">
+(function(){
+  if(window.__hideTonTotalPatch)return;window.__hideTonTotalPatch=true;
+  function addStyle(){
+    if(document.getElementById('hide-ton-total-style-20260704'))return;
+    var st=document.createElement('style');st.id='hide-ton-total-style-20260704';
+    st.textContent='#tonTotalSummary{display:none!important}.ton-total-summary{display:none!important}';
+    document.head.appendChild(st);
+  }
+  function hideBox(){var box=document.getElementById('tonTotalSummary');if(box)box.style.display='none'}
+  addStyle();hideBox();
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__hideTonTotalWrapped){
+    window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(hideBox,0);return out};
+    window.render.__hideTonTotalWrapped=true;
+  }
+})();
 </script></body>
 </html>
+
+
+
+
+
 
 
 
