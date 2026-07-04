@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-nhap-buttons-even-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-delete-slip-type-clean-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-nhap-buttons-even-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-delete-slip-type-clean-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-nhap-buttons-even-1';
+window.APP_VERSION='20260704-delete-slip-type-clean-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1786,7 +1786,7 @@ window.__settingsCollapsePatch=true;
     });
     state.ton=keepTon;
     state.__inventoryResetStart=true;
-    state.__inventoryResetVersion='20260704-nhap-buttons-even-1';
+    state.__inventoryResetVersion='20260704-delete-slip-type-clean-1';
     state.bd=[];
     state.chuyen=[];
     save();
@@ -1876,8 +1876,53 @@ window.__settingsCollapsePatch=true;
   st.textContent='#nhap #batHangMoi,#nhap #luuNhap{grid-column:1/-1!important;width:100%!important;min-height:42px!important;height:42px!important;border-radius:6px!important;padding:0 12px!important;display:flex!important;align-items:center!important;justify-content:center!important;font-weight:700!important;line-height:1.2!important;margin:0!important}#nhap #batHangMoi{background:#2f6f9f!important;border-color:#2f6f9f!important;color:#fff!important}#nhap #batHangMoi:hover{background:#2a628d!important;border-color:#2a628d!important;color:#fff!important}#nhap #luuNhap{background:#0f8d68!important;border-color:#0f8d68!important;color:#fff!important}#nhap #luuNhap:hover{background:#0b7656!important;border-color:#0b7656!important;color:#fff!important}@media(max-width:900px){#nhap #batHangMoi,#nhap #luuNhap{min-height:44px!important;height:44px!important;border-radius:8px!important;font-size:13px!important}}';
   document.head.appendChild(st);
 })();
+</script><script id="delete-slip-type-clean-20260704">
+(function(){
+  if(window.__deleteSlipTypeClean20260704)return;window.__deleteSlipTypeClean20260704=true;
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
+  function uniq(list){var seen={};return (list||[]).filter(function(v){var k=norm(v);if(!k||seen[k])return false;seen[k]=true;return true})}
+  function deletedList(s,t){var key=t==='nhap'?'__deletedLoaiNhap':'__deletedLoaiXuat';if(!Array.isArray(s[key]))s[key]=[];return s[key]}
+  function filterDeleted(s){
+    s=s||state;
+    var delNhap=(s.__deletedLoaiNhap||[]).map(norm);
+    var delXuat=(s.__deletedLoaiXuat||[]).map(norm);
+    s.loaiNhapList=uniq(s.loaiNhapList).filter(function(v){return delNhap.indexOf(norm(v))<0});
+    s.loaiXuatList=uniq(s.loaiXuatList).filter(function(v){return delXuat.indexOf(norm(v))<0});
+    return s;
+  }
+  var oldMigrate=window.migrateState;
+  if(typeof oldMigrate==='function'){
+    window.migrateState=function(s){return filterDeleted(oldMigrate(s))};
+  }
+  filterDeleted(state);save();
+  window.deleteLoai=function(t,i){
+    var list=t==='nhap'?state.loaiNhapList:state.loaiXuatList;
+    list=uniq(list);
+    if(t==='nhap')state.loaiNhapList=list;else state.loaiXuatList=list;
+    var v=list[i];if(!v)return;
+    var msg='Xóa loại phiếu "'+v+'" khỏi danh sách chọn?';
+    if((state.bd||[]).some(function(b){return norm(b[4])===norm(v)}))msg+='\n\nLoại này đã dùng trong phiếu cũ, báo cáo cũ vẫn giữ tên loại để không mất lịch sử.';
+    if(!confirm(msg))return;
+    deletedList(state,t).push(norm(v));
+    if(t==='nhap')state.loaiNhapList=state.loaiNhapList.filter(function(x){return norm(x)!==norm(v)});
+    else state.loaiXuatList=state.loaiXuatList.filter(function(x){return norm(x)!==norm(v)});
+    filterDeleted(state);save();render();
+  };
+  var oldSaveLoai=window.saveLoai;
+  window.saveLoai=function(){
+    var t=el('loaiNghiepVu')?el('loaiNghiepVu').value:'nhap';
+    var v=el('tenLoai')?el('tenLoai').value.trim():'';
+    if(v){
+      var del=deletedList(state,t);var k=norm(v);
+      for(var i=del.length-1;i>=0;i--){if(del[i]===k)del.splice(i,1)}
+    }
+    if(oldSaveLoai)oldSaveLoai.apply(this,arguments);
+    filterDeleted(state);save();
+  };
+})();
 </script></body>
 </html>
+
 
 
 
