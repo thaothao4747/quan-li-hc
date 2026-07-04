@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-report-group-detail-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-report-compact-layout-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-report-group-detail-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-report-compact-layout-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-report-group-detail-1';
+window.APP_VERSION='20260704-report-compact-layout-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -2043,7 +2043,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-search-edit-sync-20260704">
 (function(){
   if(window.__reportSearchEditSync20260704)return;window.__reportSearchEditSync20260704=true;
-  var VERSION='20260704-report-group-detail-1';
+  var VERSION='20260704-report-compact-layout-1';
   window.APP_VERSION=VERSION;
   function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function optPairsFresh(arr,selected){return (arr||[]).map(function(x){var v=Array.isArray(x)?x[0]:x;var t=Array.isArray(x)?(x[1]||x[0]):x;return '<option value="'+safe(v)+'" '+(String(v)===String(selected)?'selected':'')+'>'+safe(t)+'</option>'}).join('')}
@@ -2111,7 +2111,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-group-detail-20260704">
 (function(){
   if(window.__reportGroupDetail20260704)return;window.__reportGroupDetail20260704=true;
-  var VERSION='20260704-report-group-detail-1';
+  var VERSION='20260704-report-compact-layout-1';
   window.APP_VERSION=VERSION;
   window.__openReportGroupName='';
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -2166,8 +2166,86 @@ window.__settingsCollapsePatch=true;
     if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0);
   };
 })();
+</script><script id="report-compact-layout-20260704">
+(function(){
+  if(window.__reportCompactLayout20260704)return;window.__reportCompactLayout20260704=true;
+  var VERSION='20260704-report-compact-layout-1';
+  window.APP_VERSION=VERSION;
+  window.__selectedReportKho='';
+  window.__openReportGroupName=window.__openReportGroupName||'';
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function enc(v){return encodeURIComponent(String(v==null?'':v))}
+  function khoQty(kho,hang){return Number((state.ton||{})[kho+'|'+hang]||0)}
+  function totalItem(code){return (state.kho||[]).reduce(function(s,k){return s+khoQty(k[0],code)},0)}
+  function stockRowsByKho(maKho){return stockRows().filter(function(r){return r[0]===maKho&&Number(r[3]||0)>0}).sort(function(a,b){return String(a[2][1]).localeCompare(String(b[2][1]),'vi')})}
+  function khoChips(code){
+    var chips=(state.kho||[]).map(function(k){var q=khoQty(k[0],code);return q>0?'<span class="stock-chip"><b>'+esc(k[1]||k[0])+'</b> '+fmt(q)+'</span>':''}).filter(Boolean);
+    return chips.length?chips.join(''):'<span class="muted">Chưa có tồn</span>';
+  }
+  function warehouseCards(){
+    var rows=(state.kho||[]).map(function(k){var total=Object.keys(state.ton||{}).filter(function(key){return key.indexOf(k[0]+'|')===0}).reduce(function(s,key){return s+Number(state.ton[key]||0)},0);return {id:k[0],name:k[1]||k[0],total:total}});
+    if(!window.__selectedReportKho&&rows.length)window.__selectedReportKho=rows[0].id;
+    return '<div class="report-card-grid warehouse-grid">'+rows.map(function(r){var active=r.id===window.__selectedReportKho?' active':'';return '<button class="report-card kho-card'+active+'" onclick="openCompactKho(\''+enc(r.id)+'\')"><span>'+esc(r.name)+'</span><strong>'+fmt(r.total)+'</strong><small>Tổng tồn</small></button>'}).join('')+'</div>';
+  }
+  function warehouseDetail(maKho){
+    var rows=stockRowsByKho(maKho),name=nameKho(maKho);
+    if(!rows.length)return '<div class="compact-detail"><div class="head"><h2>'+esc(name)+'</h2><span class="tag">0 mặt hàng</span></div><div class="empty">Kho này chưa có hàng tồn.</div></div>';
+    return '<div class="compact-detail"><div class="head"><h2>'+esc(name)+'</h2><span class="tag">'+fmt(rows.length)+' mặt hàng</span></div><div class="report-item-grid">'+rows.map(function(r){return '<div class="report-item-card"><div><h3>'+esc(r[2][1])+'</h3><p>'+esc(r[2][2]||'Chưa phân nhóm')+' · '+esc(r[2][3]||'')+'</p></div><strong>'+fmt(r[3])+'</strong></div>'}).join('')+'</div></div>';
+  }
+  window.openCompactKho=function(id){window.__selectedReportKho=decodeURIComponent(id);showReport('tk');if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0)};
+  function reportTk(){return '<p class="hint compact-hint">Bấm vào từng kho để xem nhanh các mặt hàng đang tồn.</p>'+warehouseCards()+'<div id="rpDetail">'+warehouseDetail(window.__selectedReportKho||((state.kho[0]||[])[0]))+'</div>'}
+  function reportHh(){
+    var rows=(state.hang||[]).map(function(raw){var h=normalizeHang(raw);return {h:h,total:totalItem(h[0])}}).sort(function(a,b){return b.total-a.total||String(a.h[1]).localeCompare(String(b.h[1]),'vi')});
+    return '<div class="report-item-grid">'+rows.map(function(r){return '<div class="report-item-card"><div><h3>'+esc(r.h[1]||r.h[0])+'</h3><p>'+esc(r.h[2]||'Chưa phân nhóm')+' · '+esc(r.h[3]||'')+'</p><div class="stock-chip-row">'+khoChips(r.h[0])+'</div></div><strong>'+fmt(r.total)+'</strong></div>'}).join('')+'</div>';
+  }
+  function reportTq(){
+    var totalTon=Object.values(state.ton||{}).reduce(function(a,b){return a+Number(b||0)},0);
+    return '<div class="report-card-grid"><div class="report-card"><span>Tổng kho</span><strong>'+fmt((state.kho||[]).length)+'</strong></div><div class="report-card"><span>Mặt hàng</span><strong>'+fmt((state.hang||[]).length)+'</strong></div><div class="report-card"><span>Tổng tồn</span><strong>'+fmt(totalTon)+'</strong></div><div class="report-card"><span>Phiếu XNK</span><strong>'+fmt((state.bd||[]).length)+'</strong></div></div>';
+  }
+  function reportNcc(){
+    var m={};(state.bd||[]).forEach(function(x){if(Number(x[5]||0)>0){var key=x[7]||'Chưa chọn NCC';if(!m[key])m[key]={qty:0,slip:0};m[key].qty+=Number(x[5]||0);m[key].slip+=1}});
+    var rows=Object.keys(m).sort(function(a,b){return a.localeCompare(b,'vi')});
+    return '<table class="compact-table"><thead><tr><th>NCC</th><th>Số phiếu</th><th>Tổng nhập</th></tr></thead><tbody>'+rows.map(function(k){return '<tr>'+td('NCC',esc(k))+td('Số phiếu',fmt(m[k].slip),'num')+td('Tổng nhập',fmt(m[k].qty),'num')+'</tr>'}).join('')+'</tbody></table>';
+  }
+  function reportIt(){
+    var m={};(state.thietBiIT||[]).forEach(function(x){x=normalizeThietBi(x);var key=x[5]||'Chưa gán';if(!m[key])m[key]={total:0,using:0,stock:0};m[key].total+=1;if(x[6]==='Đang sử dụng')m[key].using+=1;if(x[6]==='Trong kho')m[key].stock+=1});
+    var rows=Object.keys(m).sort(function(a,b){return a.localeCompare(b,'vi')});
+    return '<table class="compact-table"><thead><tr><th>Người/phòng ban</th><th>Tổng</th><th>Đang dùng</th><th>Trong kho</th></tr></thead><tbody>'+rows.map(function(k){return '<tr>'+td('Người/phòng ban',esc(k))+td('Tổng',fmt(m[k].total),'num')+td('Đang dùng',fmt(m[k].using),'num')+td('Trong kho',fmt(m[k].stock),'num')+'</tr>'}).join('')+'</tbody></table>';
+  }
+  function groupData(){
+    var map={};
+    (state.hang||[]).forEach(function(raw){var h=normalizeHang(raw),g=h[2]||'Chưa phân nhóm';if(!map[g])map[g]={items:[],ton:0,nhap:0,xuat:0};map[g].items.push(h)});
+    (state.bd||[]).forEach(function(x){var g=(item(x[3])[2]||'Chưa phân nhóm');if(!map[g])map[g]={items:[],ton:0,nhap:0,xuat:0};map[g].nhap+=Number(x[5]||0);map[g].xuat+=Number(x[6]||0)});
+    Object.keys(map).forEach(function(g){map[g].ton=map[g].items.reduce(function(s,h){return s+totalItem(h[0])},0)});
+    return Object.keys(map).sort(function(a,b){return a.localeCompare(b,'vi')}).map(function(name){var g=map[name];return {name:name,count:g.items.length,ton:g.ton,nhap:g.nhap,xuat:g.xuat,items:g.items}});
+  }
+  window.openCompactGroup=function(name){window.__openReportGroupName=decodeURIComponent(name);showReport('nhomhang');if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0)};
+  function reportGroup(){
+    var rows=groupData();if(!rows.length)return '<div class="empty">Chưa có dữ liệu nhóm hàng.</div>';
+    var open=window.__openReportGroupName||rows[0].name,group=rows.find(function(r){return r.name===open})||rows[0];window.__openReportGroupName=group.name;
+    var tabs='<div class="report-card-grid group-grid">'+rows.map(function(r){var active=r.name===group.name?' active':'';return '<button class="report-card group-card'+active+'" onclick="openCompactGroup(\''+enc(r.name)+'\')"><span>'+esc(r.name)+'</span><strong>'+fmt(r.ton)+'</strong><small>'+fmt(r.count)+' mặt hàng</small></button>'}).join('')+'</div>';
+    var items=group.items.slice().sort(function(a,b){return String(a[1]).localeCompare(String(b[1]),'vi')});
+    var detail='<div class="compact-detail"><div class="head"><h2>'+esc(group.name)+'</h2><span class="tag">'+fmt(items.length)+' mặt hàng</span></div><div class="report-item-grid">'+items.map(function(h){return '<div class="report-item-card"><div><h3>'+esc(h[1]||h[0])+'</h3><p>ĐVT: '+esc(h[3]||'')+'</p><div class="stock-chip-row">'+khoChips(h[0])+'</div></div><strong>'+fmt(totalItem(h[0]))+'</strong></div>'}).join('')+'</div></div>';
+    return tabs+detail;
+  }
+  var css=document.createElement('style');
+  css.textContent='.report-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:8px 0 12px}.report-card{border:1px solid #b8d8cb;background:#f8fffb;border-radius:8px;padding:10px 12px;text-align:left;box-shadow:0 6px 16px rgba(8,71,49,.06);color:var(--ink)}button.report-card{cursor:pointer}.report-card span{display:block;font-size:12px;font-weight:700;color:#356557}.report-card strong{display:block;font-size:22px;line-height:1.15;color:#006b50;margin-top:3px}.report-card small{color:#60746d;font-weight:700}.report-card.active{background:#d9f8ea;border-color:#00946e;box-shadow:inset 0 0 0 1px #00946e,0 8px 18px rgba(0,148,110,.12)}.warehouse-grid,.group-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.compact-detail{background:#fff;border:1px solid var(--line);border-radius:8px;margin-top:8px;overflow:hidden}.compact-detail>.head{padding:10px 12px;background:#f5fbf8}.report-item-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;padding:10px}.report-item-card{display:flex;justify-content:space-between;gap:10px;border:1px solid #cfe4d9;background:#fbfffd;border-radius:8px;padding:9px 10px;min-height:58px}.report-item-card h3{font-size:14px;margin:0 0 4px}.report-item-card p{font-size:12px;margin:0;color:#526b63}.report-item-card>strong{align-self:flex-start;background:#008c68;color:#fff;border-radius:999px;padding:5px 9px;min-width:44px;text-align:center}.stock-chip-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.stock-chip{display:inline-flex;gap:4px;align-items:center;background:#e9f8f1;color:#006b50;border:1px solid #c5eadb;border-radius:999px;padding:3px 7px;font-size:12px;margin:2px 4px 2px 0}.compact-table th,.compact-table td,#rp table th,#rp table td{padding:7px 9px;font-size:13px}.compact-hint{margin-bottom:6px}.report-search-panel{margin-bottom:8px}@media(max-width:720px){.report-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.report-card{padding:9px}.report-card strong{font-size:19px}.report-item-grid{grid-template-columns:1fr;padding:8px}.report-item-card h3{font-size:13px}.stock-chip{font-size:11px}}';
+  document.head.appendChild(css);
+  var oldShow=window.showReport;
+  window.showReport=function(mode,btn){
+    if(['tk','tq','hh','ncc','it','nhomhang'].indexOf(mode)<0)return oldShow.apply(this,arguments);
+    if(btn){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+    if(!el('rp'))return;
+    var title={tk:'Tồn từng kho',tq:'Tổng quan',hh:'Tồn theo hàng hóa',ncc:'Tổng hợp theo NCC',it:'Thiết bị IT theo người dùng',nhomhang:'Báo cáo theo nhóm hàng'}[mode];
+    el('rpTitle').textContent=title;
+    var html={tk:reportTk,tq:reportTq,hh:reportHh,ncc:reportNcc,it:reportIt,nhomhang:reportGroup}[mode]();
+    el('rp').innerHTML=html;
+    if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0);
+  };
+})();
 </script></body>
 </html>
+
 
 
 
