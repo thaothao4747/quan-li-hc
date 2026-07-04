@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-mobile-nav-modern-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-settings-edit-delete-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-mobile-nav-modern-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-settings-edit-delete-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-mobile-nav-modern-1';
+window.APP_VERSION='20260704-settings-edit-delete-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1652,8 +1652,70 @@ window.__settingsCollapsePatch=true;
   st.textContent='@media(max-width:900px){.mobile-bar{display:flex!important;overflow-x:auto!important;overflow-y:hidden!important;gap:8px!important;padding:10px 10px calc(10px + env(safe-area-inset-bottom))!important;background:linear-gradient(180deg,#11b98a 0%,#07845f 100%)!important;border-top:1px solid rgba(255,255,255,.22)!important;box-shadow:0 -14px 30px rgba(4,84,60,.28),inset 0 1px 0 rgba(255,255,255,.20)!important;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.mobile-bar::-webkit-scrollbar{display:none}.mobile-bar button{flex:0 0 92px!important;width:92px!important;min-height:58px!important;border-radius:15px!important;border:1px solid rgba(255,255,255,.22)!important;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08))!important;color:#f7fffb!important;font-size:13px!important;font-weight:800!important;line-height:1.1!important;text-shadow:0 1px 1px rgba(0,0,0,.16)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 16px rgba(4,70,51,.20)!important;scroll-snap-align:start;transition:transform .12s ease,box-shadow .12s ease,background .12s ease!important}.mobile-bar button:active{transform:translateY(2px) scale(.98)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 10px rgba(4,70,51,.18)!important}.mobile-bar button.active{background:linear-gradient(180deg,#ffffff,#eefbf5)!important;color:#087253!important;border-color:#fff!important;text-shadow:none!important;transform:translateY(-4px)!important;box-shadow:0 14px 26px rgba(3,68,49,.30),inset 0 1px 0 rgba(255,255,255,.85)!important}.mobile-bar button.active:after{content:"";display:block;width:24px;height:3px;border-radius:999px;background:#0f8d68;margin:5px auto 0}.mobile-bar button:nth-child(1)::before{content:"TQ"}.mobile-bar button:nth-child(2)::before{content:"TK"}.mobile-bar button:nth-child(3)::before{content:"+"}.mobile-bar button:nth-child(4)::before{content:"−"}.mobile-bar button:nth-child(5)::before{content:"IT"}.mobile-bar button:nth-child(6)::before{content:"↔"}.mobile-bar button:nth-child(7)::before{content:"BC"}.mobile-bar button:nth-child(8)::before{content:"⚙"}.mobile-bar button::before{display:block;margin:0 auto 4px;width:26px;height:22px;border-radius:9px;background:rgba(255,255,255,.18);font-size:11px;line-height:22px;color:inherit;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}.mobile-bar button.active::before{background:#dff6eb;color:#087253}}';
   document.head.appendChild(st);
 })();
+</script><script id="stock-cards-view-20260704">
+(function(){
+  if(window.__stockCardsViewPatch)return;window.__stockCardsViewPatch=true;
+  function addStyle(){
+    if(document.getElementById('stock-cards-view-style-20260704'))return;
+    var st=document.createElement('style');st.id='stock-cards-view-style-20260704';
+    st.textContent='#tonStockCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;padding:12px;background:#f4faf7}.stock-card-row{border:1px solid #c9e1d6;border-radius:10px;background:linear-gradient(180deg,#fff,#f7fffb);box-shadow:0 8px 18px rgba(15,91,65,.08);padding:12px;display:grid;gap:8px}.stock-card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.stock-card-item{font-weight:800;color:#092f24;font-size:15px;line-height:1.3}.stock-card-qty{flex:0 0 auto;background:#0f8d68;color:#fff;border-radius:999px;padding:6px 10px;font-weight:800;font-size:14px;box-shadow:0 6px 14px rgba(15,141,104,.20)}.stock-card-kho{display:inline-flex;align-items:center;gap:6px;color:#0b6f51;font-weight:700;font-size:13px}.stock-card-kho:before{content:"Kho";background:#e2f5ec;color:#0b6f51;border-radius:999px;padding:3px 8px;font-size:12px}.stock-card-empty{padding:14px;color:#5d7067}#ton .simple-stock-table{display:none!important}@media(max-width:900px){#tonStockCards{grid-template-columns:1fr;padding:10px;gap:9px}.stock-card-row{border-radius:12px;padding:12px}.stock-card-item{font-size:15px}.stock-card-qty{font-size:15px;padding:7px 11px}.stock-card-top{align-items:center}}';
+    document.head.appendChild(st);
+  }
+  function esc(v){return String(v||'').replace(/[&<>\"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]})}
+  function cardHtml(r){var hang=r[2]||[];var text=[nameKho(r[0]),r[1],hang[1],hang[2],hang[3],String(r[3])].join(' ').toLowerCase();return '<div class="stock-card-row" data-search="'+esc(text)+'"><div class="stock-card-top"><div class="stock-card-item">'+esc(hang[1])+'</div><div class="stock-card-qty">'+fmt(r[3])+' '+esc(hang[3])+'</div></div><div class="stock-card-kho">'+esc(nameKho(r[0]))+'</div></div>'}
+  function renderCards(){
+    addStyle();
+    var body=document.getElementById('tonRowsBody');if(!body||!window.stockRows)return;
+    var wrap=body.closest('.wrap');if(!wrap)return;
+    var box=document.getElementById('tonStockCards');
+    if(!box){wrap.insertAdjacentHTML('beforebegin','<div id="tonStockCards"></div>');box=document.getElementById('tonStockCards')}
+    var rows=stockRows();
+    box.innerHTML=rows.length?rows.map(cardHtml).join(''):'<div class="stock-card-empty">Chưa có tồn kho.</div>';
+    var badge=document.getElementById('soDongTon');if(badge)badge.textContent=rows.length+' dòng';
+    bindCardSearch();
+  }
+  function bindCardSearch(){
+    var input=document.getElementById('timTon'),clear=document.getElementById('xoaTimTon'),badge=document.getElementById('soDongTon');
+    if(!input)return;
+    function apply(){
+      var q=input.value.trim().toLowerCase();var shown=0;
+      document.querySelectorAll('#tonStockCards .stock-card-row').forEach(function(card){var ok=!q||card.getAttribute('data-search').indexOf(q)>=0;card.style.display=ok?'grid':'none';if(ok)shown++});
+      document.querySelectorAll('#tonRowsBody tr').forEach(function(r){var ok=!q||r.getAttribute('data-search').indexOf(q)>=0;r.style.display=ok?'':'none'});
+      if(badge)badge.textContent=shown+' dòng';
+    }
+    input.oninput=apply;
+    if(clear)clear.onclick=function(){input.value='';apply();input.focus()};
+    apply();
+  }
+  function afterRender(){if(document.getElementById('tonRowsBody'))setTimeout(renderCards,0)}
+  addStyle();
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__stockCardsViewWrapped){window.render=function(){var out=oldRender.apply(this,arguments);afterRender();return out};window.render.__stockCardsViewWrapped=true}
+  setTimeout(afterRender,150);
+})();
+</script><script id="settings-edit-delete-20260704">
+(function(){
+  if(window.__settingsEditDeletePatch)return;window.__settingsEditDeletePatch=true;
+  function warnDelete(msg){return confirm(msg+'\n\nBạn chắc chắn muốn xóa không?')}
+  function usedKho(code){return Object.keys(state.ton||{}).some(function(k){return k.indexOf(code+'|')===0&&Number(state.ton[k]||0)!==0})||(state.bd||[]).some(function(b){return b[2]===code})||(state.chuyen||[]).some(function(c){return c.tu===code||c.den===code})}
+  window.deleteKhoSetup=function(i){var k=state.kho[i];if(!k)return;if(usedKho(k[0])){if(!warnDelete('Kho "'+k[1]+'" đang có tồn hoặc đã phát sinh phiếu. Xóa kho có thể làm báo cáo cũ hiển thị mã kho thay cho tên kho.'))return}else if(!confirm('Xóa kho "'+k[1]+'"?'))return;state.kho.splice(i,1);save();render()}
+  window.deleteNhom=function(i){var v=state.nhomHangList[i];if(!v)return;if(state.hang.some(function(h){return normalizeHang(h)[2]===v})){if(!warnDelete('Nhóm hàng "'+v+'" đang được dùng trong danh mục hàng hóa. Khi xóa, hàng đang thuộc nhóm này sẽ để trống nhóm.'))return;state.hang.forEach(function(h){if(normalizeHang(h)[2]===v)h[2]=''})}else if(!confirm('Xóa nhóm hàng "'+v+'"?'))return;state.nhomHangList.splice(i,1);save();render()}
+  window.deleteDvt=function(i){var v=state.dvtList[i];if(!v)return;if(state.hang.some(function(h){return normalizeHang(h)[3]===v})){if(!warnDelete('Đơn vị tính "'+v+'" đang được dùng trong danh mục hàng hóa. Khi xóa, hàng đang dùng đơn vị này sẽ để trống ĐVT.'))return;state.hang.forEach(function(h){if(normalizeHang(h)[3]===v)h[3]=''})}else if(!confirm('Xóa đơn vị tính "'+v+'"?'))return;state.dvtList.splice(i,1);save();render()}
+  window.deleteNcc=function(i){var v=state.nccList[i];if(!v)return;if((state.bd||[]).some(function(b){return b[7]===v})){if(!warnDelete('NCC "'+v+'" đã có trong phiếu nhập. Khi xóa, phiếu cũ vẫn giữ tên NCC này trong báo cáo.'))return}else if(!confirm('Xóa NCC "'+v+'"?'))return;state.nccList.splice(i,1);save();render()}
+  window.deleteLoai=function(t,i){var list=t==='nhap'?state.loaiNhapList:state.loaiXuatList;var v=list[i];if(!v)return;if((state.bd||[]).some(function(b){return b[4]===v})){if(!warnDelete('Loại phiếu "'+v+'" đã có trong phiếu phát sinh. Phiếu cũ vẫn giữ tên loại này để báo cáo không mất lịch sử.'))return}else if(!confirm('Xóa loại phiếu "'+v+'"?'))return;list.splice(i,1);save();render()}
+  function actions(edit,del){return '<span class="row-actions"><button class="btn small" type="button" onclick="'+edit+'">Sửa</button><button class="btn small bad" type="button" onclick="'+del+'">Xóa</button></span>'}
+  function khoRows(){return (state.kho||[]).map(function(x,i){return '<tr>'+td('Mã',x[0])+td('Tên kho',x[1])+td('Phụ trách',x[2]||'')+td('Thao tác',actions('editKhoSetup('+i+')','deleteKhoSetup('+i+')'))+'</tr>'}).join('')||'<tr><td class="empty" colspan="4">Chưa có kho.</td></tr>'}
+  function oneRows(arr,label,editName,delName){return (arr||[]).map(function(x,i){return '<tr>'+td(label,x)+td('Thao tác',actions(editName+'('+i+')',delName+'('+i+')'))+'</tr>'}).join('')||'<tr><td class="empty" colspan="2">Chưa có dữ liệu.</td></tr>'}
+  function loaiRows(){var lo=[];(state.loaiNhapList||[]).forEach(function(x,i){lo.push(['nhap',i,'Loại nhập',x])});(state.loaiXuatList||[]).forEach(function(x,i){lo.push(['xuat',i,'Loại xuất',x])});return lo.map(function(r){return '<tr>'+td('Nhóm',r[2])+td('Tên loại',r[3])+td('Thao tác',actions('editLoai(\''+r[0]+'\','+r[1]+')','deleteLoai(\''+r[0]+'\','+r[1]+')'))+'</tr>'}).join('')||'<tr><td class="empty" colspan="3">Chưa có loại phiếu.</td></tr>'}
+  var oldScreen=window.screenThietLap;
+  window.screenThietLap=function(){
+    return shell('thietlap','Thiết lập danh mục','Tạo, sửa hoặc xóa kho, nhóm hàng, đơn vị tính, nhà cung cấp và loại phiếu. Danh mục hàng hóa chỉnh ở mục Hàng hóa.','<div class="two">'+formKho('set')+'<div class="panel"><div class="head"><h2>Danh sách kho</h2><button class="btn small" type="button" onclick="resetKho(\'set\')">+ Thêm kho mới</button></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên kho</th><th>Phụ trách</th><th>Thao tác</th></tr></thead><tbody>'+khoRows()+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Nhóm hàng</h2></div><div class="body form"><input id="editNhom" type="hidden"><label class="full">Tên nhóm<input id="tenNhom"></label><button class="btn primary" id="luuNhom">Lưu nhóm</button><button class="btn" id="huyNhom">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>Nhóm hàng</th><th>Thao tác</th></tr></thead><tbody>'+oneRows(state.nhomHangList,'Nhóm hàng','editNhom','deleteNhom')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Đơn vị tính</h2></div><div class="body form"><input id="editDvt" type="hidden"><label class="full">Tên đơn vị<input id="tenDvt"></label><button class="btn primary" id="luuDvt">Lưu ĐVT</button><button class="btn" id="huyDvt">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>ĐVT</th><th>Thao tác</th></tr></thead><tbody>'+oneRows(state.dvtList,'ĐVT','editDvt','deleteDvt')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Nhà cung cấp</h2></div><div class="body form"><input id="editNcc" type="hidden"><label class="full">Tên NCC<input id="tenNcc"></label><button class="btn primary" id="luuNcc">Lưu NCC</button><button class="btn" id="huyNcc">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>NCC</th><th>Thao tác</th></tr></thead><tbody>'+oneRows(state.nccList,'NCC','editNcc','deleteNcc')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Loại phiếu</h2></div><div class="body form"><input id="editLoai" type="hidden"><label>Nhóm<select id="loaiNghiepVu"><option value="nhap">Loại nhập</option><option value="xuat">Loại xuất</option></select></label><label>Tên loại<input id="tenLoai"></label><button class="btn primary" id="luuLoai">Lưu loại</button><button class="btn" id="huyLoai">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>Nhóm</th><th>Tên loại</th><th>Thao tác</th></tr></thead><tbody>'+loaiRows()+'</tbody></table></div></div></div>')
+  }
+})();
 </script></body>
 </html>
+
+
 
 
 
