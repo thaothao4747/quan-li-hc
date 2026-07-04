@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-settings-edit-delete-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-compact-soft-ui-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-settings-edit-delete-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-compact-soft-ui-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-settings-edit-delete-1';
+window.APP_VERSION='20260704-compact-soft-ui-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1712,8 +1712,60 @@ window.__settingsCollapsePatch=true;
     return shell('thietlap','Thiết lập danh mục','Tạo, sửa hoặc xóa kho, nhóm hàng, đơn vị tính, nhà cung cấp và loại phiếu. Danh mục hàng hóa chỉnh ở mục Hàng hóa.','<div class="two">'+formKho('set')+'<div class="panel"><div class="head"><h2>Danh sách kho</h2><button class="btn small" type="button" onclick="resetKho(\'set\')">+ Thêm kho mới</button></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên kho</th><th>Phụ trách</th><th>Thao tác</th></tr></thead><tbody>'+khoRows()+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Nhóm hàng</h2></div><div class="body form"><input id="editNhom" type="hidden"><label class="full">Tên nhóm<input id="tenNhom"></label><button class="btn primary" id="luuNhom">Lưu nhóm</button><button class="btn" id="huyNhom">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>Nhóm hàng</th><th>Thao tác</th></tr></thead><tbody>'+oneRows(state.nhomHangList,'Nhóm hàng','editNhom','deleteNhom')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Đơn vị tính</h2></div><div class="body form"><input id="editDvt" type="hidden"><label class="full">Tên đơn vị<input id="tenDvt"></label><button class="btn primary" id="luuDvt">Lưu ĐVT</button><button class="btn" id="huyDvt">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>ĐVT</th><th>Thao tác</th></tr></thead><tbody>'+oneRows(state.dvtList,'ĐVT','editDvt','deleteDvt')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Nhà cung cấp</h2></div><div class="body form"><input id="editNcc" type="hidden"><label class="full">Tên NCC<input id="tenNcc"></label><button class="btn primary" id="luuNcc">Lưu NCC</button><button class="btn" id="huyNcc">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>NCC</th><th>Thao tác</th></tr></thead><tbody>'+oneRows(state.nccList,'NCC','editNcc','deleteNcc')+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Loại phiếu</h2></div><div class="body form"><input id="editLoai" type="hidden"><label>Nhóm<select id="loaiNghiepVu"><option value="nhap">Loại nhập</option><option value="xuat">Loại xuất</option></select></label><label>Tên loại<input id="tenLoai"></label><button class="btn primary" id="luuLoai">Lưu loại</button><button class="btn" id="huyLoai">Tạo mới</button></div><div class="wrap"><table><thead><tr><th>Nhóm</th><th>Tên loại</th><th>Thao tác</th></tr></thead><tbody>'+loaiRows()+'</tbody></table></div></div></div>')
   }
 })();
+</script><script id="admin-delete-xnk-20260704">
+(function(){
+  if(window.__adminDeleteXnkPatch)return;window.__adminDeleteXnkPatch=true;
+  function isAdminUser(){try{return typeof isAdmin==='function'?isAdmin():((currentRole&&currentRole())==='admin')}catch(e){return false}}
+  function canEditAny(){try{return typeof canEditXnkSlip==='function'?canEditXnkSlip():true}catch(e){return true}}
+  function reverseSlip(row){
+    if(!row)return;
+    var key=row[2]+'|'+row[3];
+    var nhap=Number(row[5]||0),xuat=Number(row[6]||0);
+    state.ton[key]=Number(state.ton[key]||0)-nhap+xuat;
+    if(Math.abs(state.ton[key])<0.00001)state.ton[key]=0;
+  }
+  window.deleteSlip=function(i){
+    if(!isAdminUser())return alert('Chỉ quản trị viên được xóa phiếu XNK');
+    var row=state.bd[i];if(!row)return alert('Không tìm thấy phiếu');
+    var name=(row[1]||'')+' - '+(item(row[3])[1]||row[3]);
+    if(!confirm('Xóa phiếu '+name+'?\n\nTồn kho sẽ tự tính lại sau khi xóa.'))return;
+    reverseSlip(row);
+    state.bd.splice(i,1);
+    save();
+    alert('Đã xóa phiếu và cập nhật tồn kho');
+    current='baocao';render();setTimeout(function(){showReport('xnk')},0);
+  }
+  function slipRowsWithDelete(){
+    return state.bd.map(function(x,i){return {x:x,i:i}}).reverse().map(function(r){
+      var x=r.x;var buttons=[];
+      if(canEditAny())buttons.push('<button class="btn small" onclick="editSlip('+r.i+')">Sửa</button>');
+      if(isAdminUser())buttons.push('<button class="btn small bad" onclick="deleteSlip('+r.i+')">Xóa</button>');
+      var action=buttons.length?td('Thao tác','<span class="row-actions">'+buttons.join('')+'</span>'):'';
+      return '<tr>'+td('Ngày',x[0])+td('Số phiếu',x[1])+td('Kho',nameKho(x[2]))+td('Hàng',item(x[3])[1])+td('Loại',x[4])+td('NCC',x[7]||'')+td('Nhập',x[5]||'', 'num')+td('Xuất',x[6]||'', 'num')+action+'</tr>'
+    }).join('')
+  }
+  var oldShow=window.showReport;
+  window.showReport=function(mode,btn){
+    if(mode!=='xnk')return oldShow(mode,btn);
+    if(btn){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+    if(!el('rp'))return;
+    el('rpTitle').textContent='Chi tiết XNK';
+    var actionHead=(canEditAny()||isAdminUser())?'<th>Thao tác</th>':'';
+    el('rp').innerHTML='<table><thead><tr><th>Ngày</th><th>Số phiếu</th><th>Kho</th><th>Hàng</th><th>Loại</th><th>NCC</th><th>Nhập</th><th>Xuất</th>'+actionHead+'</tr></thead><tbody>'+slipRowsWithDelete()+'</tbody></table>';
+  }
+})();
+</script><script id="compact-soft-ui-20260704">
+(function(){
+  if(window.__compactSoftUiPatch)return;window.__compactSoftUiPatch=true;
+  if(document.getElementById('compact-soft-ui-style-20260704'))return;
+  var st=document.createElement('style');st.id='compact-soft-ui-style-20260704';
+  st.textContent='html,body,.app,.app *,button,input,select,textarea,table,th,td{font-family:"Segoe UI",Arial,Helvetica,sans-serif!important;letter-spacing:0!important}body{font-size:13px!important;font-weight:400!important;color:#18352a!important}main{padding:14px 16px 64px!important;max-width:1420px!important}h1{font-size:21px!important;font-weight:650!important;line-height:1.18!important;margin-bottom:3px!important}h2{font-size:14.5px!important;font-weight:650!important}.sub,.hint{font-size:12.5px!important;line-height:1.35!important}.brand{font-size:15.5px!important;font-weight:650!important}.brand span{font-size:11px!important}.brand-icon{width:38px!important;height:38px!important;border-radius:10px!important}aside{padding:14px 14px!important}.nav{font-size:13px!important;font-weight:550!important;min-height:34px!important;padding:8px 10px!important;border-radius:7px!important}.nav.active{font-weight:650!important}.panel,.card{border-radius:7px!important;box-shadow:0 6px 16px rgba(20,54,39,.06)!important}.head{padding:9px 12px!important}.body{padding:10px 12px!important}.form{gap:8px 10px!important}.stats{gap:8px!important;margin-bottom:10px!important}.card{padding:10px 12px!important}.card span{font-size:12px!important;font-weight:500!important}.card strong{font-size:20px!important;font-weight:650!important}.dash-card strong{font-size:24px!important}label{font-size:11.8px!important;font-weight:600!important;gap:4px!important}input,select{min-height:35px!important;padding:7px 9px!important;border-radius:6px!important;font-weight:450!important}.btn{min-height:34px!important;padding:7px 10px!important;border-radius:6px!important;font-size:12.8px!important;font-weight:550!important}.small{min-height:28px!important;padding:4px 7px!important;font-size:12px!important}.tag{min-height:20px!important;padding:2px 7px!important;font-size:11.5px!important;font-weight:600!important}table{font-size:12.8px!important}th{font-size:11.5px!important;font-weight:600!important}th,td{padding:7px 10px!important}.tabs{gap:6px!important;margin-bottom:10px!important}.tabs .btn{min-height:34px!important}.stock-card-row{padding:10px!important;border-radius:8px!important;gap:7px!important;box-shadow:0 5px 14px rgba(15,91,65,.06)!important}.stock-card-item{font-size:13.5px!important;font-weight:650!important}.stock-card-qty{font-size:12.8px!important;font-weight:650!important;padding:5px 9px!important}.stock-card-kho{font-size:12.3px!important;font-weight:550!important}.stock-card-kho:before{font-size:11px!important;padding:2px 7px!important}#tonStockCards{gap:8px!important;padding:10px!important}#ton .ton-search-panel-strong{box-shadow:0 6px 16px rgba(8,92,67,.12)!important}#ton .ton-search-panel-strong h2{font-weight:650!important}#ton .ton-search-field{font-weight:550!important;font-size:12.5px!important}#ton #timTon{min-height:44px!important;font-size:14px!important;font-weight:500!important;border-width:2px!important;border-radius:8px!important}.mobile-bar button{font-weight:650!important}@media(max-width:900px){body{font-size:13px!important}main{padding:72px 8px 82px!important}h1{font-size:19px!important}.panel{margin-bottom:8px!important}.head{padding:9px 10px!important}.body{padding:9px 10px!important}.mobile-title{height:64px!important}.mobile-title strong{font-size:15.5px!important;font-weight:700!important}.mobile-title span{font-size:10.8px!important}.mobile-logo{width:36px!important;height:36px!important}.stock-card-row{padding:10px!important}.stock-card-item{font-size:13.8px!important}.stock-card-qty{font-size:13px!important}.mobile-bar button{font-size:12px!important;min-height:52px!important}.mobile-bar button::before{height:20px!important;line-height:20px!important;margin-bottom:3px!important}}';
+  document.head.appendChild(st);
+})();
 </script></body>
 </html>
+
+
 
 
 
