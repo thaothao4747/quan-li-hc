@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-ncc-edit-sync-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-ton-search-stock-only-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-ncc-edit-sync-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-ton-search-stock-only-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-ncc-edit-sync-1';
+window.APP_VERSION='20260704-ton-search-stock-only-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1786,7 +1786,7 @@ window.__settingsCollapsePatch=true;
     });
     state.ton=keepTon;
     state.__inventoryResetStart=true;
-    state.__inventoryResetVersion='20260704-ncc-edit-sync-1';
+    state.__inventoryResetVersion='20260704-ton-search-stock-only-1';
     state.bd=[];
     state.chuyen=[];
     save();
@@ -2013,8 +2013,43 @@ window.__settingsCollapsePatch=true;
     filterDeletedNcc(state);save();render();syncSilent();
   };
 })();
+</script><script id="ton-search-stock-only-20260704">
+(function(){
+  if(window.__tonSearchStockOnly20260704)return;window.__tonSearchStockOnly20260704=true;
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
+  function hang(code){try{return item(code)}catch(e){return [code,code,'','']}}
+  function totalByCode(code){var total=0;Object.keys(state.ton||{}).forEach(function(k){var p=k.split('|');if(p[1]===code)total+=Number(state.ton[k]||0)});return total}
+  function placesByCode(code){return Object.keys(state.ton||{}).map(function(k){var p=k.split('|');return {kho:p[0],code:p[1],sl:Number(state.ton[k]||0)}}).filter(function(x){return x.code===code&&x.sl>0}).map(function(x){return nameKho(x.kho)+': '+fmt(x.sl)+' '+(hang(code)[3]||'')}).join(' | ')}
+  function stockedItems(q){
+    var seen={};var rows=[];q=norm(q);
+    Object.keys(state.ton||{}).forEach(function(k){var p=k.split('|'),code=p[1],sl=Number(state.ton[k]||0);if(!code||sl<=0||seen[code])return;var h=hang(code);var hay=norm([code,h[1],h[2],h[3]].join(' '));if(q&&hay.indexOf(q)<0)return;seen[code]=true;rows.push(h)});
+    return rows.sort(function(a,b){return String(a[1]||'').localeCompare(String(b[1]||''),'vi')}).slice(0,12);
+  }
+  function ensureBox(){var input=document.getElementById('timTon');if(!input)return null;var box=document.getElementById('tonSuggestList');if(!box){var label=input.closest('label');if(label){label.insertAdjacentHTML('afterend','<div id="tonSuggestList" class="ton-suggest-list"></div>');box=document.getElementById('tonSuggestList')}}return box}
+  function renderSuggest(){
+    var input=document.getElementById('timTon'),box=ensureBox();if(!input||!box)return;
+    var rows=stockedItems(input.value);
+    if(!rows.length){box.innerHTML='<div class="ton-suggest-empty">Không có mã hàng nào còn tồn phù hợp</div>';box.classList.add('show');return}
+    box.innerHTML=rows.map(function(h){var total=totalByCode(h[0]);return '<button class="ton-suggest-row" type="button" data-value="'+esc(h[1])+'"><span class="ton-suggest-title">'+esc(h[0]+' - '+h[1])+'</span><span class="ton-suggest-meta">Tổng: '+fmt(total)+' '+esc(h[3]||'')+' - '+esc(placesByCode(h[0]))+'</span></button>'}).join('');
+    box.classList.add('show');
+  }
+  function bind(){
+    if(current!=='ton')return;
+    var input=document.getElementById('timTon');if(!input||input.__stockOnlyBound)return;
+    input.__stockOnlyBound=true;
+    input.removeAttribute('list');
+    input.placeholder='Gõ mã hàng hoặc tên hàng đang còn tồn...';
+    input.addEventListener('focus',renderSuggest);
+    input.addEventListener('input',renderSuggest);
+  }
+  var oldBind=window.bindForms;
+  window.bindForms=function(){oldBind.apply(this,arguments);bind()};
+  document.addEventListener('click',function(e){var row=e.target.closest&&e.target.closest('.ton-suggest-row');if(row){var input=document.getElementById('timTon');if(input){input.value=row.getAttribute('data-value')||'';input.dispatchEvent(new Event('input',{bubbles:true}))}var box=document.getElementById('tonSuggestList');if(box)box.classList.remove('show');return}if(!e.target.closest||(!e.target.closest('#ton .ton-search-field')&&!e.target.closest('#tonSuggestList'))){var b=document.getElementById('tonSuggestList');if(b)b.classList.remove('show')}});
+})();
 </script></body>
 </html>
+
 
 
 
