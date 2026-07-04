@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-report-search-edit-sync-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-report-group-detail-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-report-search-edit-sync-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-report-group-detail-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-report-search-edit-sync-1';
+window.APP_VERSION='20260704-report-group-detail-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -2043,7 +2043,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-search-edit-sync-20260704">
 (function(){
   if(window.__reportSearchEditSync20260704)return;window.__reportSearchEditSync20260704=true;
-  var VERSION='20260704-report-search-edit-sync-1';
+  var VERSION='20260704-report-group-detail-1';
   window.APP_VERSION=VERSION;
   function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function optPairsFresh(arr,selected){return (arr||[]).map(function(x){var v=Array.isArray(x)?x[0]:x;var t=Array.isArray(x)?(x[1]||x[0]):x;return '<option value="'+safe(v)+'" '+(String(v)===String(selected)?'selected':'')+'>'+safe(t)+'</option>'}).join('')}
@@ -2108,8 +2108,68 @@ window.__settingsCollapsePatch=true;
     state.bd[i]=row;applySlipStock(row,1);if(typeof touchState==='function')touchState();save();alert('Đã sửa phiếu và cập nhật tồn kho');current='baocao';render();setTimeout(function(){showReport('xnk');bindReportSearch()},0);
   };
 })();
+</script><script id="report-group-detail-20260704">
+(function(){
+  if(window.__reportGroupDetail20260704)return;window.__reportGroupDetail20260704=true;
+  var VERSION='20260704-report-group-detail-1';
+  window.APP_VERSION=VERSION;
+  window.__openReportGroupName='';
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+  function groupNameOf(raw){var h=normalizeHang(raw);return h[2]||'Chưa phân nhóm'}
+  function stockFor(kho,hang){return Number((state.ton||{})[kho+'|'+hang]||0)}
+  function itemTotal(code){return (state.kho||[]).reduce(function(sum,k){return sum+stockFor(k[0],code)},0)}
+  function khoText(code){
+    var parts=(state.kho||[]).map(function(k){return {name:k[1]||k[0],qty:stockFor(k[0],code)}}).filter(function(x){return x.qty>0});
+    return parts.length?parts.map(function(x){return esc(x.name)+': <b>'+fmt(x.qty)+'</b>'}).join(' | '):'<span class="muted">Chưa có tồn trong kho</span>';
+  }
+  function groupRowsDetail(){
+    var map={};
+    (state.hang||[]).forEach(function(raw){
+      var h=normalizeHang(raw),g=h[2]||'Chưa phân nhóm';
+      if(!map[g])map[g]={items:[],ton:0,nhap:0,xuat:0};
+      map[g].items.push(h);
+    });
+    (state.bd||[]).forEach(function(x){
+      var g=(item(x[3])[2]||'Chưa phân nhóm');
+      if(!map[g])map[g]={items:[],ton:0,nhap:0,xuat:0};
+      map[g].nhap+=Number(x[5]||0);map[g].xuat+=Number(x[6]||0);
+    });
+    Object.keys(map).forEach(function(g){map[g].ton=map[g].items.reduce(function(s,h){return s+itemTotal(h[0])},0)});
+    return Object.keys(map).sort(function(a,b){return a.localeCompare(b,'vi')}).map(function(name){var g=map[name];return {name:name,count:g.items.length,ton:g.ton,nhap:g.nhap,xuat:g.xuat,items:g.items}});
+  }
+  function groupDetailHtml(group){
+    if(!group)return '';
+    var rows=group.items.slice().sort(function(a,b){return String(a[1]).localeCompare(String(b[1]),'vi')});
+    if(!rows.length)return '<div class="group-detail"><div class="empty">Nhóm này chưa có hàng hóa.</div></div>';
+    return '<div class="group-detail"><div class="head"><h2>Chi tiết nhóm: '+esc(group.name)+'</h2><span class="tag">'+fmt(rows.length)+' mặt hàng</span></div><div class="wrap"><table><thead><tr><th>Tên hàng</th><th>ĐVT</th><th>Tồn từng kho</th><th>Tổng tồn</th></tr></thead><tbody>'+rows.map(function(h){var total=itemTotal(h[0]);return '<tr>'+td('Tên hàng',esc(h[1]||h[0]))+td('ĐVT',esc(h[3]||''))+td('Tồn từng kho',khoText(h[0]))+td('Tổng tồn',fmt(total),'num')+'</tr>'}).join('')+'</tbody></table></div></div>';
+  }
+  function reportHtml(){
+    var rows=groupRowsDetail();
+    if(!rows.length)return '<div class="empty">Chưa có dữ liệu nhóm hàng.</div>';
+    var open=window.__openReportGroupName||rows[0].name;
+    var openGroup=rows.find(function(r){return r.name===open})||rows[0];
+    window.__openReportGroupName=openGroup.name;
+    return '<table class="group-report"><thead><tr><th>Nhóm hàng</th><th>Số mặt hàng</th><th>Tổng tồn</th><th>Tổng nhập</th><th>Tổng xuất</th></tr></thead><tbody>'+rows.map(function(r){var active=r.name===openGroup.name?' active-group':'';var encoded=encodeURIComponent(r.name);return '<tr class="group-row'+active+'">'+td('Nhóm hàng','<button class="btn small group-toggle" onclick="openReportGroup(decodeURIComponent(\''+encoded+'\'))">'+esc(r.name)+'</button>')+td('Số mặt hàng',fmt(r.count),'num')+td('Tổng tồn',fmt(r.ton),'num')+td('Tổng nhập',fmt(r.nhap),'num')+td('Tổng xuất',fmt(r.xuat),'num')+'</tr>'}).join('')+'</tbody></table>'+groupDetailHtml(openGroup);
+  }
+  window.openReportGroup=function(name){window.__openReportGroupName=name;showReport('nhomhang');if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0)};
+  var css=document.createElement('style');
+  css.textContent='.group-report .active-group{background:#eefcf5}.group-toggle{font-weight:700;color:#007a5b}.group-detail{margin-top:12px;border-top:1px solid var(--line)}.group-detail .head{background:#f5fbf8}.group-detail table td:nth-child(3){color:#006b50}.muted{color:#66756f}@media(max-width:720px){.group-detail table td[data-label="Tồn từng kho"]{font-weight:600;line-height:1.45}}';
+  document.head.appendChild(css);
+  var oldShow=window.showReport;
+  window.showReport=function(mode,btn){
+    if(mode!=='nhomhang')return oldShow.apply(this,arguments);
+    if(btn){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+    if(!el('rp'))return;
+    el('rpTitle').textContent='Báo cáo theo nhóm hàng';
+    el('rp').innerHTML=reportHtml();
+    if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0);
+  };
+})();
 </script></body>
 </html>
+
+
 
 
 
