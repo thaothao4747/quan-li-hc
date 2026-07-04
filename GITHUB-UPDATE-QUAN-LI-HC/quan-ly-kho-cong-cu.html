@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-reset-stock-start-2</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-mobile-top-safe-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-reset-stock-start-2').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-mobile-top-safe-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-reset-stock-start-2';
+window.APP_VERSION='20260704-mobile-top-safe-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1786,7 +1786,7 @@ window.__settingsCollapsePatch=true;
     });
     state.ton=keepTon;
     state.__inventoryResetStart=true;
-    state.__inventoryResetVersion='20260704-reset-stock-start-2';
+    state.__inventoryResetVersion='20260704-mobile-top-safe-1';
     state.bd=[];
     state.chuyen=[];
     save();
@@ -1804,8 +1804,74 @@ window.__settingsCollapsePatch=true;
   }
   setTimeout(runReset,2600);
 })();
+</script><script id="xuat-only-stocked-items-20260704">
+(function(){
+  if(window.__xuatOnlyStockedItems20260704)return;window.__xuatOnlyStockedItems20260704=true;
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
+  function allHang(){return (state.hang||[]).map(function(h){return typeof normalizeHang==='function'?normalizeHang(h):h})}
+  function totalStock(code){var sum=0;Object.keys(state.ton||{}).forEach(function(k){var p=k.split('|');if(p[1]===code)sum+=Number(state.ton[k]||0)});return sum}
+  function stockedItems(){return allHang().filter(function(h){return h&&h[0]&&totalStock(h[0])>0})}
+  function stockWarehouses(code){return (state.kho||[]).map(function(k){return {ma:k[0],ten:k[1],sl:Number(state.ton[k[0]+'|'+code]||0)}}).filter(function(x){return x.sl>0})}
+  function itemName(code){var h=allHang().find(function(x){return x[0]===code});return h?h[1]:code}
+  function itemUnit(code){var h=allHang().find(function(x){return x[0]===code});return h?(h[3]||''):''}
+  function setSearchValue(inputId,code){var input=el(inputId);if(!input)return;input.dataset.code=code;input.value=itemName(code)}
+  function matchItem(h,q){q=norm(q);if(!q)return true;return norm(h[0]).indexOf(q)>=0||norm(h[1]).indexOf(q)>=0||norm((h[0]||'')+' - '+(h[1]||'')).indexOf(q)>=0}
+  var oldGet=window.getItemCodeFromSearch;
+  window.getItemCodeFromSearch=function(id){
+    if(id!=='hangXuat')return oldGet?oldGet(id):'';
+    var input=el(id),v=(input&&input.value||'').trim();
+    if(input&&input.dataset.code&&v===itemName(input.dataset.code)&&totalStock(input.dataset.code)>0)return input.dataset.code;
+    if(!v)return '';
+    var found=stockedItems().find(function(h){return v===h[0]||v===h[0]+' - '+h[1]||v===h[1]||norm(v)===norm(h[1])});
+    return found?found[0]:'';
+  };
+  window.renderXuatOnlyStockedSuggest=function(){
+    var input=el('hangXuat'),box=el('hangXuatSuggest');if(!input||!box)return;
+    var q=input.value;if(input.dataset.code&&q!==itemName(input.dataset.code))input.dataset.code='';
+    var html=[];
+    stockedItems().filter(function(h){return matchItem(h,q)}).forEach(function(h){
+      stockWarehouses(h[0]).forEach(function(w){html.push('<button class="item-suggest-row" type="button" data-code="'+esc(h[0])+'" data-kho="'+esc(w.ma)+'" data-kind="xuat"><span class="item-suggest-name">'+esc(h[1])+'</span><span class="item-suggest-meta">Tồn '+fmt(w.sl)+' '+esc(itemUnit(h[0]))+' - '+esc(w.ten)+'</span></button>')});
+    });
+    if(!html.length)html.push('<div class="item-suggest-empty">Không có hàng nào còn tồn phù hợp</div>');
+    box.innerHTML=html.slice(0,12).join('');box.classList.add('show');
+  };
+  var oldCap=window.capNhatKhoXuatTheoHang;
+  window.capNhatKhoXuatTheoHang=function(){
+    var input=el('hangXuat'),kho=el('khoXuat');if(!input||!kho)return;
+    var ma=window.getItemCodeFromSearch('hangXuat');
+    if(!ma){kho.innerHTML='';if(el('goiYKhoXuat'))el('goiYKhoXuat').textContent='Chỉ gợi ý hàng đang còn tồn. Gõ tên hàng hoặc chọn trong danh sách.';return}
+    if(oldCap)oldCap.apply(this,arguments);
+  };
+  var oldBind=window.bindForms;
+  window.bindForms=function(){
+    oldBind.apply(this,arguments);
+    var input=el('hangXuat'),kho=el('khoXuat');if(!input)return;
+    input.removeAttribute('list');
+    var ma=window.getItemCodeFromSearch('hangXuat');
+    if(!ma){
+      var first=stockedItems()[0];
+      if(first)setSearchValue('hangXuat',first[0]);
+      else{input.value='';input.dataset.code='';if(kho)kho.innerHTML='';if(el('goiYKhoXuat'))el('goiYKhoXuat').textContent='Hiện chưa có hàng nào còn tồn để xuất.'}
+    }
+    input.onfocus=window.renderXuatOnlyStockedSuggest;
+    input.oninput=function(){window.renderXuatOnlyStockedSuggest();window.capNhatKhoXuatTheoHang()};
+    input.onchange=window.capNhatKhoXuatTheoHang;
+    window.capNhatKhoXuatTheoHang();
+  };
+})();
+</script><script id="mobile-top-safe-20260704">
+(function(){
+  if(document.getElementById('mobile-top-safe-style-20260704'))return;
+  var st=document.createElement('style');
+  st.id='mobile-top-safe-style-20260704';
+  st.textContent='@media(max-width:900px){main{padding-top:calc(116px + env(safe-area-inset-top))!important;padding-bottom:calc(104px + env(safe-area-inset-bottom))!important} .mobile-title{height:calc(96px + env(safe-area-inset-top))!important;padding:calc(30px + env(safe-area-inset-top)) 12px 12px!important;align-items:flex-end!important} .mobile-title strong{font-size:17px!important;line-height:1.08!important} .mobile-title span{font-size:11px!important;line-height:1.18!important} #tongquan .top{margin-top:0!important;margin-bottom:8px!important} #tongquan h1{font-size:20px!important;line-height:1.15!important} #tongquan .sub{font-size:12.5px!important;line-height:1.25!important}}';
+  document.head.appendChild(st);
+})();
 </script></body>
 </html>
+
+
 
 
 
