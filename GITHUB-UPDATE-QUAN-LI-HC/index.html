@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-ton-search-stock-only-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-report-search-edit-sync-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-ton-search-stock-only-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-report-search-edit-sync-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-ton-search-stock-only-1';
+window.APP_VERSION='20260704-report-search-edit-sync-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1762,48 +1762,6 @@ window.__settingsCollapsePatch=true;
   st.textContent='html,body,.app,.app *,button,input,select,textarea,table,th,td{font-family:"Segoe UI",Arial,Helvetica,sans-serif!important;letter-spacing:0!important}body{font-size:13px!important;font-weight:400!important;color:#18352a!important}main{padding:14px 16px 64px!important;max-width:1420px!important}h1{font-size:21px!important;font-weight:650!important;line-height:1.18!important;margin-bottom:3px!important}h2{font-size:14.5px!important;font-weight:650!important}.sub,.hint{font-size:12.5px!important;line-height:1.35!important}.brand{font-size:15.5px!important;font-weight:650!important}.brand span{font-size:11px!important}.brand-icon{width:38px!important;height:38px!important;border-radius:10px!important}aside{padding:14px 14px!important}.nav{font-size:13px!important;font-weight:550!important;min-height:34px!important;padding:8px 10px!important;border-radius:7px!important}.nav.active{font-weight:650!important}.panel,.card{border-radius:7px!important;box-shadow:0 6px 16px rgba(20,54,39,.06)!important}.head{padding:9px 12px!important}.body{padding:10px 12px!important}.form{gap:8px 10px!important}.stats{gap:8px!important;margin-bottom:10px!important}.card{padding:10px 12px!important}.card span{font-size:12px!important;font-weight:500!important}.card strong{font-size:20px!important;font-weight:650!important}.dash-card strong{font-size:24px!important}label{font-size:11.8px!important;font-weight:600!important;gap:4px!important}input,select{min-height:35px!important;padding:7px 9px!important;border-radius:6px!important;font-weight:450!important}.btn{min-height:34px!important;padding:7px 10px!important;border-radius:6px!important;font-size:12.8px!important;font-weight:550!important}.small{min-height:28px!important;padding:4px 7px!important;font-size:12px!important}.tag{min-height:20px!important;padding:2px 7px!important;font-size:11.5px!important;font-weight:600!important}table{font-size:12.8px!important}th{font-size:11.5px!important;font-weight:600!important}th,td{padding:7px 10px!important}.tabs{gap:6px!important;margin-bottom:10px!important}.tabs .btn{min-height:34px!important}.stock-card-row{padding:10px!important;border-radius:8px!important;gap:7px!important;box-shadow:0 5px 14px rgba(15,91,65,.06)!important}.stock-card-item{font-size:13.5px!important;font-weight:650!important}.stock-card-qty{font-size:12.8px!important;font-weight:650!important;padding:5px 9px!important}.stock-card-kho{font-size:12.3px!important;font-weight:550!important}.stock-card-kho:before{font-size:11px!important;padding:2px 7px!important}#tonStockCards{gap:8px!important;padding:10px!important}#ton .ton-search-panel-strong{box-shadow:0 6px 16px rgba(8,92,67,.12)!important}#ton .ton-search-panel-strong h2{font-weight:650!important}#ton .ton-search-field{font-weight:550!important;font-size:12.5px!important}#ton #timTon{min-height:44px!important;font-size:14px!important;font-weight:500!important;border-width:2px!important;border-radius:8px!important}.mobile-bar button{font-weight:650!important}@media(max-width:900px){body{font-size:13px!important}main{padding:72px 8px 82px!important}h1{font-size:19px!important}.panel{margin-bottom:8px!important}.head{padding:9px 10px!important}.body{padding:9px 10px!important}.mobile-title{height:64px!important}.mobile-title strong{font-size:15.5px!important;font-weight:700!important}.mobile-title span{font-size:10.8px!important}.mobile-logo{width:36px!important;height:36px!important}.stock-card-row{padding:10px!important}.stock-card-item{font-size:13.8px!important}.stock-card-qty{font-size:13px!important}.mobile-bar button{font-size:12px!important;min-height:52px!important}.mobile-bar button::before{height:20px!important;line-height:20px!important;margin-bottom:3px!important}}';
   document.head.appendChild(st);
 })();
-</script><script id="reset-stock-start-20260704">
-(function(){
-  if(window.__resetStockStart20260704)return;window.__resetStockStart20260704=true;
-  var FLAG='qlhc-reset-stock-start-20260704-v1';
-  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
-  function isDishwasherText(v){var s=norm(v);return s.indexOf('may rua chen')>=0||s.indexOf('may rua bat')>=0||s.indexOf('bosch')>=0||s.indexOf('bosh')>=0}
-  function itemInfo(code){
-    if(typeof item==='function'){try{return item(code)||[]}catch(e){}}
-    var found=(state.hang||[]).find(function(h){return h&&h[0]===code});
-    return found||[code,code];
-  }
-  function runReset(){
-    if(localStorage.getItem(FLAG)==='1')return;
-    if(!window.state||!state.ton||!state.hang){setTimeout(runReset,250);return}
-    var keepTon={};
-    Object.keys(state.ton||{}).forEach(function(key){
-      var parts=key.split('|');
-      var code=parts.length>1?parts[1]:'';
-      var info=itemInfo(code);
-      var text=[code,info[1],info[2],info[3]].join(' ');
-      if(isDishwasherText(text))keepTon[key]=Number(state.ton[key]||0);
-    });
-    state.ton=keepTon;
-    state.__inventoryResetStart=true;
-    state.__inventoryResetVersion='20260704-ton-search-stock-only-1';
-    state.bd=[];
-    state.chuyen=[];
-    save();
-    localStorage.setItem(FLAG,'1');
-    if(typeof render==='function')render();
-    setTimeout(function(){alert('Đã đưa tồn kho về mốc bắt đầu. App chỉ giữ lại tồn của Máy rửa chén/Bosch, các tồn và phiếu cũ đã được dọn.');},200);
-  }
-  if(typeof window.taiDuLieuOnline==='function'){
-    var oldTaiDuLieuOnline=window.taiDuLieuOnline;
-    window.taiDuLieuOnline=async function(){
-      var result=await oldTaiDuLieuOnline.apply(this,arguments);
-      setTimeout(runReset,300);
-      return result;
-    };
-  }
-  setTimeout(runReset,2600);
-})();
 </script><script id="xuat-only-stocked-items-20260704">
 (function(){
   if(window.__xuatOnlyStockedItems20260704)return;window.__xuatOnlyStockedItems20260704=true;
@@ -2047,8 +2005,116 @@ window.__settingsCollapsePatch=true;
   window.bindForms=function(){oldBind.apply(this,arguments);bind()};
   document.addEventListener('click',function(e){var row=e.target.closest&&e.target.closest('.ton-suggest-row');if(row){var input=document.getElementById('timTon');if(input){input.value=row.getAttribute('data-value')||'';input.dispatchEvent(new Event('input',{bubbles:true}))}var box=document.getElementById('tonSuggestList');if(box)box.classList.remove('show');return}if(!e.target.closest||(!e.target.closest('#ton .ton-search-field')&&!e.target.closest('#tonSuggestList'))){var b=document.getElementById('tonSuggestList');if(b)b.classList.remove('show')}});
 })();
+</script><script id="report-nhom-hang-20260704">
+(function(){
+  if(window.__reportNhomHang20260704)return;window.__reportNhomHang20260704=true;
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function groupOf(code){var h=item(code);return h[2]||'Chưa phân nhóm'}
+  function ensureGroup(map,name){if(!map[name])map[name]={items:{},ton:0,nhap:0,xuat:0};return map[name]}
+  function groupRows(){
+    var map={};
+    (state.hang||[]).forEach(function(raw){var h=normalizeHang(raw);var g=ensureGroup(map,h[2]||'Chưa phân nhóm');g.items[h[0]]=true});
+    stockRows().forEach(function(r){var g=ensureGroup(map,r[2][2]||'Chưa phân nhóm');g.items[r[1]]=true;g.ton+=Number(r[3]||0)});
+    (state.bd||[]).forEach(function(x){var g=ensureGroup(map,groupOf(x[3]));g.items[x[3]]=true;g.nhap+=Number(x[5]||0);g.xuat+=Number(x[6]||0)});
+    return Object.keys(map).sort(function(a,b){return a.localeCompare(b,'vi')}).map(function(name){var g=map[name];return {name:name,count:Object.keys(g.items).length,ton:g.ton,nhap:g.nhap,xuat:g.xuat}});
+  }
+  function reportHtml(){
+    var rows=groupRows();
+    if(!rows.length)return '<div class="empty">Chưa có dữ liệu nhóm hàng.</div>';
+    return '<table><thead><tr><th>Nhóm hàng</th><th>Số mặt hàng</th><th>Tổng tồn</th><th>Tổng nhập</th><th>Tổng xuất</th></tr></thead><tbody>'+rows.map(function(r){return '<tr>'+td('Nhóm hàng',esc(r.name))+td('Số mặt hàng',fmt(r.count),'num')+td('Tổng tồn',fmt(r.ton),'num')+td('Tổng nhập',fmt(r.nhap),'num')+td('Tổng xuất',fmt(r.xuat),'num')+'</tr>'}).join('')+'</tbody></table>';
+  }
+  var oldScreen=window.screenBaoCao;
+  window.screenBaoCao=function(){
+    var html=oldScreen();
+    if(html.indexOf("showReport('nhomhang'")<0){
+      html=html.replace('<button class="btn tab" onclick="showReport(\'ncc\',this)">Tổng hợp NCC</button>','<button class="btn tab" onclick="showReport(\'nhomhang\',this)">Theo nhóm hàng</button><button class="btn tab" onclick="showReport(\'ncc\',this)">Tổng hợp NCC</button>');
+    }
+    return html;
+  };
+  var oldShow=window.showReport;
+  window.showReport=function(mode,btn){
+    if(mode!=='nhomhang')return oldShow.apply(this,arguments);
+    if(btn){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+    if(!el('rp'))return;
+    el('rpTitle').textContent='Báo cáo theo nhóm hàng';
+    el('rp').innerHTML=reportHtml();
+  };
+})();
+</script><script id="report-search-edit-sync-20260704">
+(function(){
+  if(window.__reportSearchEditSync20260704)return;window.__reportSearchEditSync20260704=true;
+  var VERSION='20260704-report-search-edit-sync-1';
+  window.APP_VERSION=VERSION;
+  function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function optPairsFresh(arr,selected){return (arr||[]).map(function(x){var v=Array.isArray(x)?x[0]:x;var t=Array.isArray(x)?(x[1]||x[0]):x;return '<option value="'+safe(v)+'" '+(String(v)===String(selected)?'selected':'')+'>'+safe(t)+'</option>'}).join('')}
+  function optTextFresh(arr,selected){var out=[],seen={};(arr||[]).forEach(function(x){var v=String(x||'').trim();if(!v||seen[v])return;seen[v]=true;out.push(v)});if(selected&&!seen[String(selected)])out.unshift(String(selected));return out.map(function(v){return '<option value="'+safe(v)+'" '+(v===String(selected)?'selected':'')+'>'+safe(v)+'</option>'}).join('')}
+  function nccDatalist(selected){var list=[],seen={};function add(v){v=String(v||'').trim();if(v&&!seen[v]){seen[v]=true;list.push(v)}}add(selected);(state.nccList||[]).forEach(add);return list.map(function(v){return '<option value="'+safe(v)+'"></option>'}).join('')}
+  function currentSlipTypeOptions(row){var list=Number(row[5]||0)>0?(state.loaiNhapList||[]):(state.loaiXuatList||[]);return optTextFresh(list,row[4]||'')}
+  function canEditSlipFresh(){try{if(typeof canEditXnkSlip==='function')return canEditXnkSlip();return isLoggedIn===true||sessionStorage.getItem('qlkho-login')==='1'}catch(e){return true}}
+  function applySlipStock(row,sign){var key=row[2]+'|'+row[3];state.ton[key]=(state.ton[key]||0)+sign*Number(row[5]||0)-sign*Number(row[6]||0);if(Math.abs(state.ton[key])<0.00001)state.ton[key]=0}
+  var style=document.createElement('style');
+  style.textContent='.report-search-panel{margin-bottom:10px}.report-search-panel .body{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}.report-search-panel input{background:#f4fff8;border:2px solid #07966f;box-shadow:0 0 0 3px rgba(7,150,111,.09);font-weight:600}.report-search-panel .tag{justify-self:end}.report-row-hidden{display:none!important}@media(max-width:720px){.report-search-panel .body{grid-template-columns:1fr}.report-search-panel .tag{justify-self:start}}';
+  document.head.appendChild(style);
+  var oldScreen=window.screenBaoCao;
+  window.screenBaoCao=function(){
+    var html=oldScreen.apply(this,arguments);
+    if(html.indexOf('id="reportSearch"')<0){
+      var box='<div class="panel report-search-panel"><div class="head"><h2>Tìm kiếm báo cáo</h2><button class="btn small" id="clearReportSearch" type="button">Xóa tìm</button></div><div class="body"><label class="full">Search tất cả<input id="reportSearch" autocomplete="off" placeholder="Gõ ngày, số phiếu, kho, hàng, NCC, nhóm hàng..."></label><span class="tag" id="reportSearchCount"></span></div></div>';
+      html=html.replace('<div class="panel"><div class="head"><h2 id="rpTitle">',box+'<div class="panel"><div class="head"><h2 id="rpTitle">');
+    }
+    return html;
+  };
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+  function applyReportSearch(){
+    var input=document.getElementById('reportSearch'),rp=document.getElementById('rp'),badge=document.getElementById('reportSearchCount');
+    if(!input||!rp)return;
+    var q=norm(input.value),rows=[].slice.call(rp.querySelectorAll('tbody tr')),shown=0;
+    rows.forEach(function(row){var ok=!q||norm(row.textContent).indexOf(q)>=0;row.classList.toggle('report-row-hidden',!ok);if(ok)shown++});
+    if(badge)badge.textContent=rows.length?(shown+' / '+rows.length+' dòng'):'';
+  }
+  window.applyReportSearch=applyReportSearch;
+  function bindReportSearch(){
+    var input=document.getElementById('reportSearch'),clear=document.getElementById('clearReportSearch');
+    if(!input)return;
+    if(!input.__reportSearchBound){input.__reportSearchBound=true;input.addEventListener('input',applyReportSearch)}
+    if(clear&&!clear.__reportSearchBound){clear.__reportSearchBound=true;clear.addEventListener('click',function(){input.value='';applyReportSearch();input.focus()})}
+    applyReportSearch();
+  }
+  var oldShow=window.showReport;
+  window.showReport=function(mode,btn){var out=oldShow.apply(this,arguments);setTimeout(function(){bindReportSearch();applyReportSearch()},0);return out};
+  var oldKhoDetail=window.showKhoDetail;
+  if(typeof oldKhoDetail==='function')window.showKhoDetail=function(){var out=oldKhoDetail.apply(this,arguments);setTimeout(applyReportSearch,0);return out};
+  var oldBind=window.bindForms;
+  window.bindForms=function(){oldBind.apply(this,arguments);if(window.current==='baocao')setTimeout(bindReportSearch,0)};
+  window.editSlip=function(i){
+    if(!canEditSlipFresh())return alert('Tài khoản hiện tại không có quyền sửa phiếu');
+    var row=state.bd[i];if(!row)return alert('Không tìm thấy phiếu');
+    var hangOpts=(state.hang||[]).map(function(raw){var h=normalizeHang(raw);return [h[0],h[0]+' - '+h[1]]});
+    if(!hangOpts.some(function(h){return h[0]===row[3]})){var old=item(row[3]);hangOpts.unshift([row[3],row[3]+' - '+(old[1]||row[3])])}
+    if(document.getElementById('rpTitle'))document.getElementById('rpTitle').textContent='Sửa phiếu '+(row[1]||'');
+    var html='<div class="body form"><input id="editSlipIndex" type="hidden" value="'+i+'"><label>Ngày<input id="editSlipDate" type="date" value="'+safe(row[0]||today)+'"></label><label>Số phiếu tự động<input id="editSlipNo" value="'+safe(row[1]||'')+'" readonly></label><label>Kho<select id="editSlipKho">'+optPairsFresh(state.kho,row[2])+'</select></label><label>Hàng hóa<select id="editSlipHang">'+optPairsFresh(hangOpts,row[3])+'</select></label><label>Loại phiếu<select id="editSlipLoai">'+currentSlipTypeOptions(row)+'</select></label><label>NCC/Ghi chú<input id="editSlipNcc" list="editSlipNccList" value="'+safe(row[7]||'')+'"><datalist id="editSlipNccList">'+nccDatalist(row[7]||'')+'</datalist></label><label>Số lượng nhập<input id="editSlipNhap" type="number" min="0" value="'+Number(row[5]||0)+'"></label><label>Số lượng xuất<input id="editSlipXuat" type="number" min="0" value="'+Number(row[6]||0)+'"></label><p class="hint full">Các ô Kho, Hàng hóa, Loại phiếu và NCC đang lấy theo danh mục mới nhất bạn đã sửa.</p><button class="btn primary" onclick="saveEditSlip()">Lưu phiếu đã sửa</button><button class="btn" onclick="showReport(\'xnk\')">Hủy</button></div>';
+    document.getElementById('rp').innerHTML=html;
+  };
+  window.saveEditSlip=function(){
+    if(!canEditSlipFresh())return alert('Tài khoản hiện tại không có quyền sửa phiếu');
+    var i=Number(document.getElementById('editSlipIndex').value),old=state.bd[i];if(!old)return alert('Không tìm thấy phiếu');
+    var nhap=Number(document.getElementById('editSlipNhap').value||0),xuat=Number(document.getElementById('editSlipXuat').value||0);
+    if(nhap<0||xuat<0)return alert('Số lượng không hợp lệ');
+    if((nhap>0&&xuat>0)||(!nhap&&!xuat))return alert('Chỉ nhập số lượng ở một ô: Nhập hoặc Xuất');
+    applySlipStock(old,-1);
+    var row=[document.getElementById('editSlipDate').value,old[1],document.getElementById('editSlipKho').value,document.getElementById('editSlipHang').value,document.getElementById('editSlipLoai').value,nhap,xuat,document.getElementById('editSlipNcc').value.trim()];
+    var key=row[2]+'|'+row[3],newStock=(state.ton[key]||0)+nhap-xuat;
+    if(newStock<0){applySlipStock(old,1);return alert('Không đủ tồn kho sau khi sửa phiếu xuất')}
+    state.bd[i]=row;applySlipStock(row,1);if(typeof touchState==='function')touchState();save();alert('Đã sửa phiếu và cập nhật tồn kho');current='baocao';render();setTimeout(function(){showReport('xnk');bindReportSearch()},0);
+  };
+})();
 </script></body>
 </html>
+
+
+
+
+
 
 
 
