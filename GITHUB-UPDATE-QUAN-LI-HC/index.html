@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-hide-ton-total-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-simple-stock-table-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-hide-ton-total-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-simple-stock-table-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-hide-ton-total-1';
+window.APP_VERSION='20260704-simple-stock-table-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1222,8 +1222,141 @@ window.__settingsCollapsePatch=true;
     window.render.__hideTonTotalWrapped=true;
   }
 })();
+</script><script id="one-font-20260704">
+(function(){
+  if(window.__oneFontPatch)return;window.__oneFontPatch=true;
+  if(document.getElementById('one-font-style-20260704'))return;
+  var st=document.createElement('style');st.id='one-font-style-20260704';
+  st.textContent='html,body,.app,.app *,button,input,select,textarea,table,th,td{font-family:"Segoe UI",Arial,Helvetica,sans-serif!important;letter-spacing:0!important;text-rendering:auto!important;-webkit-font-smoothing:antialiased!important}body{font-weight:400!important}h1,h2,.brand,.mobile-title strong{font-weight:700!important}label,th,.tag,.nav,.btn{font-weight:600!important}input,select{font-weight:500!important}#ton .ton-search-panel-strong,#ton .ton-search-panel-strong *{font-family:"Segoe UI",Arial,Helvetica,sans-serif!important}#ton .ton-search-panel-strong h2{font-weight:700!important}#ton .ton-search-field{font-weight:600!important}#ton #timTon{font-weight:600!important;font-size:15px!important;line-height:1.35!important;text-shadow:none!important}#ton #timTon::placeholder{font-weight:500!important;color:#5b7067!important}.ton-suggest-title{font-weight:600!important}.ton-suggest-meta{font-weight:600!important}@media(max-width:900px){#ton #timTon{font-size:16px!important}}';
+  document.head.appendChild(st);
+})();
+</script><script id="scan-it-serial-20260704">
+(function(){
+  if(window.__scanItSerialPatch)return;window.__scanItSerialPatch=true;
+  var scanControls=null,scanStream=null,scanTimer=null;
+  function byId(id){return document.getElementById(id)}
+  function addStyle(){
+    if(byId('scan-it-serial-style-20260704'))return;
+    var st=document.createElement('style');st.id='scan-it-serial-style-20260704';
+    st.textContent='.serial-scan-wrap{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.serial-scan-wrap input{min-width:0}.serial-scan-btn{white-space:nowrap;background:#0f8d68!important;color:#fff!important;border-color:#0f8d68!important;font-weight:700!important}.serial-scan-hint{grid-column:1/-1;color:#5f746b;font-size:12px;font-weight:500;line-height:1.35}.scan-modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(7,24,18,.72);padding:14px}.scan-modal.show{display:flex}.scan-box{width:min(520px,100%);background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 22px 55px rgba(0,0,0,.35)}.scan-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:#10251d;color:#fff}.scan-head h2{margin:0;font-size:17px}.scan-body{padding:12px}.scan-video{width:100%;aspect-ratio:4/3;background:#071812;border-radius:10px;object-fit:cover}.scan-status{margin:10px 0 0;color:#385246;font-size:13px;line-height:1.4}.scan-actions{display:flex;gap:8px;margin-top:12px}.scan-actions .btn{flex:1}@media(max-width:900px){.serial-scan-wrap{grid-template-columns:1fr}.serial-scan-btn{width:100%}.scan-modal{align-items:flex-start;padding-top:calc(72px + env(safe-area-inset-top))}.scan-head h2{font-size:16px}}';
+    document.head.appendChild(st);
+  }
+  function ensureModal(){
+    if(byId('scanSerialModal'))return;
+    document.body.insertAdjacentHTML('beforeend','<div class="scan-modal" id="scanSerialModal"><div class="scan-box"><div class="scan-head"><h2>Quét số seri thiết bị</h2><button class="btn small" id="closeScanSerial" type="button">Đóng</button></div><div class="scan-body"><video class="scan-video" id="scanSerialVideo" autoplay muted playsinline></video><p class="scan-status" id="scanSerialStatus">Đưa camera vào mã vạch hoặc QR trên thiết bị. Nếu không quét được, đóng lại và nhập tay.</p><div class="scan-actions"><button class="btn" id="manualSerialBtn" type="button">Nhập tay</button><button class="btn primary" id="retryScanSerial" type="button">Quét lại</button></div></div></div></div>');
+    byId('closeScanSerial').onclick=stopSerialScan;
+    byId('manualSerialBtn').onclick=stopSerialScan;
+    byId('retryScanSerial').onclick=function(){startSerialScan()};
+  }
+  function setStatus(msg){var s=byId('scanSerialStatus');if(s)s.textContent=msg}
+  function fillSerial(value){
+    value=String(value||'').trim();if(!value)return;
+    var serial=byId('maThietBi'),hidden=byId('seriThietBi');
+    if(serial){serial.value=value;serial.dispatchEvent(new Event('input',{bubbles:true}))}
+    if(hidden)hidden.value=value;
+    setStatus('Đã quét được: '+value);
+    setTimeout(stopSerialScan,450);
+  }
+  function stopSerialScan(){
+    if(scanControls&&scanControls.stop){try{scanControls.stop()}catch(e){}}
+    scanControls=null;
+    if(scanTimer){clearInterval(scanTimer);scanTimer=null}
+    if(scanStream){scanStream.getTracks().forEach(function(t){try{t.stop()}catch(e){}});scanStream=null}
+    var video=byId('scanSerialVideo');if(video)video.srcObject=null;
+    var modal=byId('scanSerialModal');if(modal)modal.classList.remove('show');
+  }
+  function loadZxing(){
+    return new Promise(function(resolve,reject){
+      if(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader)return resolve(window.ZXingBrowser);
+      var old=document.querySelector('script[data-zxing-browser]');
+      if(old){old.addEventListener('load',function(){resolve(window.ZXingBrowser)});old.addEventListener('error',reject);return}
+      var sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/umd/index.min.js';sc.async=true;sc.setAttribute('data-zxing-browser','1');
+      sc.onload=function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không mở được thư viện quét mã'))};
+      sc.onerror=function(){reject(new Error('Không tải được thư viện quét mã'))};
+      document.head.appendChild(sc);
+    })
+  }
+  function startWithBarcodeDetector(video){
+    if(!('BarcodeDetector' in window))return Promise.reject(new Error('Máy chưa hỗ trợ quét trực tiếp'));
+    return navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false}).then(function(stream){
+      scanStream=stream;video.srcObject=stream;return video.play().then(function(){
+        var detector=new BarcodeDetector({formats:['qr_code','code_128','code_39','ean_13','ean_8','upc_a','upc_e','itf','codabar']});
+        scanTimer=setInterval(function(){detector.detect(video).then(function(codes){if(codes&&codes[0])fillSerial(codes[0].rawValue)}).catch(function(){})},450);
+        setStatus('Đang quét bằng camera. Bạn vẫn có thể đóng lại để nhập tay.');
+      })
+    })
+  }
+  function startWithZxing(video){
+    return loadZxing().then(function(ZXingBrowser){
+      var reader=new ZXingBrowser.BrowserMultiFormatReader();
+      setStatus('Đang mở camera để quét mã...');
+      return reader.decodeFromVideoDevice(undefined,video,function(result,err,controls){
+        if(controls)scanControls=controls;
+        if(result){var text=result.getText?result.getText():String(result.text||result);fillSerial(text)}
+      }).then(function(controls){scanControls=controls;setStatus('Đang quét mã vạch/QR. Nếu không được, bấm Đóng để nhập tay.')})
+    })
+  }
+  function startSerialScan(){
+    addStyle();ensureModal();
+    var modal=byId('scanSerialModal'),video=byId('scanSerialVideo');
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){alert('Trình duyệt chưa hỗ trợ camera. Bạn nhập tay số seri giúp mình nhé.');return}
+    if(location.protocol!=='https:'&&location.hostname!=='localhost'&&location.hostname!=='127.0.0.1'){alert('Muốn dùng camera cần mở app bằng link https. Bạn vẫn nhập tay số seri được.');return}
+    stopSerialScan();ensureModal();modal=byId('scanSerialModal');video=byId('scanSerialVideo');modal.classList.add('show');setStatus('Đang xin quyền camera...');
+    startWithBarcodeDetector(video).catch(function(){return startWithZxing(video)}).catch(function(){setStatus('Không mở được quét mã trên máy này. Bạn bấm Đóng rồi nhập tay số seri.');});
+  }
+  function enhanceSerialField(){
+    var input=byId('maThietBi');if(!input||byId('scanSerialBtn'))return;
+    var label=input.closest('label');if(!label)return;
+    var text=document.createElement('span');text.textContent='Số seri thiết bị';
+    var wrap=document.createElement('div');wrap.className='serial-scan-wrap';
+    input.parentNode.insertBefore(wrap,input);
+    wrap.appendChild(input);
+    wrap.insertAdjacentHTML('beforeend','<button class="btn serial-scan-btn" id="scanSerialBtn" type="button">Quét seri</button><div class="serial-scan-hint">Quét mã vạch/QR bằng camera, hoặc nhập tay nếu tem mờ/không quét được.</div>');
+    var btn=byId('scanSerialBtn');if(btn)btn.onclick=startSerialScan;
+  }
+  addStyle();
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__scanItSerialWrapped){
+    window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(enhanceSerialField,0);return out};
+    window.render.__scanItSerialWrapped=true;
+  }
+  setTimeout(enhanceSerialField,100);
+})();
+</script><script id="simple-stock-table-20260704">
+(function(){
+  if(window.__simpleStockTablePatch)return;window.__simpleStockTablePatch=true;
+  function addStyle(){
+    if(document.getElementById('simple-stock-table-style-20260704'))return;
+    var st=document.createElement('style');st.id='simple-stock-table-style-20260704';
+    st.textContent='#ton .simple-stock-table th,#ton .simple-stock-table td{font-size:14px!important;padding:10px 12px!important}#ton .simple-stock-table .stock-item-name{font-weight:700;color:#0b2f24}#ton .simple-stock-table .stock-qty{font-size:16px;font-weight:800;color:#087253;text-align:right;white-space:nowrap}#ton .simple-stock-table .stock-warehouse{font-weight:600;color:#18382d}@media(max-width:900px){#ton .simple-stock-table tr{padding:10px 12px!important}#ton .simple-stock-table td{padding:6px 0!important;font-size:14px!important}#ton .simple-stock-table td:before{min-width:72px;text-align:center}#ton .simple-stock-table .stock-qty{font-size:17px!important}}';
+    document.head.appendChild(st);
+  }
+  function esc(v){return String(v||'').replace(/[&<>\"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]})}
+  function renderSimpleStock(){
+    var body=document.getElementById('tonRowsBody');if(!body||!window.stockRows)return;
+    var rows=stockRows().map(function(r){
+      var hang=r[2]||[];var text=[nameKho(r[0]),r[1],hang[1],hang[2],hang[3],String(r[3])].join(' ').toLowerCase().replace(/"/g,'');
+      return '<tr data-search="'+esc(text)+'"><td data-label="Kho"><span class="stock-warehouse">'+esc(nameKho(r[0]))+'</span></td><td data-label="Hàng tồn"><span class="stock-item-name">'+esc(hang[1])+'</span></td><td data-label="Số lượng" class="num stock-qty">'+fmt(r[3])+' '+esc(hang[3])+'</td></tr>';
+    }).join('');
+    body.innerHTML=rows||'<tr><td class="empty" colspan="3">Chưa có tồn kho.</td></tr>';
+    var table=body.closest('table');
+    if(table){table.classList.add('simple-stock-table');var head=table.querySelector('thead tr');if(head)head.innerHTML='<th>Kho</th><th>Hàng tồn</th><th class="num">Số lượng</th>'}
+    if(typeof bindSearchTon==='function')bindSearchTon();
+  }
+  function afterRender(){addStyle();if(document.getElementById('tonRowsBody'))setTimeout(renderSimpleStock,0)}
+  addStyle();
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__simpleStockWrapped){
+    window.render=function(){var out=oldRender.apply(this,arguments);afterRender();return out};
+    window.render.__simpleStockWrapped=true;
+  }
+  setTimeout(afterRender,100);
+})();
 </script></body>
 </html>
+
+
+
 
 
 
