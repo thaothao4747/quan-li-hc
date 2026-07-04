@@ -241,7 +241,7 @@
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
 <div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=3d" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-simple-stock-table-1</div></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=3d" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260704-photo-scan-fix-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-simple-stock-table-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260704-photo-scan-fix-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260704-simple-stock-table-1';
+window.APP_VERSION='20260704-photo-scan-fix-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -1352,8 +1352,166 @@ window.__settingsCollapsePatch=true;
   }
   setTimeout(afterRender,100);
 })();
+</script><script id="raised-nav-buttons-20260704">
+(function(){
+  if(window.__raisedNavButtonsPatch)return;window.__raisedNavButtonsPatch=true;
+  if(document.getElementById('raised-nav-buttons-style-20260704'))return;
+  var st=document.createElement('style');st.id='raised-nav-buttons-style-20260704';
+  st.textContent='aside nav{gap:8px!important}.nav{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.10)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 18px rgba(0,0,0,.10)!important;color:#ecfff7!important;font-weight:600!important;transition:transform .12s ease,box-shadow .12s ease,background .12s ease,border-color .12s ease!important}.nav:hover{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.18)!important;transform:translateY(-1px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 10px 22px rgba(0,0,0,.16)!important}.nav.active{background:linear-gradient(135deg,#e9fff5,#bcebd7)!important;border-color:#d8ffed!important;color:#082f24!important;font-weight:800!important;box-shadow:0 10px 24px rgba(6,116,82,.30),inset 0 1px 0 rgba(255,255,255,.70)!important}.nav.active:hover{transform:none!important}.mobile-bar{background:linear-gradient(180deg,#0e7f5e,#06714f)!important;border-top:0!important;box-shadow:0 -12px 26px rgba(4,84,60,.24)!important}.mobile-bar button{background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.16)!important;color:#f4fffa!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 6px 14px rgba(0,0,0,.10)!important;font-weight:700!important}.mobile-bar button.active{background:#fff!important;color:#087253!important;border-color:#fff!important;box-shadow:0 8px 18px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.70)!important;font-weight:800!important}.mobile-bar button:active{transform:translateY(1px)!important}@media(max-width:900px){.mobile-bar{gap:5px!important;padding:7px 6px calc(7px + env(safe-area-inset-bottom))!important}.mobile-bar button{border-radius:11px!important;min-height:48px!important}.mobile-bar button.active{transform:translateY(-2px)!important}}';
+  document.head.appendChild(st);
+})();
+</script><script id="scan-camera-fix-20260704">
+(function(){
+  if(window.__scanCameraFixPatch)return;window.__scanCameraFixPatch=true;
+  var scanControls=null,scanStream=null,scanWatch=null;
+  function byId(id){return document.getElementById(id)}
+  function setStatus(msg){var s=byId('scanSerialStatus');if(s)s.textContent=msg}
+  function fillSerial(value){
+    value=String(value||'').trim();if(!value)return;
+    var serial=byId('maThietBi'),hidden=byId('seriThietBi');
+    if(serial){serial.value=value;serial.dispatchEvent(new Event('input',{bubbles:true}))}
+    if(hidden)hidden.value=value;
+    setStatus('Đã lấy số seri: '+value);
+    setTimeout(stopScanV2,500);
+  }
+  function stopScanV2(){
+    if(scanControls&&scanControls.stop){try{scanControls.stop()}catch(e){}}
+    scanControls=null;
+    if(scanWatch){clearTimeout(scanWatch);scanWatch=null}
+    if(scanStream){scanStream.getTracks().forEach(function(t){try{t.stop()}catch(e){}});scanStream=null}
+    var video=byId('scanSerialVideo');if(video)video.srcObject=null;
+    var modal=byId('scanSerialModal');if(modal)modal.classList.remove('show');
+  }
+  function loadZxingV2(){
+    return new Promise(function(resolve,reject){
+      if(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader)return resolve(window.ZXingBrowser);
+      var old=document.querySelector('script[data-zxing-browser]');
+      if(old){old.addEventListener('load',function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không tải được bộ quét'))});old.addEventListener('error',reject);return}
+      var sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/umd/index.min.js';sc.async=true;sc.setAttribute('data-zxing-browser','1');
+      sc.onload=function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không tải được bộ quét'))};
+      sc.onerror=function(){reject(new Error('Không tải được bộ quét'))};
+      document.head.appendChild(sc);
+      setTimeout(function(){if(!(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader))reject(new Error('Mạng chậm, chưa tải được bộ quét'))},9000);
+    })
+  }
+  function ensureScanModalV2(){
+    if(!byId('scanSerialModal')){
+      document.body.insertAdjacentHTML('beforeend','<div class="scan-modal" id="scanSerialModal"><div class="scan-box"><div class="scan-head"><h2>Quét số seri thiết bị</h2><button class="btn small" id="closeScanSerial" type="button">Đóng</button></div><div class="scan-body"><video class="scan-video" id="scanSerialVideo" autoplay muted playsinline></video><p class="scan-status" id="scanSerialStatus">Đưa camera vào mã vạch hoặc QR trên thiết bị. Nếu không quét được, đóng lại và nhập tay.</p><div class="scan-actions"><button class="btn" id="manualSerialBtn" type="button">Nhập tay</button><button class="btn primary" id="retryScanSerial" type="button">Quét lại</button></div></div></div></div>');
+    }
+    var actions=document.querySelector('#scanSerialModal .scan-actions');
+    if(actions&&!byId('photoScanSerial'))actions.insertAdjacentHTML('afterbegin','<button class="btn" id="photoScanSerial" type="button">Chụp ảnh mã</button><input id="photoScanSerialInput" type="file" accept="image/*" capture="environment" style="display:none">');
+    if(byId('closeScanSerial'))byId('closeScanSerial').onclick=stopScanV2;
+    if(byId('manualSerialBtn'))byId('manualSerialBtn').onclick=stopScanV2;
+    if(byId('retryScanSerial'))byId('retryScanSerial').onclick=startScanV2;
+    if(byId('photoScanSerial'))byId('photoScanSerial').onclick=function(){var inp=byId('photoScanSerialInput');if(inp)inp.click()};
+    if(byId('photoScanSerialInput'))byId('photoScanSerialInput').onchange=decodePhotoV2;
+  }
+  function decodePhotoV2(e){
+    var file=e.target.files&&e.target.files[0];if(!file)return;
+    setStatus('Đang đọc mã từ ảnh vừa chụp...');
+    var url=URL.createObjectURL(file);
+    loadZxingV2().then(function(ZXingBrowser){
+      var reader=new ZXingBrowser.BrowserMultiFormatReader();
+      return reader.decodeFromImageUrl(url).then(function(result){URL.revokeObjectURL(url);fillSerial(result.getText?result.getText():String(result.text||result))})
+    }).catch(function(){URL.revokeObjectURL(url);setStatus('Chưa đọc được mã từ ảnh. Bạn thử chụp gần hơn, rõ nét hơn hoặc nhập tay.')})
+  }
+  function startScanV2(){
+    ensureScanModalV2();stopScanV2();ensureScanModalV2();
+    var modal=byId('scanSerialModal'),video=byId('scanSerialVideo');
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){alert('Điện thoại/trình duyệt này chưa mở được camera trong app. Bạn nhập tay số seri giúp mình nhé.');return}
+    if(location.protocol!=='https:'&&location.hostname!=='localhost'&&location.hostname!=='127.0.0.1'){alert('Muốn dùng camera cần mở app bằng link https. Bạn vẫn nhập tay số seri được.');return}
+    modal.classList.add('show');
+    setStatus('Đang mở camera. Nếu điện thoại hỏi quyền, bấm Cho phép.');
+    scanWatch=setTimeout(function(){setStatus('Camera mở hơi lâu. Nếu chưa thấy hỏi quyền, bấm Chụp ảnh mã hoặc Đóng để nhập tay.')},6500);
+    loadZxingV2().then(function(ZXingBrowser){
+      var reader=new ZXingBrowser.BrowserMultiFormatReader();
+      return reader.decodeFromVideoDevice(null,video,function(result,err,controls){
+        if(controls)scanControls=controls;
+        if(result){fillSerial(result.getText?result.getText():String(result.text||result))}
+      }).then(function(controls){scanControls=controls;if(scanWatch){clearTimeout(scanWatch);scanWatch=null}setStatus('Camera đã mở. Đưa mã vạch/QR vào giữa khung để quét.')})
+    }).catch(function(){
+      if(scanWatch){clearTimeout(scanWatch);scanWatch=null}
+      setStatus('Chưa mở được camera quét trực tiếp. Bạn bấm Chụp ảnh mã hoặc Đóng để nhập tay.')
+    })
+  }
+  function bindFixedButton(){var btn=byId('scanSerialBtn');if(btn){btn.onclick=startScanV2;btn.textContent='Quét seri'}}
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__scanCameraFixWrapped){
+    window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(bindFixedButton,20);return out};
+    window.render.__scanCameraFixWrapped=true;
+  }
+  document.addEventListener('click',function(e){if(e.target&&e.target.id==='scanSerialBtn'){e.preventDefault();startScanV2()}});
+  setTimeout(bindFixedButton,200);
+})();
+</script><script id="photo-scan-fix-20260704">
+(function(){
+  if(window.__photoScanFixPatch)return;window.__photoScanFixPatch=true;
+  function byId(id){return document.getElementById(id)}
+  function setStatus(msg){var s=byId('scanSerialStatus');if(s)s.textContent=msg}
+  function fillSerialPhoto(value){
+    value=String(value||'').trim();if(!value)return;
+    var serial=byId('maThietBi'),hidden=byId('seriThietBi');
+    if(serial){serial.value=value;serial.dispatchEvent(new Event('input',{bubbles:true}))}
+    if(hidden)hidden.value=value;
+    setStatus('Đã lấy số seri từ ảnh: '+value);
+    setTimeout(function(){var modal=byId('scanSerialModal');if(modal)modal.classList.remove('show')},650);
+  }
+  function loadZxingPhoto(){
+    return new Promise(function(resolve,reject){
+      if(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader)return resolve(window.ZXingBrowser);
+      var old=document.querySelector('script[data-zxing-browser]');
+      if(old){old.addEventListener('load',function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không tải được bộ đọc mã'))});old.addEventListener('error',reject);return}
+      var sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.5/umd/index.min.js';sc.async=true;sc.setAttribute('data-zxing-browser','1');
+      sc.onload=function(){window.ZXingBrowser?resolve(window.ZXingBrowser):reject(new Error('Không tải được bộ đọc mã'))};
+      sc.onerror=function(){reject(new Error('Không tải được bộ đọc mã'))};
+      document.head.appendChild(sc);
+      setTimeout(function(){if(!(window.ZXingBrowser&&window.ZXingBrowser.BrowserMultiFormatReader))reject(new Error('Mạng chậm, chưa tải được bộ đọc mã'))},9000);
+    })
+  }
+  function decodeByBarcodeDetector(file){
+    if(!('BarcodeDetector' in window)||!window.createImageBitmap)return Promise.reject(new Error('Không hỗ trợ đọc ảnh trực tiếp'));
+    return createImageBitmap(file).then(function(bitmap){
+      var detector=new BarcodeDetector({formats:['qr_code','code_128','code_39','ean_13','ean_8','upc_a','upc_e','itf','codabar']});
+      return detector.detect(bitmap).then(function(codes){try{bitmap.close&&bitmap.close()}catch(e){};if(codes&&codes[0]&&codes[0].rawValue)return codes[0].rawValue;throw new Error('Không thấy mã trong ảnh')})
+    })
+  }
+  function decodeByZxing(file){
+    var url=URL.createObjectURL(file);
+    return loadZxingPhoto().then(function(ZXingBrowser){
+      var reader=new ZXingBrowser.BrowserMultiFormatReader();
+      return reader.decodeFromImageUrl(url).then(function(result){URL.revokeObjectURL(url);return result.getText?result.getText():String(result.text||result)})
+    }).catch(function(err){URL.revokeObjectURL(url);throw err})
+  }
+  function photoChangeFixed(e){
+    var file=e.target.files&&e.target.files[0];
+    e.target.value='';
+    if(!file)return;
+    setStatus('Đang đọc mã từ ảnh. Bạn giữ ảnh rõ nét và mã nằm gọn trong khung nhé...');
+    decodeByBarcodeDetector(file).then(fillSerialPhoto).catch(function(){
+      return decodeByZxing(file).then(fillSerialPhoto)
+    }).catch(function(){
+      setStatus('Ảnh này chưa đọc được mã. Bạn thử chụp gần hơn, đủ sáng hơn, hoặc nhập tay số seri.');
+      var manual=prompt('Không đọc được mã từ ảnh. Bạn nhập tay số seri tại đây nếu muốn:');
+      if(manual)fillSerialPhoto(manual);
+    })
+  }
+  function bindPhotoButton(){
+    var actions=document.querySelector('#scanSerialModal .scan-actions');
+    if(actions&&!byId('photoScanSerial'))actions.insertAdjacentHTML('afterbegin','<button class="btn" id="photoScanSerial" type="button">Chụp ảnh mã</button><input id="photoScanSerialInput" type="file" accept="image/*" capture="environment" style="display:none">');
+    var btn=byId('photoScanSerial'),inp=byId('photoScanSerialInput');
+    if(btn&&!btn.__photoScanFixed){btn.__photoScanFixed=true;btn.onclick=function(){var input=byId('photoScanSerialInput');if(input)input.click()}}
+    if(inp&&!inp.__photoScanFixed){inp.__photoScanFixed=true;inp.onchange=photoChangeFixed}
+  }
+  document.addEventListener('click',function(e){setTimeout(bindPhotoButton,50)});
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__photoScanFixWrapped){window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(bindPhotoButton,100);return out};window.render.__photoScanFixWrapped=true}
+  setTimeout(bindPhotoButton,300);
+})();
 </script></body>
 </html>
+
+
+
 
 
 
