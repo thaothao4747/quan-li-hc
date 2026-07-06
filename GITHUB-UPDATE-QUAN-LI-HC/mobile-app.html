@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#28765a">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link rel="manifest" href="./manifest.webmanifest?v=20260706-home-icon-launcher-1">
+<link rel="apple-touch-icon" href="./app-icon-coffee.png?v=20260706-home-icon-launcher-1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="QL HC">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>QUẢN LÍ HC</title>
+<style>
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#0c6f55;color:#fff}
+body{display:grid;place-items:center;padding:24px;text-align:center}
+.box{width:min(360px,100%);display:grid;gap:14px;justify-items:center}
+img{width:78px;height:78px;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.24);background:#fff}
+h1{font-size:22px;line-height:1.1;margin:0;font-weight:800}
+p{margin:0;color:#e0fff3;font-size:14px;line-height:1.45}
+.spin{width:28px;height:28px;border:3px solid rgba(255,255,255,.28);border-top-color:#fff;border-radius:50%;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+a{color:#fff;font-weight:700}
+</style>
+</head>
+<body>
+<div class="box">
+  <img src="./app-icon-coffee.png?v=20260706-home-icon-launcher-1" alt="QUẢN LÍ HC">
+  <h1>QUẢN LÍ HC</h1>
+  <p>Đang mở bản mới nhất...</p>
+  <div class="spin" aria-hidden="true"></div>
+  <p id="fallback" style="display:none">Nếu app chưa tự mở, bấm <a href="./index.html?v=20260706-home-icon-launcher-1">vào đây</a>.</p>
+</div>
+<script>
+(function(){
+  var VERSION='20260706-home-icon-launcher-1';
+  var target='./index.html?v='+VERSION+'&t='+Date.now();
+  function go(){location.replace(target)}
+  function cleanup(){
+    var jobs=[];
+    try{
+      if(window.caches&&caches.keys){
+        jobs.push(caches.keys().then(function(keys){
+          return Promise.all(keys.filter(function(k){return k.indexOf('qlhc-')===0}).map(function(k){return caches.delete(k)}));
+        }));
+      }
+    }catch(e){}
+    try{
+      if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations){
+        jobs.push(navigator.serviceWorker.getRegistrations().then(function(regs){
+          return Promise.all(regs.map(function(r){return r.unregister()}));
+        }));
+      }
+    }catch(e){}
+    Promise.all(jobs).then(go).catch(go);
+  }
+  setTimeout(function(){var f=document.getElementById('fallback');if(f)f.style.display='block'},2500);
+  cleanup();
+})();
+</script>
+</body>
+</html>
