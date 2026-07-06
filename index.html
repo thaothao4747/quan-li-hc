@@ -2978,6 +2978,70 @@ window.__settingsCollapsePatch=true;
   ensureUserData();
   if(window.save)save();
 })();
+</script><script id="robust-user-login-20260706">
+(function(){
+  if(window.__robustUserLogin20260706)return;window.__robustUserLogin20260706=true;
+  var VERSION='20260706-robust-user-login-1';
+  window.APP_VERSION=VERSION;
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
+  function ensureLoginUsers(){
+    if(!window.state)return [];
+    if(!Array.isArray(state.users))state.users=[];
+    if(window.auth){
+      var authUser=String(auth.user||'admin').trim()||'admin';
+      var found=state.users.find(function(u){return norm(u.username)===norm(authUser)});
+      if(!found)state.users.unshift({username:authUser,password:auth.pass||'admin123',name:'Quản trị viên',role:'Admin',active:true});
+      else{if(!found.password)found.password=auth.pass||'admin123';if(!found.role)found.role='Admin';if(typeof found.active==='undefined')found.active=true}
+    }
+    if(!state.users.length)state.users.push({username:'admin',password:'admin123',name:'Quản trị viên',role:'Admin',active:true});
+    state.users.forEach(function(u){if(!u.name)u.name=u.username;if(!u.role)u.role='Nhân viên';if(typeof u.active==='undefined')u.active=true});
+    return state.users;
+  }
+  function findUserForLogin(input,pass){
+    var q=norm(input);
+    var list=ensureLoginUsers();
+    var active=list.find(function(u){return u.active!==false&&String(u.password||'')===String(pass||'')&&(norm(u.username)===q||norm(u.name)===q)});
+    if(active)return active;
+    if(window.auth&&String(auth.pass||'')===String(pass||'')&&(norm(auth.user)===q||q==='admin')){
+      return {username:auth.user||'admin',password:auth.pass||pass,name:'Quản trị viên',role:'Admin',active:true};
+    }
+    return null;
+  }
+  window.login=function(){
+    var userInput=el('loginUser')?el('loginUser').value.trim():'';
+    var pass=el('loginPass')?el('loginPass').value:'';
+    var found=findUserForLogin(userInput,pass);
+    if(found){
+      window.currentUser=found;
+      isLoggedIn=true;
+      sessionStorage.setItem('qlkho-login','1');
+      sessionStorage.setItem('qlkho-user',found.username);
+      if(el('loginRemember')&&el('loginRemember').checked)localStorage.setItem('qlhc-remember-login',JSON.stringify({user:found.username,pass:pass,remember:true}));
+      else{localStorage.removeItem('qlhc-remember-login');if(el('loginPass'))el('loginPass').value=''}
+      if(el('loginError'))el('loginError').textContent='';
+      if(window.save)save();
+      showLogin();
+      render();
+      if(window.taiDuLieuOnlineSilent)setTimeout(function(){taiDuLieuOnlineSilent()},350);
+      return;
+    }
+    if(el('loginError'))el('loginError').textContent='Sai tài khoản hoặc mật khẩu';
+  };
+  window.bindAuth=function(){
+    var savedLogin=null;try{savedLogin=JSON.parse(localStorage.getItem('qlhc-remember-login')||'null')}catch(e){savedLogin=null}
+    if(savedLogin&&savedLogin.remember){
+      if(el('loginUser'))el('loginUser').value=savedLogin.user||'';
+      if(el('loginPass'))el('loginPass').value=savedLogin.pass||'';
+      if(el('loginRemember'))el('loginRemember').checked=true;
+    }
+    if(el('loginRemember'))el('loginRemember').onchange=function(){if(!this.checked)localStorage.removeItem('qlhc-remember-login')};
+    if(el('loginBtn'))el('loginBtn').onclick=login;
+    if(el('loginPass'))el('loginPass').onkeydown=function(e){if(e.key==='Enter')login()};
+  };
+  ensureLoginUsers();
+  if(window.save)save();
+  if(window.bindAuth)bindAuth();
+})();
 </script></body>
 </html>
 
