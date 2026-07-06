@@ -2853,6 +2853,131 @@ window.__settingsCollapsePatch=true;
   };
   ensureReceiverDirectory(state);save();
 })();
+</script><script id="silent-online-login-fix-20260706">
+(function(){
+  if(window.__silentOnlineLoginFix20260706)return;window.__silentOnlineLoginFix20260706=true;
+  var VERSION='20260706-silent-online-login-fix-1';
+  window.APP_VERSION=VERSION;
+  function showSoftNotice(msg){
+    try{
+      var old=document.getElementById('softSyncNotice');
+      if(old)old.remove();
+      var box=document.createElement('div');
+      box.id='softSyncNotice';
+      box.textContent=msg;
+      box.style.cssText='position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:9999;background:#10251d;color:#fff;padding:9px 12px;border-radius:999px;font-size:13px;box-shadow:0 8px 22px rgba(0,0,0,.20);max-width:calc(100vw - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
+      document.body.appendChild(box);
+      setTimeout(function(){if(box&&box.parentNode)box.remove()},1800);
+    }catch(e){}
+  }
+  function stampState(){
+    try{if(window.state)state.__updatedAt=new Date().toISOString();if(window.save)save()}catch(e){}
+  }
+  async function pushSilent(showNotice){
+    try{
+      if(!window.cloudRequest||!window.SUPABASE_CONFIG||!window.state)return false;
+      if(state)state.__updatedAt=new Date().toISOString();
+      await cloudRequest('POST',{id:SUPABASE_CONFIG.stateId,data:state,updated_at:new Date().toISOString()});
+      if(showNotice)showSoftNotice('Đã đồng bộ online');
+      return true;
+    }catch(e){
+      console.warn(e);
+      if(showNotice)showSoftNotice('Chưa đồng bộ được online');
+      return false;
+    }
+  }
+  async function pullSilent(showNotice){
+    try{
+      if(!window.cloudRequest||!window.SUPABASE_CONFIG)return false;
+      var rows=await cloudRequest('GET');
+      if(rows&&rows[0]&&rows[0].data){
+        state=migrateState(rows[0].data);
+        stampState();
+        if(typeof render==='function')render();
+        if(showNotice)showSoftNotice('Đã tải dữ liệu online');
+        return true;
+      }
+      if(showNotice)showSoftNotice('Chưa có dữ liệu online');
+      return false;
+    }catch(e){
+      console.warn(e);
+      if(showNotice)showSoftNotice('Không tải được dữ liệu online');
+      return false;
+    }
+  }
+  window.dayDuLieuOnline=function(){return pushSilent(true)};
+  window.taiDuLieuOnline=function(){return pullSilent(true)};
+  window.dayDuLieuOnlineSilent=function(){return pushSilent(false)};
+  window.taiDuLieuOnlineSilent=function(){return pullSilent(false)};
+  var oldLogin=window.login;
+  if(typeof oldLogin==='function'){
+    window.login=function(){
+      var before=sessionStorage.getItem('qlkho-login')==='1';
+      var out=oldLogin.apply(this,arguments);
+      setTimeout(function(){
+        var after=sessionStorage.getItem('qlkho-login')==='1';
+        if(!before&&after)pullSilent(false);
+      },250);
+      return out;
+    };
+  }
+  if(window.bindAuth)bindAuth();
+})();
+</script><script id="restore-user-permission-settings-20260706">
+(function(){
+  if(window.__restoreUserPermissionSettings20260706)return;window.__restoreUserPermissionSettings20260706=true;
+  var VERSION='20260706-restore-user-permission-settings-1';
+  window.APP_VERSION=VERSION;
+  function ensureUserData(){
+    if(!window.state)return [];
+    if(!Array.isArray(state.users))state.users=[];
+    if(!state.users.some(function(u){return u&&u.username==='admin'})){
+      state.users.unshift({username:(window.auth&&auth.user)||'admin',password:(window.auth&&auth.pass)||'admin123',name:'Quản trị viên',role:'Admin',active:true});
+    }
+    state.users.forEach(function(u){
+      if(typeof u.active==='undefined')u.active=true;
+      if(!u.name)u.name=u.username;
+      if(!u.role)u.role='Nhân viên';
+      if(!u.password)u.password='1234';
+    });
+    return state.users;
+  }
+  function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function userRowsRestored(){
+    return ensureUserData().map(function(u,i){
+      var status=u.active===false?'<span class="tag bad">Khóa</span>':'<span class="tag">Hoạt động</span>';
+      return '<tr>'+td('Tên đăng nhập',safe(u.username))+td('Họ tên',safe(u.name||''))+td('Vai trò',safe(u.role||'Nhân viên'))+td('Trạng thái',status)+td('Thao tác','<span class="row-actions"><button class="btn small" type="button" onclick="editUser('+i+')">Sửa</button><button class="btn small" type="button" onclick="toggleUser('+i+')">'+(u.active===false?'Mở':'Khóa')+'</button></span>')+'</tr>';
+    }).join('')||'<tr><td class="empty" colspan="5">Chưa có tài khoản nhân viên.</td></tr>';
+  }
+  function userPanelRestored(){
+    return '<div class="panel user-permission-panel"><div class="head"><h2>Tài khoản nhân viên / phân quyền</h2></div><div class="body form"><input id="editUserIndex" type="hidden"><label>Tên đăng nhập<input id="userName" placeholder="VD: nguyenvana"></label><label>Mật khẩu<input id="userPass" placeholder="Tối thiểu 4 ký tự"></label><label>Họ tên<input id="userFullName" placeholder="Tên nhân viên"></label><label>Vai trò<select id="userRole"><option>Nhân viên</option><option>Admin</option></select></label><label class="full"><input id="userActive" type="checkbox" checked> Tài khoản đang hoạt động</label><button class="btn primary" id="luuUser" type="button">Lưu tài khoản</button><button class="btn" id="huyUser" type="button">Tạo mới</button><p class="hint full">Admin được vào Thiết lập và chỉnh danh mục. Nhân viên dùng các nghiệp vụ được phân quyền.</p></div><div class="wrap"><table><thead><tr><th>Tên đăng nhập</th><th>Họ tên</th><th>Vai trò</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody>'+userRowsRestored()+'</tbody></table></div></div>';
+  }
+  var oldScreen=window.screenThietLap;
+  if(typeof oldScreen==='function'){
+    window.screenThietLap=function(){
+      if(typeof isAdmin==='function'&&!isAdmin())return shell('thietlap','Không có quyền','Tài khoản nhân viên không được vào phần thiết lập.','<div class="panel"><div class="body">Vui lòng liên hệ Admin nếu cần thay đổi danh mục hoặc tài khoản.</div></div>');
+      ensureUserData();
+      var html=oldScreen.apply(this,arguments);
+      if(html.indexOf('Tài khoản nhân viên / phân quyền')>=0||html.indexOf('Tài khoản nhân viên')>=0)return html;
+      var panel=userPanelRestored();
+      if(html.indexOf('<div class="two">')>=0)return html.replace('<div class="two">',panel+'<div class="two">');
+      var needle='</section>';
+      var pos=html.lastIndexOf(needle);
+      return pos>=0?html.slice(0,pos)+panel+html.slice(pos):html+panel;
+    };
+  }
+  var oldBind=window.bindForms;
+  if(typeof oldBind==='function'){
+    window.bindForms=function(){
+      oldBind.apply(this,arguments);
+      ensureUserData();
+      if(el('luuUser'))el('luuUser').onclick=function(){if(typeof saveUser==='function')saveUser()};
+      if(el('huyUser'))el('huyUser').onclick=function(){if(typeof resetUser==='function')resetUser()};
+    };
+  }
+  ensureUserData();
+  if(window.save)save();
+})();
 </script></body>
 </html>
 
