@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'qlhc-20260707-item-detail-button-1';
+﻿const CACHE_NAME = 'qlhc-20260707-pwa-online-user-login-1';
 const APP_SHELL = [
   './',
   './index.html',
