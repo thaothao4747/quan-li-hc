@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'qlhc-20260707-item-description-visible-1';
+﻿const CACHE_NAME = 'qlhc-20260707-item-detail-button-1';
 const APP_SHELL = [
   './',
   './index.html',
