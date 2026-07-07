@@ -1,10 +1,10 @@
-const CACHE_NAME = 'qlhc-20260707-nhap-form-compact-1';
+const CACHE_NAME = 'qlhc-20260707-cross-device-auto-sync-1';
 const ASSETS = [
   './',
-  './index.html?v=20260707-nhap-form-compact-1',
-  './quan-ly-kho-cong-cu.html?v=20260707-nhap-form-compact-1',
-  './mobile-app.html?v=20260707-nhap-form-compact-1',
-  './manifest.webmanifest?v=20260707-nhap-form-compact-1',
+  './index.html?v=20260707-cross-device-auto-sync-1',
+  './quan-ly-kho-cong-cu.html?v=20260707-cross-device-auto-sync-1',
+  './mobile-app.html?v=20260707-cross-device-auto-sync-1',
+  './manifest.webmanifest?v=20260707-cross-device-auto-sync-1',
   './app-icon-coffee.png',
   './icon-192.png',
   './icon-512.png'
