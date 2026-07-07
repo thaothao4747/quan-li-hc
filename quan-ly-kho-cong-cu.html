@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#28765a">
-<link rel="manifest" href="./manifest.webmanifest?v=20260707-pwa-online-user-login-1">
-<link rel="icon" href="./app-icon-coffee.png?v=20260707-pwa-online-user-login-1" type="image/png">
-<link rel="apple-touch-icon" href="./app-icon-coffee.png?v=20260707-pwa-online-user-login-1">
+<link rel="manifest" href="./manifest.webmanifest?v=20260707-group-field-report-1">
+<link rel="icon" href="./app-icon-coffee.png?v=20260707-group-field-report-1" type="image/png">
+<link rel="apple-touch-icon" href="./app-icon-coffee.png?v=20260707-group-field-report-1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Kho CCDC">
@@ -237,11 +237,11 @@
   .mobile-title span{font-size:11.5px!important;line-height:1.2!important;max-width:190px!important;color:#d8eee4!important}
   .mobile-title button[onclick*="go('nhap')"],.mobile-title .quick-nhap-mobile{display:none!important}
 }
-</style><style id="login-byline-style-20260704">.login-byline{margin:-2px 0 12px!important;color:#08785d!important;font-family:"Segoe Script","Brush Script MT","Comic Sans MS",cursive!important;font-size:20px!important;font-weight:700!important;letter-spacing:.3px;text-align:left;text-shadow:0 1px 0 #fff,0 6px 16px rgba(0,135,96,.16);line-height:1.1}.login-byline:after{content:"";display:block;width:74px;height:2px;margin:6px 0 0;border-radius:999px;background:linear-gradient(90deg,#0b8b67,rgba(11,139,103,0))}.login-box h1{margin-bottom:3px!important}@media(max-width:720px){.login-byline{font-size:18px!important}}</style><style id="login-coffee-bg-style-20260704">.login-screen{background-color:#0b3a2c!important;background-image:linear-gradient(135deg,rgba(22,176,112,.22),rgba(177,238,197,.10) 45%,rgba(3,48,34,.08)),url("./login-coffee-bg.png?v=20260707-pwa-online-user-login-1")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;background-blend-mode:soft-light,normal!important;position:fixed}.login-screen:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(10,70,49,.02),rgba(4,35,24,.25));pointer-events:none}.login-box{position:relative;z-index:1;background:rgba(255,255,255,.96);backdrop-filter:blur(2px);box-shadow:0 22px 55px rgba(0,0,0,.30)}</style></head>
+</style><style id="login-byline-style-20260704">.login-byline{margin:-2px 0 12px!important;color:#08785d!important;font-family:"Segoe Script","Brush Script MT","Comic Sans MS",cursive!important;font-size:20px!important;font-weight:700!important;letter-spacing:.3px;text-align:left;text-shadow:0 1px 0 #fff,0 6px 16px rgba(0,135,96,.16);line-height:1.1}.login-byline:after{content:"";display:block;width:74px;height:2px;margin:6px 0 0;border-radius:999px;background:linear-gradient(90deg,#0b8b67,rgba(11,139,103,0))}.login-box h1{margin-bottom:3px!important}@media(max-width:720px){.login-byline{font-size:18px!important}}</style><style id="login-coffee-bg-style-20260704">.login-screen{background-color:#0b3a2c!important;background-image:linear-gradient(135deg,rgba(22,176,112,.22),rgba(177,238,197,.10) 45%,rgba(3,48,34,.08)),url("./login-coffee-bg.png?v=20260707-group-field-report-1")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;background-blend-mode:soft-light,normal!important;position:fixed}.login-screen:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(10,70,49,.02),rgba(4,35,24,.25));pointer-events:none}.login-box{position:relative;z-index:1;background:rgba(255,255,255,.96);backdrop-filter:blur(2px);box-shadow:0 22px 55px rgba(0,0,0,.30)}</style></head>
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p class="login-byline">by Thao Thao</p><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
-<div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=20260707-pwa-online-user-login-1" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=20260707-pwa-online-user-login-1" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260707-pwa-online-user-login-1</div></div>
+<div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=20260707-group-field-report-1" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=20260707-group-field-report-1" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260707-group-field-report-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260707-pwa-online-user-login-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260707-group-field-report-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260707-pwa-online-user-login-1';
+window.APP_VERSION='20260707-group-field-report-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -2043,7 +2043,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-search-edit-sync-20260704">
 (function(){
   if(window.__reportSearchEditSync20260704)return;window.__reportSearchEditSync20260704=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function optPairsFresh(arr,selected){return (arr||[]).map(function(x){var v=Array.isArray(x)?x[0]:x;var t=Array.isArray(x)?(x[1]||x[0]):x;return '<option value="'+safe(v)+'" '+(String(v)===String(selected)?'selected':'')+'>'+safe(t)+'</option>'}).join('')}
@@ -2111,7 +2111,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-group-detail-20260704">
 (function(){
   if(window.__reportGroupDetail20260704)return;window.__reportGroupDetail20260704=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   window.__openReportGroupName='';
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -2169,7 +2169,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-compact-layout-20260704">
 (function(){
   if(window.__reportCompactLayout20260704)return;window.__reportCompactLayout20260704=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   window.__selectedReportKho='';
   window.__openReportGroupName=window.__openReportGroupName||'';
@@ -2246,7 +2246,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="stock-search-group-20260704">
 (function(){
   if(window.__stockSearchGroup20260704)return;window.__stockSearchGroup20260704=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
@@ -2301,7 +2301,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="remove-default-ncc-20260704">
 (function(){
   if(window.__removeDefaultNcc20260704)return;window.__removeDefaultNcc20260704=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   var HIDDEN=['Công ty Văn phòng phẩm An Phát','Cửa hàng Thiết bị Minh Long','Nhà cung cấp khác'];
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
@@ -2926,7 +2926,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="restore-user-permission-settings-20260706">
 (function(){
   if(window.__restoreUserPermissionSettings20260706)return;window.__restoreUserPermissionSettings20260706=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function ensureUserData(){
     if(!window.state)return [];
@@ -2981,7 +2981,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="robust-user-login-20260706">
 (function(){
   if(window.__robustUserLogin20260706)return;window.__robustUserLogin20260706=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
   function ensureLoginUsers(){
@@ -3045,7 +3045,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="mobile-pwa-cache-login-fix-20260706">
 (function(){
   if(window.__mobilePwaCacheLoginFix20260706)return;window.__mobilePwaCacheLoginFix20260706=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function cleanOldCaches(){
     var jobs=[];
@@ -3371,7 +3371,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="visual-ring-report-20260707">
 (function(){
   if(window.__visualRingReport20260707)return;window.__visualRingReport20260707=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function sum(arr,fn){return (arr||[]).reduce(function(a,x){return a+Number(fn(x)||0)},0)}
@@ -3442,7 +3442,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="pwa-online-user-login-20260707">
 (function(){
   if(window.__pwaOnlineUserLogin20260707)return;window.__pwaOnlineUserLogin20260707=true;
-  var VERSION='20260707-pwa-online-user-login-1';
+  var VERSION='20260707-group-field-report-1';
   window.APP_VERSION=VERSION;
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
   function ensureUsers(){
@@ -3518,6 +3518,64 @@ window.__settingsCollapsePatch=true;
   ensureUsers();
   if(window.bindAuth)bindAuth();
   try{localStorage.setItem('qlhc-pwa-cache-version',VERSION)}catch(e){}
+  if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){navigator.serviceWorker.register('./sw.js?v='+VERSION).catch(function(){})}
+})();
+</script><script id="group-field-report-20260707">
+(function(){
+  if(window.__groupFieldReport20260707)return;window.__groupFieldReport20260707=true;
+  var VERSION='20260707-group-field-report-1';
+  window.APP_VERSION=VERSION;
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function hinfo(code){try{return normalizeHang(item(code))}catch(e){return [code,code,'','','']}}
+  function groupOf(code){var h=hinfo(code);return h[2]||'Chưa phân nhóm'}
+  function groupCell(code){return '<span class="group-link-chip">'+esc(groupOf(code))+'</span>'}
+  function canEditReport(){try{return typeof canEditXnkSlip==='function'?canEditXnkSlip():true}catch(e){return true}}
+  function canDeleteReport(){try{return typeof isAdmin==='function'?isAdmin():false}catch(e){return false}}
+  window.screenTongQuan=function(){
+    var rows=stockRows(),total=Object.values(state.ton||{}).reduce(function(a,b){return a+Number(b||0)},0);
+    var bd=(state.bd||[]).slice().reverse().slice(0,10).map(function(x){
+      return '<tr>'+td('Ngày',x[0])+td('Số phiếu',x[1])+td('Kho',nameKho(x[2]))+td('Hàng',item(x[3])[1])+td('Nhóm',groupCell(x[3]))+td('Nhập',x[5]||'', 'num')+td('Xuất',x[6]||'', 'num')+'</tr>';
+    }).join('');
+    var top=rows.slice().sort(function(a,b){return b[3]-a[3]}).slice(0,5).map(function(r){return '<p>'+esc(r[2][1])+' - '+esc(nameKho(r[0]))+': <b>'+fmt(r[3])+' '+esc(r[2][3])+'</b></p>'}).join('')||'<p class="hint">Chưa có tồn kho.</p>';
+    return shell('tongquan','Tổng quan kho','Theo dõi nhanh tồn kho và biến động mới nhất theo nhóm hàng.','<div class="stats"><div class="card dash-card dash-green"><span>Tổng kho</span><strong>'+state.kho.length+'</strong></div><div class="card dash-card dash-blue"><span>Mặt hàng</span><strong>'+state.hang.length+'</strong></div><div class="card dash-card dash-amber"><span>Tổng tồn</span><strong>'+fmt(total)+'</strong></div><div class="card dash-card dash-rose"><span>Phiếu phát sinh</span><strong>'+state.bd.length+'</strong></div></div><div class="grid"><div class="panel panel-accent"><div class="head"><h2>Biến động gần đây</h2><span class="tag">10 dòng mới nhất</span></div><div class="wrap"><table><thead><tr><th>Ngày</th><th>Số phiếu</th><th>Kho</th><th>Hàng</th><th>Nhóm</th><th class="num">Nhập</th><th class="num">Xuất</th></tr></thead><tbody>'+bd+'</tbody></table></div></div><div class="panel panel-blue"><div class="head"><h2>Tồn nhiều nhất</h2></div><div class="body">'+top+'</div></div></div>');
+  };
+  function slipRowsByGroup(){
+    return (state.bd||[]).map(function(x,i){return {x:x,i:i}}).reverse().map(function(r){
+      var x=r.x,buttons=[];
+      if(canEditReport())buttons.push('<button class="btn small" onclick="editSlip('+r.i+')">Sửa</button>');
+      if(canDeleteReport()&&typeof deleteSlip==='function')buttons.push('<button class="btn small bad" onclick="deleteSlip('+r.i+')">Xóa</button>');
+      return '<tr>'+td('Ngày',x[0])+td('Số phiếu',x[1])+td('Kho',nameKho(x[2]))+td('Bộ phận/kho',x[12]||'')+td('Nhóm',groupCell(x[3]))+td('Hàng',item(x[3])[1])+td('NCC/Người nhận',x[7]||'')+td('Nhập',x[5]||'', 'num')+td('Xuất',x[6]||'', 'num')+(buttons.length?td('Thao tác','<span class="row-actions">'+buttons.join('')+'</span>'):'')+'</tr>';
+    }).join('');
+  }
+  var oldShow=window.showReport;
+  window.showReport=function(mode,btn){
+    if(mode!=='xnk'){
+      var out=oldShow.apply(this,arguments);
+      return out;
+    }
+    if(btn){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});btn.classList.add('active')}
+    var screen=document.getElementById('baocao');if(screen)screen.classList.remove('report-visual-active');
+    if(!el('rp'))return;
+    el('rpTitle').textContent='Chi tiết XNK theo nhóm';
+    var actionHead=(canEditReport()||canDeleteReport())?'<th>Thao tác</th>':'';
+    el('rp').innerHTML='<table><thead><tr><th>Ngày</th><th>Số phiếu</th><th>Kho</th><th>Bộ phận/kho</th><th>Nhóm</th><th>Hàng</th><th>NCC/Người nhận</th><th>Nhập</th><th>Xuất</th>'+actionHead+'</tr></thead><tbody>'+slipRowsByGroup()+'</tbody></table>';
+    if(typeof applyReportSearch==='function')setTimeout(applyReportSearch,0);
+  };
+  function hideNhapTypeField(){
+    var s=document.getElementById('nhap');if(!s)return;
+    var loai=el('loaiNhap');if(!loai)return;
+    var label=loai.closest('label');if(label){label.classList.add('type-merged-hidden');label.style.display='none'}
+  }
+  var oldBind=window.bindForms;
+  window.bindForms=function(){
+    oldBind.apply(this,arguments);
+    hideNhapTypeField();
+  };
+  if(!document.getElementById('group-field-report-style-20260707')){
+    var st=document.createElement('style');st.id='group-field-report-style-20260707';
+    st.textContent='.group-link-chip{display:inline-flex;align-items:center;max-width:220px;border-radius:999px;background:#e6f7ef;color:#08745a;border:1px solid #bfe6d7;padding:3px 8px;font-weight:700;font-size:12px;line-height:1.2}.type-merged-hidden{display:none!important}@media(max-width:900px){.group-link-chip{font-size:11.5px;max-width:170px}}';
+    document.head.appendChild(st);
+  }
   if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){navigator.serviceWorker.register('./sw.js?v='+VERSION).catch(function(){})}
 })();
 </script></body>
