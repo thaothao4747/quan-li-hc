@@ -3083,6 +3083,164 @@ window.__settingsCollapsePatch=true;
     });
   }
 })();
+</script><script id="item-description-visible-20260707">
+(function(){
+  if(window.__itemDescriptionVisible20260707)return;window.__itemDescriptionVisible20260707=true;
+  var VERSION='20260707-item-description-visible-1';
+  window.APP_VERSION=VERSION;
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
+  function hnorm(raw){try{return typeof normalizeHang==='function'?normalizeHang(raw):(raw||['','','','',''])}catch(e){return raw||['','','','','']}}
+  function allItems(){return (window.state&&Array.isArray(state.hang)?state.hang:[]).map(hnorm)}
+  function itemInfo(code){var n=norm(code);return allItems().find(function(h){return norm(h[0])===n||norm(h[1])===n})||[code,code,'','','']}
+  function itemDesc(codeOrName){var h=itemInfo(codeOrName);return String(h[4]||'').trim()}
+  function itemName(code){var h=itemInfo(code);return h[1]||code}
+  function itemUnit(code){var h=itemInfo(code);return h[3]||''}
+  function totalStock(code){var sum=0;Object.keys(state.ton||{}).forEach(function(k){var p=k.split('|');if(p[1]===code)sum+=Number(state.ton[k]||0)});return sum}
+  function stockWarehouses(code){return (state.kho||[]).map(function(k){return {ma:k[0],ten:k[1],sl:Number((state.ton||{})[k[0]+'|'+code]||0)}}).filter(function(x){return x.sl>0})}
+  function nextCode(group){return typeof nextItemCode==='function'?nextItemCode(group):'HH'+String((state.hang||[]).length+1).padStart(3,'0')}
+  function isAdminUser(){try{return typeof isAdmin==='function'?isAdmin():true}catch(e){return true}}
+  function groupOptions(selected){return (state.nhomHangList||[]).map(function(g){return '<option value="'+esc(g)+'" '+(g===selected?'selected':'')+'>'+esc(g)+'</option>'}).join('')}
+  function dvtOptions(selected){return (state.dvtList||[]).map(function(g){return '<option value="'+esc(g)+'" '+(g===selected?'selected':'')+'>'+esc(g)+'</option>'}).join('')}
+  function bpOptions(){
+    var list=[];
+    function push(v){v=String(v||'').trim();if(v&&!list.some(function(x){return norm(x)===norm(v)}))list.push(v)}
+    (state.kho||[]).forEach(function(k){push(k[1]);push(k[2])});
+    (state.receiverDeptList||[]).forEach(function(x){push(x.dept);push(x.name)});
+    (state.receiverList||[]).forEach(push);
+    return list.map(function(v){return '<option value="'+esc(v)+'"></option>'}).join('');
+  }
+  function selectedItemCode(id){
+    var input=el(id);if(!input)return '';
+    var code=input.dataset&&input.dataset.code;if(code&&itemInfo(code)[0])return code;
+    var q=norm(input.value);
+    var found=allItems().find(function(h){return norm(h[0])===q||norm(h[1])===q||norm(h[0]+' - '+h[1])===q});
+    return found?found[0]:'';
+  }
+  function setSearchValue(id,code){
+    var input=el(id);if(!input)return;
+    input.dataset.code=code;
+    input.value=itemName(code);
+  }
+  function currentNhapGroup(){return el('nhomNhap')?el('nhomNhap').value:''}
+  function matchNhapItem(h,q){var g=currentNhapGroup();if(g&&h[2]!==g)return false;q=norm(q);if(!q)return true;return [h[0],h[1],h[2],h[3],h[4]].some(function(v){return norm(v).indexOf(q)>=0})}
+  function renderNhapSuggest(){
+    var input=el('hangNhap'),box=el('hangNhapSuggest');if(!input||!box)return;
+    if(input.dataset.code&&norm(input.value)!==norm(itemName(input.dataset.code)))input.dataset.code='';
+    var rows=allItems().filter(function(h){return matchNhapItem(h,input.value)}).slice(0,12);
+    if(!rows.length){box.innerHTML='<div class="item-suggest-empty">Không tìm thấy hàng hóa trong nhóm này</div>';box.classList.add('show');return}
+    box.innerHTML=rows.map(function(h){
+      var wh=stockWarehouses(h[0]).slice(0,2).map(function(x){return x.ten}).join(', ')||'chưa có tồn';
+      var desc=h[4]?'<span class="item-desc-note">'+esc(h[4])+'</span>':'';
+      return '<button class="item-suggest-row" type="button" data-code="'+esc(h[0])+'" data-kind="nhap-desc"><span class="item-suggest-name">'+esc(h[1])+'</span>'+desc+'<span class="item-suggest-meta">'+esc(h[2]||'Chưa phân nhóm')+' - Tồn '+fmt(totalStock(h[0]))+' '+esc(h[3]||'')+' - '+esc(wh)+'</span></button>'
+    }).join('');
+    box.classList.add('show');
+  }
+  function renderXuatSuggestWithDesc(){
+    var input=el('hangXuat'),box=el('hangXuatSuggest');if(!input||!box)return;
+    if(input.dataset.code&&norm(input.value)!==norm(itemName(input.dataset.code)))input.dataset.code='';
+    var q=norm(input.value),html=[];
+    allItems().forEach(function(h){
+      if(q&&[h[0],h[1],h[2],h[4]].every(function(v){return norm(v).indexOf(q)<0}))return;
+      stockWarehouses(h[0]).forEach(function(w){
+        var desc=h[4]?'<span class="item-desc-note">'+esc(h[4])+'</span>':'';
+        html.push('<button class="item-suggest-row" type="button" data-code="'+esc(h[0])+'" data-kho="'+esc(w.ma)+'" data-kind="xuat-desc"><span class="item-suggest-name">'+esc(h[1])+'</span>'+desc+'<span class="item-suggest-meta">Tồn '+fmt(w.sl)+' '+esc(h[3]||'')+' - '+esc(w.ten)+'</span></button>');
+      });
+    });
+    box.innerHTML=html.slice(0,14).join('')||'<div class="item-suggest-empty">Không có hàng nào còn tồn phù hợp</div>';
+    box.classList.add('show');
+  }
+  window.screenNhap=function(){
+    return shell('nhap','Nhập kho','Chọn nhóm hàng và ghi mô tả để dễ nhận biết size, màu, chi tiết khi cần tra cứu.','<div class="panel"><div class="head"><h2>Tạo phiếu nhập</h2><button class="btn blue" onclick="go(\'chuyen\')">Nhận điều chuyển</button></div><div class="body form"><label>Số phiếu tự động<input id="soNhap" value="'+nextSlipNo('PN')+'" readonly></label><label>Loại nhập<select id="loaiNhap"></select></label><label>Kho nhận<select id="khoNhap"></select></label><label>Bộ phận/kho<input id="boPhanKhoNhap" list="boPhanKhoNhapList" placeholder="VD: Kho VP 77CT / Phòng HC"><datalist id="boPhanKhoNhapList">'+bpOptions()+'</datalist></label><label>NCC<select id="nccNhap"></select></label><label>Nhóm hàng<select id="nhomNhap"><option value="">Tất cả nhóm</option>'+groupOptions('')+'</select></label><label class="full item-search-field">Hàng hóa<input id="hangNhap" autocomplete="off" placeholder="Gõ tên hàng, mã hàng, nhóm hoặc mô tả"><div id="hangNhapSuggest" class="item-suggest-list"></div></label><button class="btn blue" id="batHangMoi" type="button">+ Tạo hàng hóa mới</button><label>Số lượng<input id="slNhap" type="number" value="1"></label><div class="full panel" id="hangMoiBox" style="display:none;box-shadow:none"><div class="head"><h2>Hàng hóa mới</h2></div><div class="body form"><label>Mã hàng tự động<input id="nhapMaHangMoi" readonly></label><label>Tên hàng mới<input id="nhapTenHangMoi" placeholder="VD: Áo thun Cà Mau"></label><label>Nhóm hàng<select id="nhapNhomHangMoi"></select></label><label>Đơn vị tính<select id="nhapDvtMoi"></select></label><label class="full">Mô tả / Size / màu / chi tiết<input id="nhapThuocTinhMoi" placeholder="VD: Size L; màu xanh; chất cotton; tay ngắn"></label><p class="hint full">Mô tả này sẽ đi theo mặt hàng và hiện trong danh mục, tồn kho, nhập xuất, báo cáo.</p></div></div><button class="btn primary" id="luuNhap">Lưu phiếu nhập</button></div></div>')
+  };
+  window.screenHang=function(){
+    if(!isAdminUser())return shell('hanghoa','Không có quyền','Tài khoản nhân viên không được sửa danh mục hàng hóa.','<div class="panel"><div class="body">Vui lòng liên hệ Admin nếu cần thêm hoặc sửa hàng hóa.</div></div>');
+    var rows=allItems().map(function(h,i){return '<tr>'+td('Mã',esc(h[0]))+td('Tên hàng',esc(h[1]))+td('Nhóm',esc(h[2]))+td('ĐVT',esc(h[3]))+td('Mô tả',esc(h[4]||''))+td('Thao tác','<button class="btn small" onclick="editHang('+i+')">Sửa</button>')+'</tr>'}).join('');
+    return shell('hanghoa','Danh mục hàng hóa','Quản lý tên hàng, nhóm, đơn vị tính và mô tả như size, màu, thông số.','<div class="grid"><div class="panel"><div class="head"><h2>Danh sách hàng hóa</h2></div><div class="wrap"><table><thead><tr><th>Mã</th><th>Tên hàng</th><th>Nhóm</th><th>ĐVT</th><th>Mô tả</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div></div><div class="panel"><div class="head"><h2>Thông tin hàng hóa</h2></div><div class="body form"><input id="editHang" type="hidden"><label>Mã hàng tự động<input id="maHang" readonly></label><label>Tên hàng<input id="tenHang" placeholder="Tên hàng hóa"></label><label>Nhóm<select id="nhomHang">'+groupOptions('')+'</select></label><label>ĐVT<select id="dvt">'+dvtOptions('')+'</select></label><label class="full">Mô tả / Size / màu / chi tiết<input id="thuocTinh" placeholder="VD: Size L; màu xanh; chất cotton; tay ngắn"></label><button class="btn primary" id="luuHang">Lưu hàng hóa</button><button class="btn" id="huyHang">Tạo mới</button></div></div></div>')
+  };
+  window.editHang=function(i){var h=allItems()[i];if(!h)return;el('editHang').value=i;el('maHang').value=h[0];el('tenHang').value=h[1];el('nhomHang').value=h[2];el('dvt').value=h[3];el('thuocTinh').value=h[4]||''}
+  window.resetHang=function(){['editHang','tenHang','thuocTinh'].forEach(function(id){if(el(id))el(id).value=''});if(el('maHang'))el('maHang').value=nextCode(el('nhomHang')?el('nhomHang').value:'')}
+  window.saveHang=function(){
+    var i=el('editHang')?el('editHang').value:'',ma=el('maHang')?el('maHang').value.trim():'',ten=el('tenHang')?el('tenHang').value.trim():'';
+    if(!ma)ma=nextCode(el('nhomHang')?el('nhomHang').value:'');
+    if(!ten)return alert('Nhập tên hàng');
+    var row=[ma,ten,el('nhomHang').value,el('dvt').value,(el('thuocTinh')&&el('thuocTinh').value.trim())||''];
+    if(i===''){if((state.hang||[]).some(function(h){return hnorm(h)[0]===ma}))row[0]=nextCode(row[2]);state.hang.push(row)}else state.hang[Number(i)]=row;
+    save();render();
+  };
+  window.saveNhap=function(){
+    var maHang=selectedItemCode('hangNhap');
+    if(el('hangMoiBox')&&el('hangMoiBox').style.display!=='none'){
+      var ma=(el('nhapMaHangMoi')&&el('nhapMaHangMoi').value.trim())||nextCode(el('nhapNhomHangMoi')?el('nhapNhomHangMoi').value:'');
+      var ten=el('nhapTenHangMoi')?el('nhapTenHangMoi').value.trim():'';
+      if(!ten)return alert('Nhập tên hàng mới');
+      if((state.hang||[]).some(function(h){return hnorm(h)[0]===ma}))ma=nextCode(el('nhapNhomHangMoi').value);
+      state.hang.push([ma,ten,el('nhapNhomHangMoi').value,el('nhapDvtMoi').value,(el('nhapThuocTinhMoi')&&el('nhapThuocTinhMoi').value.trim())||'']);
+      maHang=ma;
+    }
+    if(!maHang)return alert('Chọn đúng hàng hóa từ danh sách gợi ý');
+    var sl=Number(el('slNhap').value||0);if(sl<=0)return alert('Nhập số lượng lớn hơn 0');
+    var key=el('khoNhap').value+'|'+maHang,bp=(el('boPhanKhoNhap')&&el('boPhanKhoNhap').value.trim())||nameKho(el('khoNhap').value);
+    state.ton[key]=(state.ton[key]||0)+sl;
+    if(typeof addReceiverName==='function')addReceiverName(bp,'');
+    var row=[today,el('soNhap').value,el('khoNhap').value,maHang,el('loaiNhap').value,sl,0,el('nccNhap').value];
+    if(typeof currentUsername==='function'){row[8]=currentUsername();row[9]=typeof currentDisplayName==='function'?currentDisplayName():currentUsername()}
+    row[12]=bp;state.bd.push(row);
+    alert('Đã lưu phiếu nhập');veTongQuanSauLuu();
+  };
+  function renameDescriptionFields(){
+    [['thuocTinh','VD: Size L; màu xanh; chất cotton'],['nhapThuocTinhMoi','VD: Size L; màu xanh; chất cotton; tay ngắn']].forEach(function(pair){
+      var input=el(pair[0]);if(!input)return;input.placeholder=pair[1];
+      var label=input.closest('label');if(label&&label.firstChild&&label.firstChild.nodeType===3)label.firstChild.nodeValue='Mô tả / Size / màu / chi tiết';
+    });
+  }
+  function enhanceVisibleDescriptions(){
+    renameDescriptionFields();
+    document.querySelectorAll('.item-suggest-row[data-code]').forEach(function(row){
+      if(row.querySelector('.item-desc-note'))return;
+      var d=itemDesc(row.getAttribute('data-code'));if(!d)return;
+      var name=row.querySelector('.item-suggest-name');if(name)name.insertAdjacentHTML('afterend','<span class="item-desc-note">'+esc(d)+'</span>');
+    });
+    document.querySelectorAll('.stock-card-row').forEach(function(card){
+      if(card.querySelector('.stock-card-desc'))return;
+      var text=card.textContent||'',h=allItems().find(function(x){return text.indexOf(x[1])>=0});
+      if(h&&h[4]){var name=card.querySelector('.stock-card-item');if(name)name.insertAdjacentHTML('beforeend','<span class="stock-card-desc">'+esc(h[4])+'</span>')}
+    });
+    document.querySelectorAll('td[data-label="Tên hàng"],td[data-label="Hàng"]').forEach(function(td){
+      if(td.querySelector('.cell-desc-note'))return;
+      var d=itemDesc(td.textContent.trim());if(d)td.insertAdjacentHTML('beforeend','<span class="cell-desc-note">'+esc(d)+'</span>');
+    });
+  }
+  if(!document.getElementById('item-description-visible-style-20260707')){
+    var st=document.createElement('style');st.id='item-description-visible-style-20260707';
+    st.textContent='.item-desc-note,.cell-desc-note,.stock-card-desc{display:block;margin-top:3px;color:#517267!important;font-size:12px!important;font-weight:500!important;line-height:1.35!important}.stock-card-desc{font-size:11.8px!important}.item-suggest-row .item-desc-note{color:#456b60!important}.item-suggest-row .item-suggest-meta{margin-top:3px!important}@media(max-width:900px){.item-desc-note,.cell-desc-note,.stock-card-desc{font-size:11.8px!important}}';
+    document.head.appendChild(st);
+  }
+  var oldBind=window.bindForms;
+  window.bindForms=function(){
+    oldBind.apply(this,arguments);
+    renameDescriptionFields();
+    if(el('nhomHang'))el('nhomHang').onchange=function(){if(el('editHang')&&el('editHang').value==='')el('maHang').value=nextCode(el('nhomHang').value)};
+    if(el('nhapNhomHangMoi'))el('nhapNhomHangMoi').onchange=function(){if(el('nhapMaHangMoi'))el('nhapMaHangMoi').value=nextCode(el('nhapNhomHangMoi').value)};
+    if(el('batHangMoi')&&!el('batHangMoi').__descBound){var old=el('batHangMoi').onclick;el('batHangMoi').onclick=function(){if(old)old.apply(this,arguments);setTimeout(function(){if(el('nhapMaHangMoi'))el('nhapMaHangMoi').value=nextCode(el('nhapNhomHangMoi')?el('nhapNhomHangMoi').value:'');renameDescriptionFields()},0)};el('batHangMoi').__descBound=true}
+    if(el('hangNhap')){el('hangNhap').onfocus=renderNhapSuggest;el('hangNhap').oninput=renderNhapSuggest}
+    if(el('nhomNhap'))el('nhomNhap').onchange=function(){if(el('hangNhap')){el('hangNhap').value='';el('hangNhap').dataset.code=''}renderNhapSuggest()};
+    if(el('hangXuat')){el('hangXuat').onfocus=renderXuatSuggestWithDesc;el('hangXuat').oninput=function(){renderXuatSuggestWithDesc();if(typeof capNhatKhoXuatTheoHang==='function')capNhatKhoXuatTheoHang()}}
+    setTimeout(enhanceVisibleDescriptions,20);
+  };
+  document.addEventListener('click',function(e){
+    var row=e.target&&e.target.closest&&e.target.closest('.item-suggest-row[data-kind="nhap-desc"],.item-suggest-row[data-kind="xuat-desc"]');
+    if(row){
+      var kind=row.getAttribute('data-kind'),code=row.getAttribute('data-code');
+      if(kind==='nhap-desc'){setSearchValue('hangNhap',code);if(el('hangNhapSuggest'))el('hangNhapSuggest').classList.remove('show')}
+      if(kind==='xuat-desc'){setSearchValue('hangXuat',code);if(el('khoXuat')&&row.getAttribute('data-kho'))el('khoXuat').value=row.getAttribute('data-kho');if(el('hangXuatSuggest'))el('hangXuatSuggest').classList.remove('show');if(typeof capNhatKhoXuatTheoHang==='function')capNhatKhoXuatTheoHang()}
+    }
+    setTimeout(enhanceVisibleDescriptions,30);
+  });
+  var oldRender=window.render;
+  window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(enhanceVisibleDescriptions,60);return out};
+  if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){navigator.serviceWorker.register('./sw.js?v='+VERSION).catch(function(){})}
+})();
 </script></body>
 </html>
 

@@ -1,5 +1,29 @@
-﻿const CACHE_NAME = 'qlhc-20260707-home-icon-upload-fix-1';
-const FILES = ['./','./404.html?v=20260707-home-icon-upload-fix-1','./mobile-app.html?v=20260707-home-icon-upload-fix-1','./index.html?v=20260707-home-icon-upload-fix-1','./quan-ly-kho-cong-cu.html?v=20260707-home-icon-upload-fix-1','./manifest.webmanifest?v=20260707-home-icon-upload-fix-1','./app-icon-coffee.png?v=20260707-home-icon-upload-fix-1','./login-coffee-bg.png?v=20260707-home-icon-upload-fix-1','./icon-192.png?v=20260707-home-icon-upload-fix-1','./icon-512.png?v=20260707-home-icon-upload-fix-1','./version.json?v=20260707-home-icon-upload-fix-1'];
-self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting())); });
-self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
-self.addEventListener('fetch', event => { event.respondWith(fetch(event.request).catch(() => caches.match(event.request).then(r => r || caches.match('./index.html')))); });
+﻿const CACHE_NAME = 'qlhc-20260707-item-description-visible-1';
+const APP_SHELL = [
+  './',
+  './index.html',
+  './quan-ly-kho-cong-cu.html',
+  './mobile-app.html',
+  './404.html',
+  './manifest.webmanifest',
+  './app-icon-coffee.png',
+  './icon-192.png',
+  './icon-512.png',
+  './login-coffee-bg.png',
+  './version.json'
+];
+self.addEventListener('install', event => {
+  self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).catch(() => undefined));
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+});
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  event.respondWith(fetch(event.request).then(response => {
+    const copy = response.clone();
+    caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)).catch(() => undefined);
+    return response;
+  }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html'))));
+});
