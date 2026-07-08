@@ -1,10 +1,10 @@
-const CACHE_NAME = 'qlhc-20260708-hide-inline-detail-label-1';
+const CACHE_NAME = 'qlhc-20260708-inline-clear-search-button-1';
 const ASSETS = [
   './',
-  './index.html?v=20260708-hide-inline-detail-label-1',
-  './quan-ly-kho-cong-cu.html?v=20260708-hide-inline-detail-label-1',
-  './mobile-app.html?v=20260708-hide-inline-detail-label-1',
-  './manifest.webmanifest?v=20260708-hide-inline-detail-label-1',
+  './index.html?v=20260708-inline-clear-search-button-1',
+  './quan-ly-kho-cong-cu.html?v=20260708-inline-clear-search-button-1',
+  './mobile-app.html?v=20260708-inline-clear-search-button-1',
+  './manifest.webmanifest?v=20260708-inline-clear-search-button-1',
   './app-icon-coffee.png',
   './icon-192.png',
   './icon-512.png'
