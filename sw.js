@@ -1,13 +1,11 @@
-﻿const CACHE_NAME = 'qlhc-20260709-hide-xuat-suggest-1';
+const CACHE_NAME = 'qlhc-20260709-warehouse-one-panel-1';
 const ASSETS = [
   './',
-  './index.html?v=20260709-hide-xuat-suggest-1',
-  './quan-ly-kho-cong-cu.html?v=20260709-hide-xuat-suggest-1',
-  './mobile-app.html?v=20260709-hide-xuat-suggest-1',
-  './manifest.webmanifest?v=20260709-hide-xuat-suggest-1',
-  './app-icon-coffee.png',
-  './icon-192.png',
-  './icon-512.png'
+  './index.html?v=20260709-warehouse-one-panel-1',
+  './quan-ly-kho-cong-cu.html?v=20260709-warehouse-one-panel-1',
+  './mobile-app.html?v=20260709-warehouse-one-panel-1',
+  './manifest.webmanifest?v=20260709-warehouse-one-panel-1',
+  './app-icon-coffee.png?v=20260709-warehouse-one-panel-1'
 ];
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -18,8 +16,6 @@ self.addEventListener('activate', event => {
 });
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  const url = new URL(event.request.url);
-  if (url.origin !== location.origin) return;
   event.respondWith(fetch(event.request).then(response => {
     const copy = response.clone();
     caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)).catch(() => null);
