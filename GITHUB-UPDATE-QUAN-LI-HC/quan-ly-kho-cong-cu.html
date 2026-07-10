@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#28765a">
-<link rel="manifest" href="./manifest.webmanifest?v=20260710-it-flow-polish-1">
-<link rel="icon" href="./app-icon-coffee.png?v=20260710-it-flow-polish-1" type="image/png">
-<link rel="apple-touch-icon" href="./app-icon-coffee.png?v=20260710-it-flow-polish-1">
+<link rel="manifest" href="./manifest.webmanifest?v=20260710-it-overview-actions-1">
+<link rel="icon" href="./app-icon-coffee.png?v=20260710-it-overview-actions-1" type="image/png">
+<link rel="apple-touch-icon" href="./app-icon-coffee.png?v=20260710-it-overview-actions-1">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Kho CCDC">
@@ -237,11 +237,11 @@
   .mobile-title span{font-size:11.5px!important;line-height:1.2!important;max-width:190px!important;color:#d8eee4!important}
   .mobile-title button[onclick*="go('nhap')"],.mobile-title .quick-nhap-mobile{display:none!important}
 }
-</style><style id="login-byline-style-20260704">.login-byline{margin:-2px 0 12px!important;color:#08785d!important;font-family:"Segoe Script","Brush Script MT","Comic Sans MS",cursive!important;font-size:20px!important;font-weight:700!important;letter-spacing:.3px;text-align:left;text-shadow:0 1px 0 #fff,0 6px 16px rgba(0,135,96,.16);line-height:1.1}.login-byline:after{content:"";display:block;width:74px;height:2px;margin:6px 0 0;border-radius:999px;background:linear-gradient(90deg,#0b8b67,rgba(11,139,103,0))}.login-box h1{margin-bottom:3px!important}@media(max-width:720px){.login-byline{font-size:18px!important}}</style><style id="login-coffee-bg-style-20260704">.login-screen{background-color:#0b3a2c!important;background-image:linear-gradient(135deg,rgba(22,176,112,.22),rgba(177,238,197,.10) 45%,rgba(3,48,34,.08)),url("./login-coffee-bg.png?v=20260710-it-flow-polish-1")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;background-blend-mode:soft-light,normal!important;position:fixed}.login-screen:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(10,70,49,.02),rgba(4,35,24,.25));pointer-events:none}.login-box{position:relative;z-index:1;background:rgba(255,255,255,.96);backdrop-filter:blur(2px);box-shadow:0 22px 55px rgba(0,0,0,.30)}</style></head>
+</style><style id="login-byline-style-20260704">.login-byline{margin:-2px 0 12px!important;color:#08785d!important;font-family:"Segoe Script","Brush Script MT","Comic Sans MS",cursive!important;font-size:20px!important;font-weight:700!important;letter-spacing:.3px;text-align:left;text-shadow:0 1px 0 #fff,0 6px 16px rgba(0,135,96,.16);line-height:1.1}.login-byline:after{content:"";display:block;width:74px;height:2px;margin:6px 0 0;border-radius:999px;background:linear-gradient(90deg,#0b8b67,rgba(11,139,103,0))}.login-box h1{margin-bottom:3px!important}@media(max-width:720px){.login-byline{font-size:18px!important}}</style><style id="login-coffee-bg-style-20260704">.login-screen{background-color:#0b3a2c!important;background-image:linear-gradient(135deg,rgba(22,176,112,.22),rgba(177,238,197,.10) 45%,rgba(3,48,34,.08)),url("./login-coffee-bg.png?v=20260710-it-overview-actions-1")!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;background-blend-mode:soft-light,normal!important;position:fixed}.login-screen:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,rgba(10,70,49,.02),rgba(4,35,24,.25));pointer-events:none}.login-box{position:relative;z-index:1;background:rgba(255,255,255,.96);backdrop-filter:blur(2px);box-shadow:0 22px 55px rgba(0,0,0,.30)}</style></head>
 <body>
 <div class="login-screen" id="loginScreen" style="display:none"><div class="login-box"><h1>Đăng nhập</h1><p class="login-byline">by Thao Thao</p><p>Nhập tài khoản để mở phần mềm quản lý kho.</p><div class="form"><label>Tài khoản<input id="loginUser" autocomplete="username" value="admin"></label><label>Mật khẩu<input id="loginPass" type="password" autocomplete="current-password" placeholder="Mật khẩu"></label><label class="remember-login"><span><input id="loginRemember" type="checkbox"> Ghi nhớ ID và mật khẩu trên máy này</span></label><div class="login-error" id="loginError"></div><button class="btn primary" id="loginBtn" type="button">Đăng nhập</button></div><p class="hint" style="margin-top:14px">Mặc định: admin / admin123. Bạn nên đổi mật khẩu trong Thiết lập.</p></div></div>
-<div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=20260710-it-flow-polish-1" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
-<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=20260710-it-flow-polish-1" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260710-it-flow-polish-1</div></div>
+<div class="mobile-title"><div style="display:flex;align-items:center;gap:9px;min-width:0;flex:1 1 auto;overflow:hidden"><img class="mobile-logo" src="./app-icon-coffee.png?v=20260710-it-overview-actions-1" alt="Icon app"><div><strong>QUẢN LÍ HC</strong><br><span>Công cụ dụng cụ</span></div></div><button class="btn primary" id="installApp" type="button">Cài app</button></div>
+<div class="app"><aside><div class="brand-wrap"><img class="brand-icon" src="./app-icon-coffee.png?v=20260710-it-overview-actions-1" alt="Icon app"><p class="brand">QUẢN LÍ HC<span>Công cụ dụng cụ và đồ dùng văn phòng</span></p></div><nav id="sideNav"></nav></aside><main id="main"></main><div id="appVersion" style="display:none">20260710-it-overview-actions-1</div></div>
 <div class="mobile-bar" id="mobileNav"></div>
 <script>
 
@@ -302,7 +302,7 @@ render();
 var deferredInstallPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;var b=document.getElementById('installApp');if(b)b.style.display='inline-block'});
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='installApp'){if(deferredInstallPrompt){deferredInstallPrompt.prompt();deferredInstallPrompt.userChoice.finally(function(){deferredInstallPrompt=null})}else{alert('Trên điện thoại, mở menu trình duyệt rồi chọn Thêm vào màn hình chính. Với iPhone: Chia sẻ > Thêm vào MH chính.')}}});
-if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260710-it-flow-polish-1').catch(function(){})})}
+if(('serviceWorker' in navigator) && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js?v=20260710-it-overview-actions-1').catch(function(){})})}
 
 
 
@@ -391,7 +391,7 @@ window.__autoOnlineSyncPatch=true;
 </script>
 
 <script id="app-auto-update-20260703">
-window.APP_VERSION='20260710-it-flow-polish-1';
+window.APP_VERSION='20260710-it-overview-actions-1';
 (function(){
   async function checkNewVersion(){
     try{
@@ -2043,7 +2043,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-search-edit-sync-20260704">
 (function(){
   if(window.__reportSearchEditSync20260704)return;window.__reportSearchEditSync20260704=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function safe(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function optPairsFresh(arr,selected){return (arr||[]).map(function(x){var v=Array.isArray(x)?x[0]:x;var t=Array.isArray(x)?(x[1]||x[0]):x;return '<option value="'+safe(v)+'" '+(String(v)===String(selected)?'selected':'')+'>'+safe(t)+'</option>'}).join('')}
@@ -2111,7 +2111,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-group-detail-20260704">
 (function(){
   if(window.__reportGroupDetail20260704)return;window.__reportGroupDetail20260704=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   window.__openReportGroupName='';
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -2169,7 +2169,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-compact-layout-20260704">
 (function(){
   if(window.__reportCompactLayout20260704)return;window.__reportCompactLayout20260704=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   window.__selectedReportKho='';
   window.__openReportGroupName=window.__openReportGroupName||'';
@@ -2246,7 +2246,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="stock-search-group-20260704">
 (function(){
   if(window.__stockSearchGroup20260704)return;window.__stockSearchGroup20260704=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
@@ -2301,7 +2301,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="remove-default-ncc-20260704">
 (function(){
   if(window.__removeDefaultNcc20260704)return;window.__removeDefaultNcc20260704=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   var HIDDEN=['Công ty Văn phòng phẩm An Phát','Cửa hàng Thiết bị Minh Long','Nhà cung cấp khác'];
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
@@ -2917,7 +2917,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="restore-user-permission-settings-20260706">
 (function(){
   if(window.__restoreUserPermissionSettings20260706)return;window.__restoreUserPermissionSettings20260706=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function ensureUserData(){
     if(!window.state)return [];
@@ -2972,7 +2972,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="robust-user-login-20260706">
 (function(){
   if(window.__robustUserLogin20260706)return;window.__robustUserLogin20260706=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
   function ensureLoginUsers(){
@@ -3036,7 +3036,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="mobile-pwa-cache-login-fix-20260706">
 (function(){
   if(window.__mobilePwaCacheLoginFix20260706)return;window.__mobilePwaCacheLoginFix20260706=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function cleanOldCaches(){
     var jobs=[];
@@ -3362,7 +3362,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="visual-ring-report-20260707">
 (function(){
   if(window.__visualRingReport20260707)return;window.__visualRingReport20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function sum(arr,fn){return (arr||[]).reduce(function(a,x){return a+Number(fn(x)||0)},0)}
@@ -3433,7 +3433,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="pwa-online-user-login-20260707">
 (function(){
   if(window.__pwaOnlineUserLogin20260707)return;window.__pwaOnlineUserLogin20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ').trim()}
   function ensureUsers(){
@@ -3514,7 +3514,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="group-field-report-20260707">
 (function(){
   if(window.__groupFieldReport20260707)return;window.__groupFieldReport20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function hinfo(code){try{return normalizeHang(item(code))}catch(e){return [code,code,'','','']}}
@@ -3572,7 +3572,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="overview-stock-search-menu-hide-20260707">
 (function(){
   if(window.__overviewStockSearchMenuHide20260707)return;window.__overviewStockSearchMenuHide20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
@@ -3665,7 +3665,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="overview-search-clean-group-text-20260707">
 (function(){
   if(window.__overviewSearchCleanGroupText20260707)return;window.__overviewSearchCleanGroupText20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   if(!document.getElementById('overview-search-clean-group-text-style-20260707')){
     var st=document.createElement('style');st.id='overview-search-clean-group-text-style-20260707';
@@ -3678,7 +3678,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="nhap-form-compact-no-dept-20260707">
 (function(){
   if(window.__nhapFormCompactNoDept20260707)return;window.__nhapFormCompactNoDept20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function groupSelectOptions(){
@@ -3723,7 +3723,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-hide-overview-tab-20260707">
 (function(){
   if(window.__reportHideOverviewTab20260707)return;window.__reportHideOverviewTab20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function stripOverviewTab(html){
     return String(html||'').replace(/<button[^>]*onclick="showReport\('tq',this\)"[^>]*>\s*Tổng quan\s*<\/button>/g,'');
@@ -3756,7 +3756,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="mobile-nhap-detail-fit-20260707">
 (function(){
   if(window.__mobileNhapDetailFit20260707)return;window.__mobileNhapDetailFit20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   if(!document.getElementById('mobile-nhap-detail-fit-style-20260707')){
     var st=document.createElement('style');st.id='mobile-nhap-detail-fit-style-20260707';
@@ -3769,7 +3769,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="cross-device-auto-sync-20260707">
 (function(){
   if(window.__crossDeviceAutoSync20260707)return;window.__crossDeviceAutoSync20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   var applyingRemote=false;
   var initialPullDone=false;
@@ -3913,7 +3913,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="overview-hide-recent-20260707">
 (function(){
   if(window.__overviewHideRecent20260707)return;window.__overviewHideRecent20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   if(!document.getElementById('overview-hide-recent-style-20260707')){
     var st=document.createElement('style');st.id='overview-hide-recent-style-20260707';
@@ -3926,7 +3926,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="suggestion-soft-font-20260707">
 (function(){
   if(window.__suggestionSoftFont20260707)return;window.__suggestionSoftFont20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   if(!document.getElementById('suggestion-soft-font-style-20260707')){
     var st=document.createElement('style');st.id='suggestion-soft-font-style-20260707';
@@ -3939,7 +3939,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="empty-input-placeholders-20260707">
 (function(){
   if(window.__emptyInputPlaceholders20260707)return;window.__emptyInputPlaceholders20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function hideBox(id){var box=byId(id);if(box){box.classList.remove('show');box.innerHTML=''}}
@@ -4006,7 +4006,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="mobile-nav-correct-20260707">
 (function(){
   if(window.__mobileNavCorrect20260707)return;window.__mobileNavCorrect20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   var ICONS={tongquan:'TQ',ton:'TK',nhap:'+',xuat:'−',thietbi:'IT',chuyen:'↔',baocao:'BC',hanghoa:'HH',thietlap:'⚙'};
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -4032,7 +4032,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="item-name-detail-link-20260707">
 (function(){
   if(window.__itemNameDetailLink20260707)return;window.__itemNameDetailLink20260707=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function clean(v){return String(v==null?'':v).replace(/\s+/g,' ').trim()}
   function norm(v){return clean(v).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d')}
@@ -4084,7 +4084,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="hide-inline-detail-label-20260708">
 (function(){
   if(window.__hideInlineDetailLabel20260708)return;window.__hideInlineDetailLabel20260708=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   if(!document.getElementById('hide-inline-detail-label-style-20260708')){
     var st=document.createElement('style');st.id='hide-inline-detail-label-style-20260708';
@@ -4097,7 +4097,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="inline-clear-search-button-20260708">
 (function(){
   if(window.__inlineClearSearchButton20260708)return;window.__inlineClearSearchButton20260708=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function move(inputId,clearId){
@@ -4138,7 +4138,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="hide-suggest-detail-button-20260708">
 (function(){
   if(window.__hideSuggestDetailButton20260708)return;window.__hideSuggestDetailButton20260708=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   if(!document.getElementById('hide-suggest-detail-button-style-20260708')){
     var st=document.createElement('style');st.id='hide-suggest-detail-button-style-20260708';
@@ -4151,7 +4151,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="item-photo-description-20260708">
 (function(){
   if(window.__itemPhotoDescription20260708)return;window.__itemPhotoDescription20260708=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
@@ -4258,7 +4258,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="import-variant-photos-20260708">
 (function(){
   if(window.__importVariantPhotos20260708)return;window.__importVariantPhotos20260708=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function hnorm(raw){try{return typeof normalizeHang==='function'?normalizeHang(raw):(raw||['','','','',''])}catch(e){return raw||['','','','','']}}
@@ -4409,7 +4409,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="hide-nhap-suggest-gap-20260709">
 (function(){
   if(window.__hideNhapSuggestGap20260709)return;window.__hideNhapSuggestGap20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
   function hnorm(raw){try{return typeof normalizeHang==='function'?normalizeHang(raw):(raw||['','','','',''])}catch(e){return raw||['','','','','']}}
@@ -4481,7 +4481,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="hang-delete-admin-clean-detail-20260709">
 (function(){
   if(window.__hangDeleteAdminCleanDetail20260709)return;window.__hangDeleteAdminCleanDetail20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function hnorm(raw){try{return typeof normalizeHang==='function'?normalizeHang(raw):(raw||['','','','',''])}catch(e){return raw||['','','','','']}}
@@ -4526,7 +4526,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="hide-xuat-suggest-gap-20260709">
 (function(){
   if(window.__hideXuatSuggestGap20260709)return;window.__hideXuatSuggestGap20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
   function hnorm(raw){try{return typeof normalizeHang==='function'?normalizeHang(raw):(raw||['','','','',''])}catch(e){return raw||['','','','','']}}
@@ -4605,7 +4605,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="mobile-xnk-compact-20260709">
 (function(){
   if(window.__mobileXnkCompact20260709)return;window.__mobileXnkCompact20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function markXnk(mode){
     var rp=document.getElementById('rp'),title=document.getElementById('rpTitle');
@@ -4640,7 +4640,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="warehouse-one-panel-20260709">
 (function(){
   if(window.__warehouseOnePanel20260709)return;window.__warehouseOnePanel20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d')}
@@ -4774,7 +4774,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="employee-main-menu-20260709">
 (function(){
   if(window.__employeeMainMenu20260709)return;window.__employeeMainMenu20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
@@ -4984,7 +4984,7 @@ window.__settingsCollapsePatch=true;
 </style><script id="serial-scan-safe-20260709">
 (function(){
   if(window.__serialScanSafe20260709)return;window.__serialScanSafe20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   var stream=null,timer=null,slowTimer=null,controls=null;
   var formats=['qr_code','code_128','code_39','code_93','ean_13','ean_8','upc_a','upc_e','itf','codabar'];
@@ -5147,7 +5147,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="xuat-employee-warehouse-link-20260709">
 (function(){
   if(window.__xuatEmployeeWarehouseLink20260709)return;window.__xuatEmployeeWarehouseLink20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -5319,7 +5319,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="hide-item-detail-buttons-final-20260709">
 (function(){
   if(window.__hideItemDetailButtonsFinal20260709)return;window.__hideItemDetailButtonsFinal20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function apply(){
     [].slice.call(document.querySelectorAll('.item-detail-btn')).forEach(function(btn){
@@ -5349,7 +5349,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="xuat-layout-professional-20260709">
 (function(){
   if(window.__xuatLayoutProfessional20260709)return;window.__xuatLayoutProfessional20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   window.screenXuat=function(){
@@ -5389,7 +5389,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="xuat-layout-pairs-20260709">
 (function(){
   if(window.__xuatLayoutPairs20260709)return;window.__xuatLayoutPairs20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   window.screenXuat=function(){
     if(typeof employees==='function')employees();
@@ -5430,7 +5430,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="report-employee-issued-20260709">
 (function(){
   if(window.__reportEmployeeIssued20260709)return;window.__reportEmployeeIssued20260709=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -5525,7 +5525,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="it-catalog-separate-20260710">
 (function(){
   if(window.__itCatalogSeparate20260710)return;window.__itCatalogSeparate20260710=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -5647,7 +5647,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="it-catalog-merged-20260710">
 (function(){
   if(window.__itCatalogMerged20260710)return;window.__itCatalogMerged20260710=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -5706,7 +5706,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="it-management-dashboard-20260710">
 (function(){
   if(window.__itManagementDashboard20260710)return;window.__itManagementDashboard20260710=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -6003,7 +6003,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="it-single-warehouse-20260710">
 (function(){
   if(window.__itSingleWarehouse20260710)return;window.__itSingleWarehouse20260710=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -6096,7 +6096,7 @@ window.__settingsCollapsePatch=true;
 </script><script id="it-flow-polish-20260710">
 (function(){
   if(window.__itFlowPolish20260710)return;window.__itFlowPolish20260710=true;
-  var VERSION='20260710-it-flow-polish-1';
+  var VERSION='20260710-it-overview-actions-1';
   window.APP_VERSION=VERSION;
   function byId(id){return document.getElementById(id)}
   function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -6362,6 +6362,165 @@ window.__settingsCollapsePatch=true;
   }
   document.addEventListener('change',function(e){if(e.target&&e.target.id==='trangThaiThietBi')setTimeout(syncActionFields,0)});
   setTimeout(decorateItScreen,300);
+  try{localStorage.setItem('qlhc-pwa-cache-version',VERSION)}catch(e){}
+  if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){navigator.serviceWorker.register('./sw.js?v='+VERSION).catch(function(){})}
+})();
+</script><script id="it-overview-actions-20260710">
+(function(){
+  if(window.__itOverviewActions20260710)return;window.__itOverviewActions20260710=true;
+  var VERSION='20260710-it-overview-actions-1';
+  window.APP_VERSION=VERSION;
+  function byId(id){return document.getElementById(id)}
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+  function norm(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').trim()}
+  function tnorm(raw){try{return typeof normalizeThietBi==='function'?normalizeThietBi(raw):(raw||['','','','','','','','','',''])}catch(e){return raw||['','','','','','','','','','']}}
+  function actionMeta(action){
+    var map={
+      nhap:{title:'Nhập thiết bị',icon:'+',hint:'Tạo thiết bị mới vào kho IT',cls:'action-green'},
+      cap_phat:{title:'Cấp phát',icon:'→',hint:'Giao thiết bị cho nhân viên',cls:'action-blue'},
+      chuyen_kho:{title:'Chuyển kho',icon:'↔',hint:'Máy chuyển đi kho/nơi khác',cls:'action-amber'},
+      xuat:{title:'Xuất thiết bị',icon:'−',hint:'Xuất/thu hồi khỏi danh sách sử dụng',cls:'action-rose'}
+    };
+    return map[action]||map.nhap;
+  }
+  function ensureActionCards(){
+    if(current!=='thietbi')return;
+    var root=document.querySelector('#thietbi .it-total-dashboard'),stats=document.querySelector('#thietbi .it-stats');
+    if(!root||byId('itOverviewActionCards'))return;
+    var actions=['nhap','cap_phat','chuyen_kho','xuat'].map(function(k){
+      var m=actionMeta(k);
+      return '<button class="it-action-card '+m.cls+'" type="button" data-it-action="'+esc(k)+'"><span class="it-action-icon">'+esc(m.icon)+'</span><strong>'+esc(m.title)+'</strong><small>'+esc(m.hint)+'</small></button>';
+    }).join('');
+    var html='<div class="it-overview-tools" id="itOverviewActionCards"><div class="it-overview-tools-title">Thao tác nhanh</div><div class="it-action-card-grid">'+actions+'</div></div>';
+    if(stats)stats.insertAdjacentHTML('afterend',html);else root.insertAdjacentHTML('afterbegin',html);
+  }
+  function markActive(action){
+    [].slice.call(document.querySelectorAll('#itOverviewActionCards .it-action-card')).forEach(function(btn){
+      btn.classList.toggle('active',btn.getAttribute('data-it-action')===action);
+    });
+  }
+  function syncActionSelect(action){
+    var sel=byId('itActionType');if(!sel)return;
+    sel.value=action||'nhap';
+    try{sel.dispatchEvent(new Event('change',{bubbles:true}))}catch(e){}
+  }
+  function showItForm(action,opts){
+    if(current!=='thietbi')return;
+    opts=opts||{};
+    var page=byId('thietbi'),panel=document.querySelector('#thietbi .it-form-panel');
+    if(!panel)return;
+    if(opts.reset&&typeof window.resetThietBi==='function')window.resetThietBi();
+    page.classList.add('it-form-visible');
+    panel.classList.add('it-form-open');
+    panel.style.display='';
+    action=action||'nhap';
+    syncActionSelect(action);
+    markActive(action);
+    if(opts.reset){
+      setTimeout(function(){syncActionSelect(action);markActive(action)},140);
+      setTimeout(function(){syncActionSelect(action);markActive(action)},260);
+    }
+    var title=panel.querySelector('.head h2'),meta=actionMeta(action);
+    if(title)title.textContent=meta.title;
+    var hint=byId('itFormHint');
+    if(hint)hint.textContent=meta.hint+'. Khi lưu, app vẫn đồng bộ vào danh sách thiết bị IT.';
+    if(!opts.noScroll)setTimeout(function(){try{panel.scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}},80);
+    var serial=byId('maThietBi');
+    if(serial&&!opts.noFocus)setTimeout(function(){try{serial.focus()}catch(e){}},140);
+  }
+  function hideItForm(){
+    var page=byId('thietbi'),panel=document.querySelector('#thietbi .it-form-panel');
+    if(page)page.classList.remove('it-form-visible');
+    if(panel)panel.classList.remove('it-form-open');
+    markActive('');
+  }
+  function ensureCloseButton(){
+    var head=document.querySelector('#thietbi .it-form-panel .head');
+    if(!head||byId('itCloseForm'))return;
+    head.insertAdjacentHTML('beforeend','<button class="btn small" id="itCloseForm" type="button">Đóng</button>');
+    var btn=byId('itCloseForm');
+    if(btn)btn.onclick=function(e){if(e)e.preventDefault();hideItForm()};
+  }
+  function bindCards(){
+    var box=byId('itOverviewActionCards');if(!box||box.__bound)return;
+    box.__bound=true;
+    box.addEventListener('click',function(e){
+      var btn=e.target.closest&&e.target.closest('[data-it-action]');
+      if(!btn)return;
+      e.preventDefault();
+      var action=btn.getAttribute('data-it-action')||'nhap';
+      showItForm(action,{reset:true});
+    });
+  }
+  function applyOverviewLayout(){
+    if(current!=='thietbi')return;
+    var page=byId('thietbi'),panel=document.querySelector('#thietbi .it-form-panel'),main=document.querySelector('#thietbi .it-main-panel');
+    if(page)page.classList.add('it-overview-page');
+    if(panel&&!panel.classList.contains('it-form-open'))panel.style.display='none';
+    if(main)main.classList.add('it-main-full');
+    ensureActionCards();
+    ensureCloseButton();
+    bindCards();
+  }
+  function inferActionFromDevice(i){
+    var x=tnorm((state.thietBiIT||[])[i]),st=norm(x[6]);
+    if(st.indexOf('chuyen kho')>=0)return 'chuyen_kho';
+    if(st.indexOf('da xuat')>=0||st.indexOf('thanh ly')>=0)return 'xuat';
+    if(st.indexOf('dang su dung')>=0)return 'cap_phat';
+    return 'nhap';
+  }
+  function wrapItFunctions(){
+    if(typeof window.editThietBi==='function'&&!window.editThietBi.__itOverviewActions){
+      var oldEdit=window.editThietBi;
+      window.editThietBi=function(i){
+        showItForm(inferActionFromDevice(i),{noScroll:true,noFocus:true});
+        var out=oldEdit.apply(this,arguments);
+        setTimeout(function(){showItForm(inferActionFromDevice(i),{noFocus:true})},180);
+        return out;
+      };
+      window.editThietBi.__itOverviewActions=true;
+    }
+    if(typeof window.capPhatThietBi==='function'&&!window.capPhatThietBi.__itOverviewActions){
+      var oldCap=window.capPhatThietBi;
+      window.capPhatThietBi=function(i){
+        var out=oldCap.apply(this,arguments);
+        setTimeout(function(){showItForm('cap_phat')},180);
+        return out;
+      };
+      window.capPhatThietBi.__itOverviewActions=true;
+    }
+    if(typeof window.resetThietBi==='function'&&!window.resetThietBi.__itOverviewActions){
+      var oldReset=window.resetThietBi;
+      window.resetThietBi=function(){
+        var out=oldReset.apply(this,arguments);
+        setTimeout(function(){syncActionSelect('nhap');markActive('nhap')},80);
+        return out;
+      };
+      window.resetThietBi.__itOverviewActions=true;
+    }
+  }
+  function installStyle(){
+    if(byId('it-overview-actions-style-20260710'))return;
+    var st=document.createElement('style');st.id='it-overview-actions-style-20260710';
+    st.textContent='#thietbi.it-overview-page .it-total-layout{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}#thietbi.it-overview-page .it-main-panel{width:100%!important}#thietbi.it-overview-page .it-form-panel{order:-1;width:100%!important}#thietbi.it-overview-page:not(.it-form-visible) .it-form-panel{display:none!important}#thietbi.it-overview-page.it-form-visible .it-form-panel{display:block!important}#thietbi .it-overview-tools{margin:0 0 10px 0;border:1px solid #cfe7db;border-radius:8px;background:#fff;box-shadow:0 8px 20px rgba(7,72,51,.06);overflow:hidden}#thietbi .it-overview-tools-title{padding:9px 12px;font-weight:800;color:#0b2f24;border-bottom:1px solid #dbece3;background:#f8fffb}#thietbi .it-action-card-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding:10px;background:#f3fbf7}#thietbi .it-action-card{min-height:82px;border:1px solid transparent;border-radius:8px;padding:10px 12px;text-align:left;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto 1fr;gap:4px 9px;align-items:center;cursor:pointer;box-shadow:0 10px 20px rgba(7,72,51,.08),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}#thietbi .it-action-card:hover{transform:translateY(-1px);box-shadow:0 13px 24px rgba(7,72,51,.12),inset 0 1px 0 rgba(255,255,255,.55)}#thietbi .it-action-card.active{outline:2px solid #087253;outline-offset:1px}#thietbi .it-action-icon{width:32px;height:32px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.48);font-weight:900;font-size:18px;color:#0b5d45}#thietbi .it-action-card strong{font-size:15px;color:#092f24}#thietbi .it-action-card small{grid-column:1/-1;color:#38564b;font-size:12px;line-height:1.3}.action-green{background:linear-gradient(135deg,#c8f5df,#93deb9)}.action-blue{background:linear-gradient(135deg,#d7ecff,#a9d2f4)}.action-amber{background:linear-gradient(135deg,#fff0c4,#ffd679)}.action-rose{background:linear-gradient(135deg,#ffd3df,#f5a9bd)}#thietbi #itCloseForm{margin-left:auto}#thietbi .it-form-panel .head{gap:8px}#thietbi .it-device-table-wrap{max-height:520px!important}@media(max-width:900px){#thietbi .it-action-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px}#thietbi .it-action-card{min-height:76px;padding:9px}#thietbi .it-action-card strong{font-size:14px}#thietbi .it-action-card small{font-size:11.5px}#thietbi .it-overview-tools-title{padding:8px 10px}#thietbi.it-overview-page.it-form-visible .it-form-panel{margin-bottom:8px!important}}';
+    document.head.appendChild(st);
+  }
+  function run(){
+    installStyle();
+    wrapItFunctions();
+    applyOverviewLayout();
+  }
+  var oldRender=window.render;
+  if(typeof oldRender==='function'&&!oldRender.__itOverviewActions20260710){
+    window.render=function(){var out=oldRender.apply(this,arguments);setTimeout(run,220);setTimeout(run,620);return out};
+    window.render.__itOverviewActions20260710=true;
+  }
+  var oldBind=window.bindForms;
+  if(typeof oldBind==='function'&&!oldBind.__itOverviewActions20260710){
+    window.bindForms=function(){var out=oldBind.apply(this,arguments);setTimeout(run,180);setTimeout(run,520);return out};
+    window.bindForms.__itOverviewActions20260710=true;
+  }
+  setTimeout(run,300);
   try{localStorage.setItem('qlhc-pwa-cache-version',VERSION)}catch(e){}
   if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0){navigator.serviceWorker.register('./sw.js?v='+VERSION).catch(function(){})}
 })();
