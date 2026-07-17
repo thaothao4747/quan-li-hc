@@ -1,11 +1,11 @@
-const CACHE_NAME = 'qlhc-20260717-it-device-code-type-qty-status-1';
+﻿const CACHE_NAME = 'qlhc-20260717-it-code-must-exist-1';
 const ASSETS = [
   './',
-  './index.html?v=20260717-it-device-code-type-qty-status-1',
-  './quan-ly-kho-cong-cu.html?v=20260717-it-device-code-type-qty-status-1',
-  './mobile-app.html?v=20260717-it-device-code-type-qty-status-1',
-  './manifest.webmanifest?v=20260717-it-device-code-type-qty-status-1',
-  './app-icon-coffee.png?v=20260717-it-device-code-type-qty-status-1'
+  './index.html?v=20260717-it-code-must-exist-1',
+  './quan-ly-kho-cong-cu.html?v=20260717-it-code-must-exist-1',
+  './mobile-app.html?v=20260717-it-code-must-exist-1',
+  './manifest.webmanifest?v=20260717-it-code-must-exist-1',
+  './app-icon-coffee.png?v=20260717-it-code-must-exist-1'
 ];
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -22,3 +22,4 @@ self.addEventListener('fetch', event => {
     return response;
   }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html'))));
 });
+
