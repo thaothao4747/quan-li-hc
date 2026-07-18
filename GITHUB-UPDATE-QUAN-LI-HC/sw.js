@@ -1,15 +1,15 @@
-const CACHE_NAME = 'qlhc-20260718-light-core-11';
+const CACHE_NAME = 'qlhc-20260718-light-core-12';
 const ASSETS = [
   './',
-  './index.html?v=20260718-light-core-11',
-  './quan-ly-kho-cong-cu.html?v=20260718-light-core-11',
-  './mobile-app.html?v=20260718-light-core-11',
-  './app-bundle.js?v=20260718-light-core-11',
-  './manifest.webmanifest?v=20260718-light-core-11',
-  './app-icon-coffee.png?v=20260718-light-core-11',
-  './icon-192.png?v=20260718-light-core-11',
-  './icon-512.png?v=20260718-light-core-11',
-  './login-coffee-bg.jpg?v=20260718-light-core-11'
+  './index.html?v=20260718-light-core-12',
+  './quan-ly-kho-cong-cu.html?v=20260718-light-core-12',
+  './mobile-app.html?v=20260718-light-core-12',
+  './app-bundle.js?v=20260718-light-core-12',
+  './manifest.webmanifest?v=20260718-light-core-12',
+  './app-icon-coffee.png?v=20260718-light-core-12',
+  './icon-192.png?v=20260718-light-core-12',
+  './icon-512.png?v=20260718-light-core-12',
+  './login-coffee-bg.jpg?v=20260718-light-core-12'
 ];
 self.addEventListener('install', event => {
   self.skipWaiting();
