@@ -1,11 +1,15 @@
-﻿const CACHE_NAME = 'qlhc-20260717-it-code-must-exist-1';
+const CACHE_NAME = 'qlhc-20260718-light-core-5';
 const ASSETS = [
   './',
-  './index.html?v=20260717-it-code-must-exist-1',
-  './quan-ly-kho-cong-cu.html?v=20260717-it-code-must-exist-1',
-  './mobile-app.html?v=20260717-it-code-must-exist-1',
-  './manifest.webmanifest?v=20260717-it-code-must-exist-1',
-  './app-icon-coffee.png?v=20260717-it-code-must-exist-1'
+  './index.html?v=20260718-light-core-5',
+  './quan-ly-kho-cong-cu.html?v=20260718-light-core-5',
+  './mobile-app.html?v=20260718-light-core-5',
+  './app-bundle.js?v=20260718-light-core-5',
+  './manifest.webmanifest?v=20260718-light-core-5',
+  './app-icon-coffee.png?v=20260718-light-core-5',
+  './icon-192.png?v=20260718-light-core-5',
+  './icon-512.png?v=20260718-light-core-5',
+  './login-coffee-bg.jpg?v=20260718-light-core-5'
 ];
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -22,4 +26,6 @@ self.addEventListener('fetch', event => {
     return response;
   }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html'))));
 });
+
+
 
