@@ -1,15 +1,15 @@
-﻿const CACHE_NAME = 'qlhc-20260718-light-core-16';
+﻿const CACHE_NAME = 'qlhc-20260720-font-icon-fix-1';
 const ASSETS = [
   './',
-  './index.html?v=20260718-light-core-16',
-  './quan-ly-kho-cong-cu.html?v=20260718-light-core-16',
-  './mobile-app.html?v=20260718-light-core-16',
-  './app-bundle.js?v=20260718-light-core-16',
-  './manifest.webmanifest?v=20260718-light-core-16',
-  './app-icon-coffee.png?v=20260718-light-core-16',
-  './icon-192.png?v=20260718-light-core-16',
-  './icon-512.png?v=20260718-light-core-16',
-  './login-coffee-bg.jpg?v=20260718-light-core-16'
+  './index.html?v=20260720-font-icon-fix-1',
+  './quan-ly-kho-cong-cu.html?v=20260720-font-icon-fix-1',
+  './mobile-app.html?v=20260720-font-icon-fix-1',
+  './app-bundle.js?v=20260720-font-icon-fix-1',
+  './manifest.webmanifest?v=20260720-font-icon-fix-1',
+  './app-icon-coffee.png?v=20260720-font-icon-fix-1',
+  './icon-192.png?v=20260720-font-icon-fix-1',
+  './icon-512.png?v=20260720-font-icon-fix-1',
+  './login-coffee-bg.jpg?v=20260720-font-icon-fix-1'
 ];
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -26,6 +26,7 @@ self.addEventListener('fetch', event => {
     return response;
   }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html'))));
 });
+
 
 
 
