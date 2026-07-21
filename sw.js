@@ -1,15 +1,15 @@
-const CACHE_NAME = 'qlhc-20260720-phone-sync-photo-1';
+﻿const CACHE_NAME = 'qlhc-20260721-mobile-login-sync-1';
 const ASSETS = [
   './',
-  './index.html?v=20260720-phone-sync-photo-1',
-  './quan-ly-kho-cong-cu.html?v=20260720-phone-sync-photo-1',
-  './mobile-app.html?v=20260720-phone-sync-photo-1',
-  './app-bundle.js?v=20260720-phone-sync-photo-1',
-  './manifest.webmanifest?v=20260720-phone-sync-photo-1',
-  './app-icon-coffee.png?v=20260720-phone-sync-photo-1',
-  './icon-192.png?v=20260720-phone-sync-photo-1',
-  './icon-512.png?v=20260720-phone-sync-photo-1',
-  './login-coffee-bg.jpg?v=20260720-phone-sync-photo-1'
+  './index.html?v=20260721-mobile-login-sync-1',
+  './quan-ly-kho-cong-cu.html?v=20260721-mobile-login-sync-1',
+  './mobile-app.html?v=20260721-mobile-login-sync-1',
+  './app-bundle.js?v=20260721-mobile-login-sync-1',
+  './manifest.webmanifest?v=20260721-mobile-login-sync-1',
+  './app-icon-coffee.png?v=20260721-mobile-login-sync-1',
+  './icon-192.png?v=20260721-mobile-login-sync-1',
+  './icon-512.png?v=20260721-mobile-login-sync-1',
+  './login-coffee-bg.jpg?v=20260721-mobile-login-sync-1'
 ];
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -26,6 +26,7 @@ self.addEventListener('fetch', event => {
     return response;
   }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html'))));
 });
+
 
 
 
